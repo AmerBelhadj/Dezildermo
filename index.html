@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#C9A84C">
 
   <!-- PWA -->
-  <link rel="manifest" href="/manifest.json">
+  <link rel="manifest" href="manifest.json">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="INK NOIR">
@@ -35,15 +35,32 @@
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --black:     #0A0A0A;
-      --black-2:   #111111;
-      --black-3:   #1A1A1A;
-      --gold:      #C9A84C;
-      --gold-light:#E2C97A;
-      --gold-dim:  #8A6E2F;
-      --cream:     #F5F0E8;
-      --cream-dim: #C8BBA8;
-      --red-ink:   #8B1A1A;
+      /* Hero sombre — l'entrée dramatique */
+      --hero-bg:   #1E1A15;
+      --hero-mid:  #2A2218;
+
+      /* Fond principal — clair chaud moderne */
+      --bg:        #FAFAF8;
+      --bg-2:      #F3EDE3;
+      --bg-3:      #EDE5D8;
+
+      /* Texte */
+      --text:      #1C1812;
+      --text-mid:  #5C4E3C;
+      --text-dim:  #9C8C7A;
+
+      /* Or — version plus profonde pour contraste sur fond clair */
+      --gold:      #B07828;
+      --gold-light:#C98E30;
+      --gold-dim:  #8A5E1A;
+      --gold-pale: rgba(176,120,40,0.12);
+
+      /* Compat */
+      --black:     #1C1812;
+      --black-2:   #F3EDE3;
+      --black-3:   #EDE5D8;
+      --cream:     #FAFAF8;
+      --cream-dim: #9C8C7A;
       --white:     #FFFFFF;
 
       --font-display: 'Playfair Display', Georgia, serif;
@@ -51,6 +68,10 @@
 
       --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       --ease-out:   cubic-bezier(0.16, 1, 0.3, 1);
+
+      --shadow-sm:  0 2px 12px rgba(28,24,18,0.08);
+      --shadow-md:  0 8px 32px rgba(28,24,18,0.12);
+      --shadow-lg:  0 20px 60px rgba(28,24,18,0.16);
     }
 
     html {
@@ -59,8 +80,8 @@
     }
 
     body {
-      background: var(--black);
-      color: var(--cream);
+      background: var(--bg);
+      color: var(--text);
       font-family: var(--font-body);
       font-size: 18px;
       line-height: 1.7;
@@ -119,11 +140,12 @@
       transition: background 0.5s, padding 0.4s, backdrop-filter 0.5s;
     }
     nav.scrolled {
-      background: rgba(10, 10, 10, 0.9);
+      background: rgba(250,250,248,0.97);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       padding: 14px 48px;
-      border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+      border-bottom: 1px solid rgba(176, 120, 40, 0.15);
+      box-shadow: var(--shadow-sm);
     }
     .nav-logo {
       font-family: var(--font-display);
@@ -134,7 +156,7 @@
       text-transform: uppercase;
       text-decoration: none;
     }
-    .nav-logo span { color: var(--cream); }
+    .nav-logo span { color: var(--text); }
     .nav-links {
       display: flex;
       gap: 36px;
@@ -146,7 +168,7 @@
       font-weight: 300;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--cream-dim);
+      color: var(--text-mid);
       text-decoration: none;
       position: relative;
       transition: color var(--transition);
@@ -175,7 +197,7 @@
     }
     .nav-cta:hover {
       background: var(--gold) !important;
-      color: var(--black) !important;
+      color: var(--white) !important;
     }
     .nav-cta::after { display: none !important; }
 
@@ -184,10 +206,12 @@
       display: none;
       flex-direction: column;
       gap: 5px;
-      cursor: none;
+      cursor: pointer;
       background: none;
       border: none;
       padding: 4px;
+      position: relative;
+      z-index: 201;
     }
     .nav-hamburger span {
       display: block;
@@ -199,8 +223,48 @@
     .nav-hamburger.open span:nth-child(2) { opacity: 0; }
     .nav-hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
+    /* ── MOBILE MENU OVERLAY (hors <nav> pour éviter le stacking context backdrop-filter) */
+    #mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(250,250,248,1);
+      z-index: 200;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    #mobile-menu.open {
+      display: flex;
+    }
+    #mobile-menu.visible {
+      opacity: 1;
+    }
+    #mobile-menu a {
+      font-family: var(--font-body);
+      font-size: 1.5rem;
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-mid);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    #mobile-menu a:hover, #mobile-menu a:focus { color: var(--gold); }
+    #mobile-menu { border-right: none; }
+    #mobile-menu .mobile-cta {
+      color: var(--gold) !important;
+      border: 1px solid var(--gold);
+      padding: 12px 32px;
+      margin-top: 8px;
+    }
+
     /* ── HERO ────────────────────────────────────────────── */
     #hero {
+      background: var(--hero-bg);
       position: relative;
       min-height: 100svh;
       display: flex;
@@ -215,9 +279,9 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 60% 80% at 70% 50%, rgba(201,168,76,0.04) 0%, transparent 60%),
-        radial-gradient(ellipse 40% 60% at 20% 80%, rgba(139,26,26,0.06) 0%, transparent 50%),
-        linear-gradient(160deg, #0A0A0A 40%, #111111 100%);
+        radial-gradient(ellipse 60% 80% at 70% 50%, rgba(176,120,40,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 60% at 20% 80%, rgba(139,26,26,0.05) 0%, transparent 50%),
+        linear-gradient(160deg, #1E1A15 40%, #2A2218 100%);
       z-index: 0;
     }
 
@@ -281,7 +345,7 @@
       font-size: clamp(1.5rem, 3vw, 2.5rem);
       font-weight: 400;
       font-style: italic;
-      color: var(--cream-dim);
+      color: var(--text-dim);
       margin-bottom: 32px;
       opacity: 0;
       animation: fadeUp 1s var(--ease-out) 1.2s both;
@@ -289,7 +353,8 @@
     .hero-desc {
       font-size: 1rem;
       font-weight: 300;
-      color: var(--cream-dim);
+      color: var(--text-dim);
+      color: rgba(245,240,232,0.75);
       max-width: 420px;
       margin-bottom: 48px;
       opacity: 0;
@@ -328,7 +393,7 @@
       transition: transform 0.5s;
     }
     .btn-primary:hover::after { transform: translateX(0); }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(201,168,76,0.3); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(176,120,40,0.3); }
 
     .btn-outline {
       background: transparent;
@@ -357,7 +422,7 @@
       font-family: var(--font-display);
       font-size: 12rem;
       font-weight: 900;
-      color: rgba(201,168,76,0.04);
+      color: rgba(250,250,248,0.04);
       line-height: 1;
       pointer-events: none;
       z-index: 1;
@@ -387,7 +452,7 @@
     .scroll-line {
       width: 1px;
       height: 48px;
-      background: linear-gradient(to bottom, var(--gold), transparent);
+      background: linear-gradient(to bottom, var(--cream), transparent);
       animation: scrollPulse 2s ease-in-out infinite;
     }
     @keyframes scrollPulse {
@@ -423,7 +488,7 @@
       font-family: var(--font-display);
       font-size: clamp(2rem, 5vw, 4rem);
       font-weight: 700;
-      color: var(--cream);
+      color: var(--text);
       line-height: 1.1;
     }
     .section-title em { font-style: italic; color: var(--gold); }
@@ -445,9 +510,9 @@
 
     /* ── STATS BAR ──────────────────────────────────────── */
     #stats {
-      background: var(--black-3);
-      border-top: 1px solid rgba(201,168,76,0.1);
-      border-bottom: 1px solid rgba(201,168,76,0.1);
+      background: var(--hero-bg);
+      border-top: 1px solid rgba(176,120,40,0.15);
+      border-bottom: 1px solid rgba(176,120,40,0.15);
       padding: 48px;
     }
     .stats-grid {
@@ -460,7 +525,7 @@
     .stat-item {
       text-align: center;
       padding: 16px 24px;
-      border-right: 1px solid rgba(201,168,76,0.1);
+      border-right: 1px solid rgba(176,120,40,0.15);
     }
     .stat-item:last-child { border-right: none; }
     .stat-number {
@@ -476,13 +541,13 @@
       font-size: 0.75rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--cream-dim);
+      color: rgba(245,240,232,0.6);
     }
 
     /* ── GALLERY ─────────────────────────────────────────── */
     #gallery {
       padding: 120px 48px;
-      background: var(--black);
+      background: var(--bg);
     }
     .gallery-grid {
       display: grid;
@@ -496,7 +561,7 @@
       position: relative;
       overflow: hidden;
       aspect-ratio: 3/4;
-      background: var(--black-3);
+      background: var(--hero-bg);
       cursor: none;
     }
     .gallery-item:nth-child(1) { grid-row: span 2; aspect-ratio: auto; }
@@ -547,13 +612,13 @@
       align-items: center;
       justify-content: center;
       font-size: 2rem;
-      color: rgba(201,168,76,0.2);
+      color: rgba(176,120,40,0.25);
     }
 
     /* ── ABOUT ───────────────────────────────────────────── */
     #about {
       padding: 120px 48px;
-      background: var(--black-2);
+      background: var(--bg-2);
     }
     .about-grid {
       display: grid;
@@ -570,20 +635,20 @@
       position: relative;
       aspect-ratio: 3/4;
       overflow: hidden;
-      background: var(--black-3);
+      background: var(--bg-3);
     }
     .about-portrait-frame::before {
       content: '';
       position: absolute;
       inset: -2px;
-      background: linear-gradient(135deg, var(--gold), transparent 50%, var(--gold-dim));
+      background: linear-gradient(135deg, var(--gold), rgba(176,120,40,0.3) 50%, var(--gold-dim));
       z-index: 1;
       pointer-events: none;
     }
     .about-portrait-inner {
       position: absolute;
       inset: 2px;
-      background: var(--black-3);
+      background: var(--bg-3);
       overflow: hidden;
       z-index: 0;
       display: flex;
@@ -597,7 +662,7 @@
       width: 120px; height: 120px;
       border: 1px solid var(--gold);
       z-index: 2;
-      opacity: 0.4;
+      opacity: 0.3;
     }
     .about-portrait-corner::after {
       content: '';
@@ -609,13 +674,13 @@
     .about-content .section-header { text-align: left; }
     .about-content .section-divider { justify-content: flex-start; }
     .about-text {
-      color: var(--cream-dim);
+      color: var(--text-mid);
       font-size: 1.05rem;
       line-height: 1.85;
       margin-bottom: 24px;
       font-weight: 300;
     }
-    .about-text strong { color: var(--cream); font-weight: 600; }
+    .about-text strong { color: var(--text); font-weight: 600; }
     .about-signature {
       font-family: var(--font-display);
       font-size: 2.5rem;
@@ -631,12 +696,13 @@
       flex-wrap: wrap;
     }
     .award-badge {
-      border: 1px solid rgba(201,168,76,0.25);
+      border: 1px solid rgba(176,120,40,0.3);
       padding: 10px 16px;
       font-size: 0.7rem;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: var(--gold-dim);
+      color: var(--gold);
+      background: var(--gold-pale);
     }
 
     /* Portrait SVG */
@@ -648,7 +714,7 @@
     /* ── STYLES / SERVICES ──────────────────────────────── */
     #services {
       padding: 120px 48px;
-      background: var(--black);
+      background: var(--bg);
     }
     .services-grid {
       display: grid;
@@ -658,11 +724,12 @@
       margin: 0 auto;
     }
     .service-card {
-      background: var(--black-3);
+      background: var(--white);
       padding: 48px 36px;
       position: relative;
       overflow: hidden;
-      transition: background var(--transition);
+      transition: background var(--transition), box-shadow var(--transition);
+      box-shadow: var(--shadow-sm);
     }
     .service-card::before {
       content: '';
@@ -675,7 +742,7 @@
       transition: transform 0.5s var(--ease-out);
     }
     .service-card:hover::before { transform: scaleX(1); }
-    .service-card:hover { background: #1A1A1A; }
+    .service-card:hover { background: var(--bg-2); box-shadow: var(--shadow-md); }
     .service-icon {
       font-size: 2rem;
       margin-bottom: 24px;
@@ -688,13 +755,13 @@
       font-family: var(--font-display);
       font-size: 1.4rem;
       font-weight: 700;
-      color: var(--cream);
+      color: var(--text);
       margin-bottom: 12px;
       line-height: 1.2;
     }
     .service-desc {
       font-size: 0.9rem;
-      color: var(--cream-dim);
+      color: var(--text-mid);
       font-weight: 300;
       line-height: 1.8;
       margin-bottom: 24px;
@@ -708,7 +775,7 @@
     .service-price small {
       font-size: 0.8rem;
       font-family: var(--font-body);
-      color: var(--cream-dim);
+      color: var(--text-dim);
       font-weight: 300;
     }
     .service-number {
@@ -717,7 +784,7 @@
       font-family: var(--font-display);
       font-size: 4rem;
       font-weight: 900;
-      color: rgba(201,168,76,0.06);
+      color: rgba(176,120,40,0.08);
       line-height: 1;
       user-select: none;
     }
@@ -725,7 +792,7 @@
     /* ── BOOKING ─────────────────────────────────────────── */
     #booking {
       padding: 120px 48px;
-      background: var(--black-2);
+      background: var(--bg-2);
     }
     .booking-container {
       max-width: 700px;
@@ -753,9 +820,9 @@
       color: var(--gold);
     }
     .form-input, .form-select, .form-textarea {
-      background: var(--black-3);
-      border: 1px solid rgba(201,168,76,0.15);
-      color: var(--cream);
+      background: var(--white);
+      border: 1px solid rgba(176,120,40,0.2);
+      color: var(--text);
       padding: 14px 16px;
       font-family: var(--font-body);
       font-size: 1rem;
@@ -765,11 +832,12 @@
       appearance: none;
       -webkit-appearance: none;
     }
-    .form-input::placeholder { color: rgba(200,187,168,0.35); }
+    .form-input::placeholder { color: var(--text-dim); opacity: 0.6; }
     .form-input:focus, .form-select:focus, .form-textarea:focus {
       border-color: var(--gold);
     }
     .form-select {
+      background-color: var(--white);
       background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23C9A84C' stroke-width='1' stroke-linecap='round'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
       background-position: right 16px center;
@@ -777,10 +845,10 @@
       cursor: none;
     }
     .form-textarea { resize: none; min-height: 140px; }
-    .form-select option { background: var(--black-3); }
+    .form-select option { background: var(--white); color: var(--text); }
     .booking-note {
       font-size: 0.8rem;
-      color: var(--cream-dim);
+      color: var(--text-dim);
       font-style: italic;
       text-align: center;
       margin-top: 8px;
@@ -788,8 +856,8 @@
     .booking-confirm {
       text-align: center;
       padding: 24px;
-      border: 1px solid rgba(201,168,76,0.2);
-      background: rgba(201,168,76,0.03);
+      border: 1px solid rgba(176,120,40,0.2);
+      background: rgba(176,120,40,0.05);
       display: none;
     }
     .booking-confirm h3 {
@@ -802,7 +870,7 @@
     /* ── TESTIMONIALS ───────────────────────────────────── */
     #testimonials {
       padding: 100px 48px;
-      background: var(--black);
+      background: var(--bg-2);
       overflow: hidden;
     }
     .testimonials-track {
@@ -820,8 +888,9 @@
       width: 360px;
       flex-shrink: 0;
       padding: 36px;
-      background: var(--black-3);
-      border: 1px solid rgba(201,168,76,0.08);
+      background: var(--white);
+      border: 1px solid rgba(176,120,40,0.1);
+      box-shadow: var(--shadow-sm);
       position: relative;
     }
     .testimonial-quote {
@@ -834,7 +903,7 @@
     }
     .testimonial-text {
       font-size: 0.95rem;
-      color: var(--cream-dim);
+      color: var(--text-mid);
       font-style: italic;
       line-height: 1.8;
       margin-bottom: 24px;
@@ -855,8 +924,8 @@
     /* ── CONTACT / FOOTER ───────────────────────────────── */
     #contact {
       padding: 100px 48px;
-      background: var(--black-3);
-      border-top: 1px solid rgba(201,168,76,0.1);
+      background: var(--bg-2);
+      border-top: 1px solid rgba(176,120,40,0.12);
     }
     .contact-grid {
       display: grid;
@@ -868,7 +937,7 @@
     .contact-info h3 {
       font-family: var(--font-display);
       font-size: 1.8rem;
-      color: var(--cream);
+      color: var(--text);
       margin-bottom: 24px;
       font-style: italic;
     }
@@ -880,17 +949,18 @@
     }
     .contact-detail-icon {
       width: 36px; height: 36px;
-      border: 1px solid rgba(201,168,76,0.2);
+      border: 1px solid rgba(176,120,40,0.25);
       display: flex;
       align-items: center;
       justify-content: center;
+      background: var(--gold-pale);
       color: var(--gold);
       font-size: 0.85rem;
       flex-shrink: 0;
     }
     .contact-detail-text p {
       font-size: 0.85rem;
-      color: var(--cream-dim);
+      color: var(--text-mid);
       line-height: 1.6;
     }
     .contact-detail-text strong {
@@ -909,11 +979,11 @@
     }
     .social-btn {
       width: 44px; height: 44px;
-      border: 1px solid rgba(201,168,76,0.2);
+      border: 1px solid rgba(176,120,40,0.2);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--cream-dim);
+      color: var(--text-dim);
       text-decoration: none;
       font-size: 0.9rem;
       transition: border-color var(--transition), color var(--transition), background var(--transition);
@@ -921,16 +991,16 @@
     .social-btn:hover {
       border-color: var(--gold);
       color: var(--gold);
-      background: rgba(201,168,76,0.05);
+      background: rgba(176,120,40,0.06);
     }
     .map-placeholder {
-      background: var(--black-2);
-      border: 1px solid rgba(201,168,76,0.1);
+      background: var(--bg);
+      border: 1px solid rgba(176,120,40,0.15);
       height: 280px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--cream-dim);
+      color: var(--text-dim);
       font-size: 0.8rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
@@ -943,18 +1013,18 @@
       position: absolute;
       inset: 0;
       background:
-        repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(201,168,76,0.05) 39px, rgba(201,168,76,0.05) 40px),
-        repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(201,168,76,0.05) 39px, rgba(201,168,76,0.05) 40px);
+        repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(176,120,40,0.07) 39px, rgba(176,120,40,0.07) 40px),
+        repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(176,120,40,0.07) 39px, rgba(176,120,40,0.07) 40px);
     }
 
     /* Footer */
     footer {
-      background: var(--black);
+      background: var(--hero-bg);
       padding: 32px 48px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-top: 1px solid rgba(201,168,76,0.06);
+      border-top: 1px solid rgba(176,120,40,0.15);
     }
     .footer-logo {
       font-family: var(--font-display);
@@ -965,7 +1035,7 @@
     }
     .footer-copy {
       font-size: 0.75rem;
-      color: var(--cream-dim);
+      color: rgba(250,250,248,0.5);
       letter-spacing: 0.1em;
     }
     .footer-copy a { color: var(--gold); text-decoration: none; }
@@ -975,25 +1045,23 @@
       position: fixed;
       bottom: 24px; left: 50%;
       transform: translateX(-50%);
-      background: var(--black-3);
+      background: var(--bg-3);
       border: 1px solid var(--gold);
-      padding: 14px 24px;
+      padding: 14px 20px;
       display: none;
       align-items: center;
       gap: 16px;
-      z-index: 200;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      z-index: 300;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
       max-width: 90vw;
+      width: max-content;
       animation: slideUp 0.5s var(--ease-out);
     }
     @keyframes slideUp {
       from { transform: translateX(-50%) translateY(20px); opacity: 0; }
       to   { transform: translateX(-50%) translateY(0); opacity: 1; }
     }
-    #install-banner p {
-      font-size: 0.85rem;
-      color: var(--cream-dim);
-    }
+    #install-banner p { font-size: 0.85rem; color: var(--text-mid); }
     #install-banner strong { color: var(--gold); }
     #install-btn {
       background: var(--gold);
@@ -1005,17 +1073,61 @@
       letter-spacing: 0.2em;
       text-transform: uppercase;
       font-weight: 600;
-      cursor: none;
+      cursor: pointer;
       white-space: nowrap;
+      flex-shrink: 0;
     }
     #install-dismiss {
       background: none;
       border: none;
-      color: var(--cream-dim);
+      color: var(--text-dim);
       font-size: 1.2rem;
-      cursor: none;
+      cursor: pointer;
       padding: 4px;
       line-height: 1;
+      flex-shrink: 0;
+    }
+
+    /* iOS install banner */
+    #ios-banner {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: var(--white);
+      border-top: 2px solid var(--gold);
+      padding: 20px 24px 32px;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      z-index: 300;
+      box-shadow: 0 -8px 40px rgba(28,24,18,0.12);
+      animation: slideUpFull 0.4s var(--ease-out);
+    }
+    @keyframes slideUpFull {
+      from { transform: translateY(100%); }
+      to   { transform: translateY(0); }
+    }
+    #ios-banner.visible { display: flex; }
+    #ios-content { padding: 0 24px; }
+    #ios-arrow {
+      color: var(--gold);
+      font-size: 1.2rem;
+      margin-top: 12px;
+      animation: bounce 1.5s ease-in-out infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(6px); }
+    }
+    #ios-dismiss {
+      position: absolute;
+      top: 12px; right: 16px;
+      background: none;
+      border: none;
+      color: var(--text-dim);
+      font-size: 1.1rem;
+      cursor: pointer;
+      padding: 4px;
     }
 
     /* Reveal animations */
@@ -1036,10 +1148,8 @@
     @media (max-width: 900px) {
       nav { padding: 16px 24px; }
       nav.scrolled { padding: 12px 24px; }
-      .nav-links { display: none; flex-direction: column; position: fixed; inset: 0; background: var(--black); justify-content: center; align-items: center; gap: 40px; }
-      .nav-links.open { display: flex; }
-      .nav-hamburger { display: flex; z-index: 101; }
-      .nav-links a { font-size: 1.2rem; }
+      .nav-links { display: none !important; }
+      .nav-hamburger { display: flex; }
 
       #hero { padding: 100px 24px 60px; }
       .hero-line { left: 24px; }
@@ -1049,7 +1159,7 @@
       #stats { padding: 32px 24px; }
       .stats-grid { grid-template-columns: repeat(2, 1fr); }
       .stat-item:nth-child(2) { border-right: none; }
-      .stat-item { border-bottom: 1px solid rgba(201,168,76,0.1); }
+      .stat-item { border-bottom: 1px solid rgba(176,120,40,0.15); }
       .stat-item:nth-child(3), .stat-item:nth-child(4) { border-bottom: none; }
 
       #gallery { padding: 80px 24px; }
@@ -1101,6 +1211,15 @@
       <span></span><span></span><span></span>
     </button>
   </nav>
+
+  <!-- Mobile Menu Overlay (hors <nav> pour éviter le bug backdrop-filter/stacking context) -->
+  <div id="mobile-menu" role="dialog" aria-modal="true" aria-label="Menu navigation">
+    <a href="#gallery" class="mobile-nav-link">Galerie</a>
+    <a href="#about" class="mobile-nav-link">Artiste</a>
+    <a href="#services" class="mobile-nav-link">Services</a>
+    <a href="#testimonials" class="mobile-nav-link">Avis</a>
+    <a href="#booking" class="mobile-nav-link mobile-cta">Réserver</a>
+  </div>
 
   <!-- Hero -->
   <section id="hero">
@@ -1668,8 +1787,8 @@
         <div class="map-placeholder">
           <span>Carte · 42 Rue de la Roquette, Paris 11e</span>
         </div>
-        <div style="margin-top: 24px; padding: 20px; border: 1px solid rgba(201,168,76,0.1); background: rgba(201,168,76,0.02);">
-          <p style="font-size: 0.8rem; color: var(--cream-dim); line-height: 1.8;">
+        <div style="margin-top: 24px; padding: 20px; border: 1px solid rgba(176,120,40,0.15); background: rgba(176,120,40,0.04);">
+          <p style="font-size: 0.8rem; color: var(--text-dim); line-height: 1.8;">
             <strong style="color: var(--gold); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; display: block; margin-bottom: 8px;">À savoir avant de venir</strong>
             Le studio est entièrement désinfecté avant chaque séance. 
             Merci d'arriver reposé, hydraté et d'avoir mangé. 
@@ -1687,11 +1806,30 @@
     <p class="footer-copy">© 2025 INK NOIR Studio · <a href="#">Mentions légales</a> · <a href="#">RGPD</a></p>
   </footer>
 
-  <!-- Install Banner -->
+  <!-- Install Banner Android -->
   <div id="install-banner">
-    <p><strong>INK NOIR</strong> — Installer l'application</p>
+    <div style="display:flex; flex-direction:column; gap:4px;">
+      <p><strong>INK NOIR</strong> — Installer l'app</p>
+      <p id="install-sub" style="font-size:0.75rem; opacity:0.7;">Accès rapide depuis votre écran d'accueil</p>
+    </div>
     <button id="install-btn" onclick="installPWA()">Installer</button>
-    <button id="install-dismiss" onclick="dismissInstall()">✕</button>
+    <button id="install-dismiss" onclick="dismissInstall()" aria-label="Fermer">✕</button>
+  </div>
+
+  <!-- Install Banner iOS -->
+  <div id="ios-banner">
+    <button id="ios-dismiss" onclick="dismissIos()" aria-label="Fermer">✕</button>
+    <div id="ios-content">
+      <div style="font-size:1.5rem; margin-bottom:8px;">📲</div>
+      <p style="font-weight:600; color:var(--gold); margin-bottom:6px; font-size:0.9rem;">Installer INK NOIR</p>
+      <p style="font-size:0.8rem; color:var(--text-mid); line-height:1.6;">
+        Appuyez sur <strong style="color:var(--cream);">Partager</strong> 
+        <svg style="display:inline;vertical-align:middle" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8M16 6l-4-4-4 4M12 2v13"/></svg>
+        puis <strong style="color:var(--cream);">« Sur l'écran d'accueil »</strong>
+        <svg style="display:inline;vertical-align:middle" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+      </p>
+    </div>
+    <div id="ios-arrow">▼</div>
   </div>
 
   <script>
@@ -1722,17 +1860,43 @@
     }, { passive: true });
 
     // ── MOBILE MENU ────────────────────────────────────────
-    const hamburger = document.getElementById('hamburger');
-    const navLinks  = document.getElementById('navLinks');
+    // Le menu est dans #mobile-menu (hors <nav>) pour éviter le bug
+    // position:fixed cassé par backdrop-filter sur le parent <nav>
+    const hamburger   = document.getElementById('hamburger');
+    const mobileMenu  = document.getElementById('mobile-menu');
+
+    function openMenu() {
+      hamburger.classList.add('open');
+      mobileMenu.classList.add('open');
+      // Délai pour permettre display:flex avant l'animation opacity
+      requestAnimationFrame(() => mobileMenu.classList.add('visible'));
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMenu() {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('visible');
+      document.body.style.overflow = '';
+      // Attendre la fin de la transition opacity avant de masquer
+      mobileMenu.addEventListener('transitionend', () => {
+        if (!hamburger.classList.contains('open')) {
+          mobileMenu.classList.remove('open');
+        }
+      }, { once: true });
+    }
+
     hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('open');
-      navLinks.classList.toggle('open');
+      if (hamburger.classList.contains('open')) closeMenu();
+      else openMenu();
     });
-    navLinks.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        hamburger.classList.remove('open');
-        navLinks.classList.remove('open');
-      });
+
+    // Fermer le menu au clic sur un lien
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    // Fermer avec la touche Escape
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && hamburger.classList.contains('open')) closeMenu();
     });
 
     // ── REVEAL ON SCROLL ───────────────────────────────────
@@ -1778,34 +1942,60 @@
     }
 
     // ── PWA INSTALL ────────────────────────────────────────
+    const INSTALL_KEY = 'ink-noir-install-dismissed';
+
+    // Détecter iOS Safari (ne supporte pas beforeinstallprompt)
+    const isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
+    const isInStandalone = window.matchMedia('(display-mode: standalone)').matches
+                        || navigator.standalone === true;
+
+    if (isIos && !isInStandalone && !sessionStorage.getItem(INSTALL_KEY)) {
+      // Afficher le guide iOS après 3 secondes
+      setTimeout(() => {
+        document.getElementById('ios-banner').classList.add('visible');
+      }, 3000);
+    }
+
+    function dismissIos() {
+      sessionStorage.setItem(INSTALL_KEY, '1');
+      document.getElementById('ios-banner').classList.remove('visible');
+    }
+
+    // Android / Chrome — beforeinstallprompt
     let deferredPrompt = null;
     window.addEventListener('beforeinstallprompt', e => {
       e.preventDefault();
       deferredPrompt = e;
-      setTimeout(() => {
-        const banner = document.getElementById('install-banner');
-        banner.style.display = 'flex';
-      }, 5000);
+      if (!sessionStorage.getItem(INSTALL_KEY) && !isInStandalone) {
+        setTimeout(() => {
+          document.getElementById('install-banner').style.display = 'flex';
+        }, 2500); // réduit de 5s à 2.5s
+      }
     });
+
     function installPWA() {
       if (!deferredPrompt) return;
       deferredPrompt.prompt();
-      deferredPrompt.userChoice.then(r => {
+      deferredPrompt.userChoice.then(() => {
         deferredPrompt = null;
         document.getElementById('install-banner').style.display = 'none';
       });
     }
     function dismissInstall() {
+      sessionStorage.setItem(INSTALL_KEY, '1');
       document.getElementById('install-banner').style.display = 'none';
     }
     window.addEventListener('appinstalled', () => {
       document.getElementById('install-banner').style.display = 'none';
+      document.getElementById('ios-banner').classList.remove('visible');
     });
 
     // ── SERVICE WORKER ─────────────────────────────────────
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js', { scope: '/' })
+        // Chemin relatif pour compatibilité GitHub Pages sous-dossier
+        const swPath = './sw.js';
+        navigator.serviceWorker.register(swPath)
           .then(reg => console.log('[PWA] SW enregistré :', reg.scope))
           .catch(err => console.warn('[PWA] SW erreur :', err));
       });
