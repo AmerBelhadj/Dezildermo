@@ -1,0 +1,47 @@
+{
+  "name": "INK NOIR — Studio de Tatouage",
+  "short_name": "INK NOIR",
+  "description": "Portfolio et réservation en ligne — Studio de tatouage haut de gamme",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0A0A0A",
+  "theme_color": "#C9A84C",
+  "lang": "fr",
+  "categories": ["lifestyle", "art"],
+  "icons": [
+    {
+      "src": "assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Réserver",
+      "short_name": "Réserver",
+      "description": "Prendre rendez-vous",
+      "url": "/#booking",
+      "icons": [{ "src": "assets/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Galerie",
+      "short_name": "Galerie",
+      "description": "Voir les réalisations",
+      "url": "/#gallery",
+      "icons": [{ "src": "assets/icons/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}
