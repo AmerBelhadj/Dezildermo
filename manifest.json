@@ -1,12 +1,13 @@
 {
-  "name": "INK NOIR — Studio de Tatouage",
-  "short_name": "INK NOIR",
-  "description": "Portfolio et réservation en ligne — Studio de tatouage haut de gamme",
+  "name": "Nicolas Tatoo — Tatoueur Paris",
+  "short_name": "Nicolas Tatoo",
+  "description": "Flash, custom & blackwork. Portfolio et réservation en ligne.",
   "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "orientation": "portrait-primary",
-  "background_color": "#0A0A0A",
-  "theme_color": "#C9A84C",
+  "background_color": "#14111A",
+  "theme_color": "#C1121F",
   "lang": "fr",
   "categories": [
     "lifestyle",
@@ -30,13 +31,10 @@
       "purpose": "maskable"
     }
   ],
-  "screenshots": [],
   "shortcuts": [
     {
       "name": "Réserver",
-      "short_name": "Réserver",
-      "description": "Prendre rendez-vous",
-      "url": "/#booking",
+      "url": "./#booking",
       "icons": [
         {
           "src": "assets/icons/icon-192.png",
@@ -45,10 +43,8 @@
       ]
     },
     {
-      "name": "Galerie",
-      "short_name": "Galerie",
-      "description": "Voir les réalisations",
-      "url": "/#gallery",
+      "name": "Flash",
+      "url": "./#flash",
       "icons": [
         {
           "src": "assets/icons/icon-192.png",
@@ -56,6 +52,5 @@
         }
       ]
     }
-  ],
-  "scope": "./"
+  ]
 }

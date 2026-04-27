@@ -1,2005 +1,772 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="description" content="INK NOIR — Studio de tatouage haut de gamme. Portfolio, tarifs et réservation en ligne.">
-  <meta name="theme-color" content="#C9A84C">
-
-  <!-- PWA -->
-  <link rel="manifest" href="manifest.json">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="INK NOIR">
-  <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
-
-  <!-- CSP -->
-  <meta http-equiv="Content-Security-Policy" content="
-    default-src 'self';
-    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-    font-src 'self' https://fonts.gstatic.com;
-    img-src 'self' data: https://images.unsplash.com;
-    script-src 'self' 'unsafe-inline';
-    connect-src 'self';
-  ">
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
-
-  <title>INK NOIR — Studio de Tatouage</title>
-
-  <style>
-    /* ── RESET & VARIABLES ──────────────────────────────── */
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-    :root {
-      /* Hero sombre — l'entrée dramatique */
-      --hero-bg:   #1E1A15;
-      --hero-mid:  #2A2218;
-
-      /* Fond principal — clair chaud moderne */
-      --bg:        #FAFAF8;
-      --bg-2:      #F3EDE3;
-      --bg-3:      #EDE5D8;
-
-      /* Texte */
-      --text:      #1C1812;
-      --text-mid:  #5C4E3C;
-      --text-dim:  #9C8C7A;
-
-      /* Or — version plus profonde pour contraste sur fond clair */
-      --gold:      #B07828;
-      --gold-light:#C98E30;
-      --gold-dim:  #8A5E1A;
-      --gold-pale: rgba(176,120,40,0.12);
-
-      /* Compat */
-      --black:     #1C1812;
-      --black-2:   #F3EDE3;
-      --black-3:   #EDE5D8;
-      --cream:     #FAFAF8;
-      --cream-dim: #9C8C7A;
-      --white:     #FFFFFF;
-
-      --font-display: 'Playfair Display', Georgia, serif;
-      --font-body:    'Cormorant Garamond', Georgia, serif;
-
-      --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      --ease-out:   cubic-bezier(0.16, 1, 0.3, 1);
-
-      --shadow-sm:  0 2px 12px rgba(28,24,18,0.08);
-      --shadow-md:  0 8px 32px rgba(28,24,18,0.12);
-      --shadow-lg:  0 20px 60px rgba(28,24,18,0.16);
-    }
-
-    html {
-      scroll-behavior: smooth;
-      scroll-padding-top: 70px;
-    }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--font-body);
-      font-size: 18px;
-      line-height: 1.7;
-      cursor: none;
-      overflow-x: hidden;
-    }
-
-    /* ── CUSTOM CURSOR ──────────────────────────────────── */
-    #cursor {
-      position: fixed;
-      top: 0; left: 0;
-      width: 12px; height: 12px;
-      background: var(--gold);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-      transition: transform 0.1s, width 0.3s, height 0.3s, background 0.3s;
-      mix-blend-mode: difference;
-    }
-    #cursor-ring {
-      position: fixed;
-      top: 0; left: 0;
-      width: 36px; height: 36px;
-      border: 1px solid var(--gold);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9998;
-      transform: translate(-50%, -50%);
-      transition: transform 0.15s, width 0.4s, height 0.4s, opacity 0.3s;
-      opacity: 0.6;
-    }
-    body.cursor-hover #cursor { width: 20px; height: 20px; }
-    body.cursor-hover #cursor-ring { width: 56px; height: 56px; opacity: 0.3; }
-
-    /* ── NOISE TEXTURE OVERLAY ──────────────────────────── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 1;
-      opacity: 0.5;
-    }
-
-    /* ── NAVIGATION ─────────────────────────────────────── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 20px 48px;
-      transition: background 0.5s, padding 0.4s, backdrop-filter 0.5s;
-    }
-    nav.scrolled {
-      background: rgba(250,250,248,0.97);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      padding: 14px 48px;
-      border-bottom: 1px solid rgba(176, 120, 40, 0.15);
-      box-shadow: var(--shadow-sm);
-    }
-    .nav-logo {
-      font-family: var(--font-display);
-      font-size: 1.3rem;
-      font-weight: 900;
-      letter-spacing: 0.25em;
-      color: var(--gold);
-      text-transform: uppercase;
-      text-decoration: none;
-    }
-    .nav-logo span { color: var(--text); }
-    .nav-links {
-      display: flex;
-      gap: 36px;
-      list-style: none;
-    }
-    .nav-links a {
-      font-family: var(--font-body);
-      font-size: 0.85rem;
-      font-weight: 300;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--text-mid);
-      text-decoration: none;
-      position: relative;
-      transition: color var(--transition);
-    }
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: -3px; left: 0;
-      width: 0; height: 1px;
-      background: var(--gold);
-      transition: width var(--transition);
-    }
-    .nav-links a:hover { color: var(--gold); }
-    .nav-links a:hover::after { width: 100%; }
-    .nav-cta {
-      background: transparent;
-      border: 1px solid var(--gold);
-      color: var(--gold) !important;
-      padding: 8px 22px;
-      letter-spacing: 0.2em;
-      font-size: 0.75rem !important;
-      text-transform: uppercase;
-      text-decoration: none;
-      font-family: var(--font-body);
-      transition: background var(--transition), color var(--transition);
-    }
-    .nav-cta:hover {
-      background: var(--gold) !important;
-      color: var(--white) !important;
-    }
-    .nav-cta::after { display: none !important; }
-
-    /* Mobile nav toggle */
-    .nav-hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      background: none;
-      border: none;
-      padding: 4px;
-      position: relative;
-      z-index: 201;
-    }
-    .nav-hamburger span {
-      display: block;
-      width: 24px; height: 1px;
-      background: var(--gold);
-      transition: transform 0.3s, opacity 0.3s;
-    }
-    .nav-hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
-    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
-    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
-
-    /* ── MOBILE MENU OVERLAY (hors <nav> pour éviter le stacking context backdrop-filter) */
-    #mobile-menu {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(250,250,248,1);
-      z-index: 200;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 40px;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    #mobile-menu.open {
-      display: flex;
-    }
-    #mobile-menu.visible {
-      opacity: 1;
-    }
-    #mobile-menu a {
-      font-family: var(--font-body);
-      font-size: 1.5rem;
-      font-weight: 300;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--text-mid);
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-    #mobile-menu a:hover, #mobile-menu a:focus { color: var(--gold); }
-    #mobile-menu { border-right: none; }
-    #mobile-menu .mobile-cta {
-      color: var(--gold) !important;
-      border: 1px solid var(--gold);
-      padding: 12px 32px;
-      margin-top: 8px;
-    }
-
-    /* ── HERO ────────────────────────────────────────────── */
-    #hero {
-      background: var(--hero-bg);
-      position: relative;
-      min-height: 100svh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: flex-start;
-      padding: 120px 48px 80px;
-      overflow: hidden;
-    }
-
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 60% 80% at 70% 50%, rgba(176,120,40,0.06) 0%, transparent 60%),
-        radial-gradient(ellipse 40% 60% at 20% 80%, rgba(139,26,26,0.05) 0%, transparent 50%),
-        linear-gradient(160deg, #1E1A15 40%, #2A2218 100%);
-      z-index: 0;
-    }
-
-    /* Decorative vertical line */
-    .hero-line {
-      position: absolute;
-      left: 48px;
-      top: 0; bottom: 0;
-      width: 1px;
-      background: linear-gradient(to bottom, transparent, var(--gold-dim) 30%, var(--gold) 60%, transparent);
-      opacity: 0.4;
-      z-index: 0;
-      animation: lineReveal 2s var(--ease-out) 0.5s both;
-    }
-    @keyframes lineReveal {
-      from { scaleY: 0; transform-origin: top; opacity: 0; }
-      to   { scaleY: 1; opacity: 0.4; }
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 700px;
-    }
-    .hero-eyebrow {
-      font-family: var(--font-body);
-      font-size: 0.8rem;
-      letter-spacing: 0.4em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      opacity: 0;
-      animation: fadeUp 0.8s var(--ease-out) 0.8s both;
-    }
-    .hero-eyebrow::before {
-      content: '';
-      display: block;
-      width: 40px; height: 1px;
-      background: var(--gold);
-    }
-    .hero-title {
-      font-family: var(--font-display);
-      font-size: clamp(3.5rem, 8vw, 7.5rem);
-      font-weight: 900;
-      line-height: 0.9;
-      letter-spacing: -0.02em;
-      color: var(--cream);
-      margin-bottom: 12px;
-      opacity: 0;
-      animation: fadeUp 1s var(--ease-out) 1s both;
-    }
-    .hero-title em {
-      font-style: italic;
-      color: var(--gold);
-    }
-    .hero-subtitle {
-      font-family: var(--font-display);
-      font-size: clamp(1.5rem, 3vw, 2.5rem);
-      font-weight: 400;
-      font-style: italic;
-      color: var(--text-dim);
-      margin-bottom: 32px;
-      opacity: 0;
-      animation: fadeUp 1s var(--ease-out) 1.2s both;
-    }
-    .hero-desc {
-      font-size: 1rem;
-      font-weight: 300;
-      color: var(--text-dim);
-      color: rgba(245,240,232,0.75);
-      max-width: 420px;
-      margin-bottom: 48px;
-      opacity: 0;
-      animation: fadeUp 1s var(--ease-out) 1.4s both;
-      letter-spacing: 0.03em;
-    }
-    .hero-actions {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      opacity: 0;
-      animation: fadeUp 1s var(--ease-out) 1.6s both;
-    }
-    .btn-primary {
-      background: var(--gold);
-      color: var(--black);
-      border: none;
-      padding: 16px 36px;
-      font-family: var(--font-body);
-      font-size: 0.8rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      text-decoration: none;
-      font-weight: 600;
-      display: inline-block;
-      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
-      position: relative;
-      overflow: hidden;
-    }
-    .btn-primary::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(255,255,255,0.1);
-      transform: translateX(-100%);
-      transition: transform 0.5s;
-    }
-    .btn-primary:hover::after { transform: translateX(0); }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(176,120,40,0.3); }
-
-    .btn-outline {
-      background: transparent;
-      color: var(--cream);
-      border: 1px solid rgba(245,240,232,0.3);
-      padding: 16px 36px;
-      font-family: var(--font-body);
-      font-size: 0.8rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      text-decoration: none;
-      display: inline-block;
-      transition: border-color var(--transition), color var(--transition), transform var(--transition);
-    }
-    .btn-outline:hover {
-      border-color: var(--gold);
-      color: var(--gold);
-      transform: translateY(-2px);
-    }
-
-    /* Hero decorative number */
-    .hero-number {
-      position: absolute;
-      right: 48px;
-      bottom: 80px;
-      font-family: var(--font-display);
-      font-size: 12rem;
-      font-weight: 900;
-      color: rgba(250,250,248,0.04);
-      line-height: 1;
-      pointer-events: none;
-      z-index: 1;
-      user-select: none;
-    }
-
-    /* Scroll indicator */
-    .scroll-indicator {
-      position: absolute;
-      bottom: 32px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      opacity: 0;
-      animation: fadeIn 1s ease 2.5s both;
-      z-index: 2;
-    }
-    .scroll-indicator span {
-      font-size: 0.65rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--gold-dim);
-    }
-    .scroll-line {
-      width: 1px;
-      height: 48px;
-      background: linear-gradient(to bottom, var(--cream), transparent);
-      animation: scrollPulse 2s ease-in-out infinite;
-    }
-    @keyframes scrollPulse {
-      0%, 100% { opacity: 0.3; transform: scaleY(0.8) translateY(0); }
-      50% { opacity: 1; transform: scaleY(1) translateY(4px); }
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
-
-    /* ── SECTION COMMONS ────────────────────────────────── */
-    section { position: relative; z-index: 2; }
-
-    .section-header {
-      text-align: center;
-      margin-bottom: 72px;
-    }
-    .section-tag {
-      font-size: 0.7rem;
-      letter-spacing: 0.5em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 16px;
-      display: block;
-    }
-    .section-title {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 5vw, 4rem);
-      font-weight: 700;
-      color: var(--text);
-      line-height: 1.1;
-    }
-    .section-title em { font-style: italic; color: var(--gold); }
-    .section-divider {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      margin-top: 20px;
-    }
-    .section-divider span {
-      width: 60px; height: 1px;
-      background: linear-gradient(to right, transparent, var(--gold));
-    }
-    .section-divider span:last-child {
-      background: linear-gradient(to left, transparent, var(--gold));
-    }
-    .section-divider i { color: var(--gold); font-size: 0.5rem; }
-
-    /* ── STATS BAR ──────────────────────────────────────── */
-    #stats {
-      background: var(--hero-bg);
-      border-top: 1px solid rgba(176,120,40,0.15);
-      border-bottom: 1px solid rgba(176,120,40,0.15);
-      padding: 48px;
-    }
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-    .stat-item {
-      text-align: center;
-      padding: 16px 24px;
-      border-right: 1px solid rgba(176,120,40,0.15);
-    }
-    .stat-item:last-child { border-right: none; }
-    .stat-number {
-      font-family: var(--font-display);
-      font-size: 3rem;
-      font-weight: 900;
-      color: var(--gold);
-      line-height: 1;
-      margin-bottom: 8px;
-      display: block;
-    }
-    .stat-label {
-      font-size: 0.75rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: rgba(245,240,232,0.6);
-    }
-
-    /* ── GALLERY ─────────────────────────────────────────── */
-    #gallery {
-      padding: 120px 48px;
-      background: var(--bg);
-    }
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: auto;
-      gap: 3px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .gallery-item {
-      position: relative;
-      overflow: hidden;
-      aspect-ratio: 3/4;
-      background: var(--hero-bg);
-      cursor: none;
-    }
-    .gallery-item:nth-child(1) { grid-row: span 2; aspect-ratio: auto; }
-    .gallery-item:nth-child(5) { grid-column: span 2; aspect-ratio: 16/9; }
-    .gallery-item:nth-child(7) { grid-row: span 2; aspect-ratio: auto; }
-
-    .gallery-img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.8s var(--ease-out), filter 0.5s;
-      filter: grayscale(20%) contrast(1.05);
-    }
-    .gallery-item:hover .gallery-img {
-      transform: scale(1.06);
-      filter: grayscale(0%) contrast(1.1);
-    }
-    .gallery-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(10,10,10,0.9) 0%, rgba(10,10,10,0) 60%);
-      opacity: 0;
-      transition: opacity 0.4s;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 24px;
-    }
-    .gallery-item:hover .gallery-overlay { opacity: 1; }
-    .gallery-style {
-      font-size: 0.65rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 6px;
-    }
-    .gallery-name {
-      font-family: var(--font-display);
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: var(--cream);
-    }
-
-    /* Gallery placeholder patterns */
-    .gallery-placeholder {
-      width: 100%; height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
-      color: rgba(176,120,40,0.25);
-    }
-
-    /* ── ABOUT ───────────────────────────────────────────── */
-    #about {
-      padding: 120px 48px;
-      background: var(--bg-2);
-    }
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 96px;
-      max-width: 1100px;
-      margin: 0 auto;
-      align-items: center;
-    }
-    .about-portrait {
-      position: relative;
-    }
-    .about-portrait-frame {
-      position: relative;
-      aspect-ratio: 3/4;
-      overflow: hidden;
-      background: var(--bg-3);
-    }
-    .about-portrait-frame::before {
-      content: '';
-      position: absolute;
-      inset: -2px;
-      background: linear-gradient(135deg, var(--gold), rgba(176,120,40,0.3) 50%, var(--gold-dim));
-      z-index: 1;
-      pointer-events: none;
-    }
-    .about-portrait-inner {
-      position: absolute;
-      inset: 2px;
-      background: var(--bg-3);
-      overflow: hidden;
-      z-index: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    /* Decorative corner element */
-    .about-portrait-corner {
-      position: absolute;
-      bottom: -20px; right: -20px;
-      width: 120px; height: 120px;
-      border: 1px solid var(--gold);
-      z-index: 2;
-      opacity: 0.3;
-    }
-    .about-portrait-corner::after {
-      content: '';
-      position: absolute;
-      inset: 8px;
-      border: 1px solid var(--gold);
-      opacity: 0.5;
-    }
-    .about-content .section-header { text-align: left; }
-    .about-content .section-divider { justify-content: flex-start; }
-    .about-text {
-      color: var(--text-mid);
-      font-size: 1.05rem;
-      line-height: 1.85;
-      margin-bottom: 24px;
-      font-weight: 300;
-    }
-    .about-text strong { color: var(--text); font-weight: 600; }
-    .about-signature {
-      font-family: var(--font-display);
-      font-size: 2.5rem;
-      font-style: italic;
-      color: var(--gold);
-      margin-top: 32px;
-      font-weight: 400;
-    }
-    .about-awards {
-      margin-top: 40px;
-      display: flex;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
-    .award-badge {
-      border: 1px solid rgba(176,120,40,0.3);
-      padding: 10px 16px;
-      font-size: 0.7rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--gold);
-      background: var(--gold-pale);
-    }
-
-    /* Portrait SVG */
-    .portrait-svg {
-      width: 100%; height: 100%;
-      object-fit: cover;
-    }
-
-    /* ── STYLES / SERVICES ──────────────────────────────── */
-    #services {
-      padding: 120px 48px;
-      background: var(--bg);
-    }
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-    .service-card {
-      background: var(--white);
-      padding: 48px 36px;
-      position: relative;
-      overflow: hidden;
-      transition: background var(--transition), box-shadow var(--transition);
-      box-shadow: var(--shadow-sm);
-    }
-    .service-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: var(--gold);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.5s var(--ease-out);
-    }
-    .service-card:hover::before { transform: scaleX(1); }
-    .service-card:hover { background: var(--bg-2); box-shadow: var(--shadow-md); }
-    .service-icon {
-      font-size: 2rem;
-      margin-bottom: 24px;
-      display: block;
-      filter: grayscale(1);
-      transition: filter 0.4s;
-    }
-    .service-card:hover .service-icon { filter: grayscale(0); }
-    .service-title {
-      font-family: var(--font-display);
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 12px;
-      line-height: 1.2;
-    }
-    .service-desc {
-      font-size: 0.9rem;
-      color: var(--text-mid);
-      font-weight: 300;
-      line-height: 1.8;
-      margin-bottom: 24px;
-    }
-    .service-price {
-      font-family: var(--font-display);
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: var(--gold);
-    }
-    .service-price small {
-      font-size: 0.8rem;
-      font-family: var(--font-body);
-      color: var(--text-dim);
-      font-weight: 300;
-    }
-    .service-number {
-      position: absolute;
-      top: 24px; right: 24px;
-      font-family: var(--font-display);
-      font-size: 4rem;
-      font-weight: 900;
-      color: rgba(176,120,40,0.08);
-      line-height: 1;
-      user-select: none;
-    }
-
-    /* ── BOOKING ─────────────────────────────────────────── */
-    #booking {
-      padding: 120px 48px;
-      background: var(--bg-2);
-    }
-    .booking-container {
-      max-width: 700px;
-      margin: 0 auto;
-    }
-    .booking-form {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .form-label {
-      font-size: 0.7rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--gold);
-    }
-    .form-input, .form-select, .form-textarea {
-      background: var(--white);
-      border: 1px solid rgba(176,120,40,0.2);
-      color: var(--text);
-      padding: 14px 16px;
-      font-family: var(--font-body);
-      font-size: 1rem;
-      font-weight: 300;
-      outline: none;
-      transition: border-color var(--transition);
-      appearance: none;
-      -webkit-appearance: none;
-    }
-    .form-input::placeholder { color: var(--text-dim); opacity: 0.6; }
-    .form-input:focus, .form-select:focus, .form-textarea:focus {
-      border-color: var(--gold);
-    }
-    .form-select {
-      background-color: var(--white);
-      background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23C9A84C' stroke-width='1' stroke-linecap='round'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 16px center;
-      padding-right: 40px;
-      cursor: none;
-    }
-    .form-textarea { resize: none; min-height: 140px; }
-    .form-select option { background: var(--white); color: var(--text); }
-    .booking-note {
-      font-size: 0.8rem;
-      color: var(--text-dim);
-      font-style: italic;
-      text-align: center;
-      margin-top: 8px;
-    }
-    .booking-confirm {
-      text-align: center;
-      padding: 24px;
-      border: 1px solid rgba(176,120,40,0.2);
-      background: rgba(176,120,40,0.05);
-      display: none;
-    }
-    .booking-confirm h3 {
-      font-family: var(--font-display);
-      font-size: 1.5rem;
-      color: var(--gold);
-      margin-bottom: 8px;
-    }
-
-    /* ── TESTIMONIALS ───────────────────────────────────── */
-    #testimonials {
-      padding: 100px 48px;
-      background: var(--bg-2);
-      overflow: hidden;
-    }
-    .testimonials-track {
-      display: flex;
-      gap: 32px;
-      animation: scrollTrack 30s linear infinite;
-      width: max-content;
-    }
-    .testimonials-track:hover { animation-play-state: paused; }
-    @keyframes scrollTrack {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
-    .testimonial-card {
-      width: 360px;
-      flex-shrink: 0;
-      padding: 36px;
-      background: var(--white);
-      border: 1px solid rgba(176,120,40,0.1);
-      box-shadow: var(--shadow-sm);
-      position: relative;
-    }
-    .testimonial-quote {
-      font-size: 3rem;
-      color: var(--gold);
-      font-family: var(--font-display);
-      line-height: 1;
-      margin-bottom: 16px;
-      opacity: 0.4;
-    }
-    .testimonial-text {
-      font-size: 0.95rem;
-      color: var(--text-mid);
-      font-style: italic;
-      line-height: 1.8;
-      margin-bottom: 24px;
-    }
-    .testimonial-author {
-      font-size: 0.75rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--gold);
-    }
-    .testimonial-stars {
-      color: var(--gold);
-      font-size: 0.7rem;
-      letter-spacing: 3px;
-      margin-bottom: 16px;
-    }
-
-    /* ── CONTACT / FOOTER ───────────────────────────────── */
-    #contact {
-      padding: 100px 48px;
-      background: var(--bg-2);
-      border-top: 1px solid rgba(176,120,40,0.12);
-    }
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-    .contact-info h3 {
-      font-family: var(--font-display);
-      font-size: 1.8rem;
-      color: var(--text);
-      margin-bottom: 24px;
-      font-style: italic;
-    }
-    .contact-detail {
-      display: flex;
-      gap: 16px;
-      margin-bottom: 20px;
-      align-items: flex-start;
-    }
-    .contact-detail-icon {
-      width: 36px; height: 36px;
-      border: 1px solid rgba(176,120,40,0.25);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--gold-pale);
-      color: var(--gold);
-      font-size: 0.85rem;
-      flex-shrink: 0;
-    }
-    .contact-detail-text p {
-      font-size: 0.85rem;
-      color: var(--text-mid);
-      line-height: 1.6;
-    }
-    .contact-detail-text strong {
-      color: var(--cream);
-      display: block;
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 4px;
-    }
-    .contact-social {
-      display: flex;
-      gap: 12px;
-      margin-top: 32px;
-    }
-    .social-btn {
-      width: 44px; height: 44px;
-      border: 1px solid rgba(176,120,40,0.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-dim);
-      text-decoration: none;
-      font-size: 0.9rem;
-      transition: border-color var(--transition), color var(--transition), background var(--transition);
-    }
-    .social-btn:hover {
-      border-color: var(--gold);
-      color: var(--gold);
-      background: rgba(176,120,40,0.06);
-    }
-    .map-placeholder {
-      background: var(--bg);
-      border: 1px solid rgba(176,120,40,0.15);
-      height: 280px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-dim);
-      font-size: 0.8rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      margin-top: 24px;
-      position: relative;
-      overflow: hidden;
-    }
-    .map-placeholder::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(176,120,40,0.07) 39px, rgba(176,120,40,0.07) 40px),
-        repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(176,120,40,0.07) 39px, rgba(176,120,40,0.07) 40px);
-    }
-
-    /* Footer */
-    footer {
-      background: var(--hero-bg);
-      padding: 32px 48px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-top: 1px solid rgba(176,120,40,0.15);
-    }
-    .footer-logo {
-      font-family: var(--font-display);
-      font-size: 1.1rem;
-      font-weight: 900;
-      letter-spacing: 0.25em;
-      color: var(--gold);
-    }
-    .footer-copy {
-      font-size: 0.75rem;
-      color: rgba(250,250,248,0.5);
-      letter-spacing: 0.1em;
-    }
-    .footer-copy a { color: var(--gold); text-decoration: none; }
-
-    /* Install banner */
-    #install-banner {
-      position: fixed;
-      bottom: 24px; left: 50%;
-      transform: translateX(-50%);
-      background: var(--bg-3);
-      border: 1px solid var(--gold);
-      padding: 14px 20px;
-      display: none;
-      align-items: center;
-      gap: 16px;
-      z-index: 300;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-      max-width: 90vw;
-      width: max-content;
-      animation: slideUp 0.5s var(--ease-out);
-    }
-    @keyframes slideUp {
-      from { transform: translateX(-50%) translateY(20px); opacity: 0; }
-      to   { transform: translateX(-50%) translateY(0); opacity: 1; }
-    }
-    #install-banner p { font-size: 0.85rem; color: var(--text-mid); }
-    #install-banner strong { color: var(--gold); }
-    #install-btn {
-      background: var(--gold);
-      color: var(--black);
-      border: none;
-      padding: 10px 20px;
-      font-family: var(--font-body);
-      font-size: 0.75rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      font-weight: 600;
-      cursor: pointer;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-    #install-dismiss {
-      background: none;
-      border: none;
-      color: var(--text-dim);
-      font-size: 1.2rem;
-      cursor: pointer;
-      padding: 4px;
-      line-height: 1;
-      flex-shrink: 0;
-    }
-
-    /* iOS install banner */
-    #ios-banner {
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
-      background: var(--white);
-      border-top: 2px solid var(--gold);
-      padding: 20px 24px 32px;
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      z-index: 300;
-      box-shadow: 0 -8px 40px rgba(28,24,18,0.12);
-      animation: slideUpFull 0.4s var(--ease-out);
-    }
-    @keyframes slideUpFull {
-      from { transform: translateY(100%); }
-      to   { transform: translateY(0); }
-    }
-    #ios-banner.visible { display: flex; }
-    #ios-content { padding: 0 24px; }
-    #ios-arrow {
-      color: var(--gold);
-      font-size: 1.2rem;
-      margin-top: 12px;
-      animation: bounce 1.5s ease-in-out infinite;
-    }
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(6px); }
-    }
-    #ios-dismiss {
-      position: absolute;
-      top: 12px; right: 16px;
-      background: none;
-      border: none;
-      color: var(--text-dim);
-      font-size: 1.1rem;
-      cursor: pointer;
-      padding: 4px;
-    }
-
-    /* Reveal animations */
-    .reveal {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
-    }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .reveal-delay-1 { transition-delay: 0.1s; }
-    .reveal-delay-2 { transition-delay: 0.2s; }
-    .reveal-delay-3 { transition-delay: 0.3s; }
-
-    /* ── MOBILE ──────────────────────────────────────────── */
-    @media (max-width: 900px) {
-      nav { padding: 16px 24px; }
-      nav.scrolled { padding: 12px 24px; }
-      .nav-links { display: none !important; }
-      .nav-hamburger { display: flex; }
-
-      #hero { padding: 100px 24px 60px; }
-      .hero-line { left: 24px; }
-      .hero-number { display: none; }
-      .scroll-indicator { display: none; }
-
-      #stats { padding: 32px 24px; }
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
-      .stat-item:nth-child(2) { border-right: none; }
-      .stat-item { border-bottom: 1px solid rgba(176,120,40,0.15); }
-      .stat-item:nth-child(3), .stat-item:nth-child(4) { border-bottom: none; }
-
-      #gallery { padding: 80px 24px; }
-      .gallery-grid { grid-template-columns: 1fr 1fr; }
-      .gallery-item:nth-child(1) { grid-row: auto; aspect-ratio: 3/4; }
-      .gallery-item:nth-child(5) { grid-column: auto; aspect-ratio: 3/4; }
-      .gallery-item:nth-child(7) { grid-row: auto; aspect-ratio: 3/4; }
-
-      #about { padding: 80px 24px; }
-      .about-grid { grid-template-columns: 1fr; gap: 48px; }
-      .about-portrait { max-width: 320px; margin: 0 auto; }
-
-      #services { padding: 80px 24px; }
-      .services-grid { grid-template-columns: 1fr; gap: 2px; }
-
-      #booking { padding: 80px 24px; }
-      .form-row { grid-template-columns: 1fr; }
-
-      #testimonials { padding: 60px 0; }
-
-      #contact { padding: 80px 24px; }
-      .contact-grid { grid-template-columns: 1fr; gap: 48px; }
-
-      footer { flex-direction: column; gap: 12px; text-align: center; padding: 24px; }
-
-      #cursor, #cursor-ring { display: none; }
-      body { cursor: auto; }
-      .form-input, .form-select, .form-textarea { cursor: auto; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="description" content="Nicolas Tatoo — Tatoueur en devenir Paris. Flash, custom, blackwork. Réservez.">
+<meta name="theme-color" content="#C1121F">
+<link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Nicolas Tatoo">
+<link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self';style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;font-src 'self' https://fonts.gstatic.com;img-src 'self' data:;script-src 'self' 'unsafe-inline';connect-src 'self';">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Nicolas Tatoo — Tatoueur Paris</title>
+<style>
+:root{
+  --ink:#14111A;--ink2:#1C1828;--ink3:#241F32;--ink4:#2E2840;
+  --red:#C1121F;--redl:#E63946;--redd:#7D0A13;--redp:rgba(193,18,31,.08);
+  --amb:#F4A261;--ambl:#F7C59F;--ambd:#C07830;
+  --pearl:#FFF8F0;--pearl2:#EDE0D4;--pearld:#A89880;
+  --white:#fff;--shadow:rgba(14,11,26,.5);
+  --ft:'Playfair Display',Georgia,serif;--fb:'Inter',system-ui,sans-serif;
+  --ease:cubic-bezier(.25,.46,.45,.94);--eo:cubic-bezier(.16,1,.3,1);--t:.35s;
+  --tbh:64px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{background:var(--ink);color:var(--pearl);font-family:var(--fb);font-size:16px;line-height:1.7;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+/* CURSOR */
+#cur,#ring{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+#cur{width:10px;height:10px;background:var(--red);border-radius:50%;transition:width .3s,height .3s;mix-blend-mode:screen}
+#ring{width:34px;height:34px;border:1px solid var(--red);border-radius:50%;transition:transform .14s,width .35s,height .35s,opacity .3s;opacity:.5}
+body.ch #cur{width:18px;height:18px}body.ch #ring{width:52px;height:52px;opacity:.2}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:20px 48px;transition:background var(--t),padding var(--t),box-shadow var(--t)}
+nav.sc{background:rgba(20,17,26,.95);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);padding:14px 48px;box-shadow:0 2px 24px var(--shadow);border-bottom:1px solid rgba(193,18,31,.15)}
+.logo{font-family:var(--ft);font-size:1.2rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--pearl)}
+.logo span{color:var(--red)}
+.nl{display:flex;gap:32px;list-style:none;align-items:center}
+.nl a{font-size:.76rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--pearld);position:relative;transition:color var(--t)}
+.nl a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--red);transition:width var(--t)}
+.nl a:hover{color:var(--pearl)}.nl a:hover::after{width:100%}
+.nl .cta{background:var(--red)!important;color:var(--pearl)!important;padding:9px 22px!important;font-size:.73rem!important;transition:background var(--t),transform var(--t)!important}
+.nl .cta:hover{background:var(--redl)!important;transform:translateY(-1px)}.nl .cta::after{display:none!important}
+/* TOOLBAR */
+#tb{display:none;position:fixed;bottom:0;left:0;right:0;height:var(--tbh);background:rgba(20,17,26,.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid rgba(193,18,31,.25);z-index:200;padding-bottom:env(safe-area-inset-bottom)}
+.tbi{display:flex;align-items:stretch;height:100%;max-width:480px;margin:0 auto}
+.tb{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;border:none;background:none;color:var(--pearld);font-family:var(--fb);font-size:.58rem;font-weight:500;letter-spacing:.07em;text-transform:uppercase;cursor:pointer;transition:color var(--t);-webkit-tap-highlight-color:transparent;padding:0 4px}
+.tb svg{width:22px;height:22px;stroke-width:1.5}.tb:hover,.tb.on{color:var(--red)}.tb.on svg{stroke:var(--red)}
+.tb.main .dot{width:46px;height:46px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:2px;box-shadow:0 4px 16px rgba(193,18,31,.5);transition:transform var(--t),box-shadow var(--t)}
+.tb.main:hover .dot{transform:translateY(-3px);box-shadow:0 8px 24px rgba(193,18,31,.6)}
+.tb.main svg{stroke:var(--pearl)}.tb.main span{color:var(--red);font-weight:600}
+/* HERO */
+#hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:120px 48px 80px;overflow:hidden}
+.hbg{position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 55% 70% at 75% 45%,rgba(193,18,31,.07) 0%,transparent 60%),radial-gradient(ellipse 40% 50% at 20% 75%,rgba(244,162,97,.04) 0%,transparent 55%),linear-gradient(150deg,#14111A 35%,#1C1828 100%)}
+.hline{position:absolute;left:48px;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,var(--redd) 25%,var(--red) 55%,transparent);opacity:.35;z-index:0}
+.hghost{position:absolute;right:-10px;bottom:30px;font-family:var(--ft);font-size:clamp(8rem,22vw,18rem);font-weight:900;color:rgba(193,18,31,.04);line-height:1;pointer-events:none;user-select:none;letter-spacing:-.02em;z-index:0}
+.hc{position:relative;z-index:2;max-width:680px}
+.htag{display:inline-flex;align-items:center;gap:10px;font-size:.68rem;font-weight:600;letter-spacing:.35em;text-transform:uppercase;color:var(--red);margin-bottom:20px;opacity:0;animation:fup .8s var(--eo) .7s both}
+.htag::before{content:'';width:32px;height:1px;background:var(--red)}
+h1{font-family:var(--ft);font-size:clamp(3.2rem,9vw,8rem);font-weight:900;line-height:.9;letter-spacing:-.02em;color:var(--pearl);margin-bottom:8px;opacity:0;animation:fup 1s var(--eo) .95s both}
+h1 em{font-style:italic;color:var(--red)}
+.hsub{font-family:var(--ft);font-size:clamp(1.2rem,3vw,2rem);font-style:italic;font-weight:400;color:var(--pearld);margin-bottom:28px;opacity:0;animation:fup 1s var(--eo) 1.15s both}
+.hdesc{font-size:.93rem;font-weight:300;color:var(--pearld);max-width:400px;margin-bottom:44px;line-height:1.8;opacity:0;animation:fup 1s var(--eo) 1.3s both}
+.hdesc strong{color:var(--pearl);font-weight:500}
+.hact{display:flex;gap:16px;flex-wrap:wrap;opacity:0;animation:fup 1s var(--eo) 1.5s both}
+.hbadges{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px;opacity:0;animation:fup 1s var(--eo) 1.7s both}
+.hbadge{display:inline-flex;align-items:center;gap:6px;font-size:.67rem;font-weight:500;letter-spacing:.1em;color:var(--pearld);text-transform:uppercase}
+.hbadge::before{content:'';width:6px;height:6px;background:var(--red);border-radius:50%;flex-shrink:0}
+.scue{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;opacity:0;animation:fi 1s ease 2.5s both;z-index:2}
+.scue span{font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--red)}
+.scuel{width:1px;height:44px;background:linear-gradient(to bottom,var(--red),transparent);animation:pl 2s ease-in-out infinite}
+@keyframes pl{0%,100%{opacity:.3;transform:scaleY(.8)}50%{opacity:1;transform:scaleY(1) translateY(4px)}}
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;font-family:var(--fb);font-size:.73rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;transition:transform var(--t),box-shadow var(--t),background var(--t);cursor:pointer;border:none}
+.br{background:var(--red);color:var(--pearl);box-shadow:0 4px 20px rgba(193,18,31,.3)}
+.br:hover{background:var(--redl);transform:translateY(-2px);box-shadow:0 8px 30px rgba(193,18,31,.45)}
+.bg{background:transparent;color:var(--pearl);border:1px solid rgba(255,248,240,.25)}
+.bg:hover{border-color:var(--pearl);transform:translateY(-2px)}
+/* COMMONS */
+section{position:relative;z-index:2}
+.cont{max-width:1140px;margin:0 auto;padding:0 48px}
+.sp{padding:100px 0}
+.sl{display:block;font-size:.63rem;font-weight:600;letter-spacing:.45em;text-transform:uppercase;color:var(--red);margin-bottom:14px}
+h2{font-family:var(--ft);font-size:clamp(1.8rem,4.5vw,3.5rem);font-weight:700;color:var(--pearl);line-height:1.1}
+h2 em{font-style:italic;color:var(--red)}
+.rule{display:flex;align-items:center;gap:12px;margin-top:16px}
+.rule span{height:1px;width:48px;background:linear-gradient(to right,var(--red),transparent)}
+.rule span:last-child{background:linear-gradient(to left,var(--red),transparent)}
+.rule i{color:var(--red);font-size:.45rem;font-style:normal}
+.center{text-align:center}.center .rule{justify-content:center}
+.rev{opacity:0;transform:translateY(32px);transition:opacity .7s var(--eo),transform .7s var(--eo)}
+.rev.vis{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+@keyframes fup{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fi{from{opacity:0}to{opacity:1}}
+/* STATS */
+#stats{background:var(--ink2);border-top:1px solid rgba(193,18,31,.15);border-bottom:1px solid rgba(193,18,31,.15)}
+.sgrid{display:grid;grid-template-columns:repeat(4,1fr);max-width:900px;margin:0 auto;padding:44px 48px}
+.stat{text-align:center;padding:0 16px;border-right:1px solid rgba(255,248,240,.06)}
+.stat:last-child{border-right:none}
+.sn{font-family:var(--ft);font-size:2.8rem;font-weight:900;color:var(--red);line-height:1;display:block;margin-bottom:6px}
+.sl2{font-size:.66rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--pearld)}
+/* FLASH */
+#flash{background:var(--ink);padding:100px 0}
+.fi2{max-width:600px;margin:0 auto 56px;text-align:center}
+.fi2 p{color:var(--pearld);font-size:.93rem;line-height:1.8;margin-top:20px}
+.fgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-bottom:40px}
+.fc{background:var(--ink2);position:relative;overflow:hidden;aspect-ratio:3/4;cursor:pointer;transition:transform .5s var(--eo)}
+.fc:hover{transform:scale(1.02);z-index:1}
+.fc:nth-child(2){aspect-ratio:auto;grid-row:span 2}
+.fart{width:100%;height:100%;display:flex;align-items:center;justify-content:center}
+.fov{position:absolute;inset:0;background:linear-gradient(to top,rgba(14,11,26,.95) 0%,rgba(14,11,26,0) 55%);display:flex;flex-direction:column;justify-content:flex-end;padding:20px;opacity:0;transition:opacity .35s}
+.fc:hover .fov{opacity:1}
+.fstyle{font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--red);margin-bottom:4px}
+.fname{font-family:var(--ft);font-size:1.1rem;font-weight:700;color:var(--pearl);margin-bottom:8px}
+.fprice{display:inline-flex;align-items:center;gap:8px;background:var(--red);color:var(--pearl);padding:5px 12px;font-size:.7rem;font-weight:600;letter-spacing:.1em}
+.fprice s{opacity:.5;font-weight:300}
+.fbadge{position:absolute;top:12px;right:12px;background:var(--amb);color:var(--ink);font-size:.56rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px}
+.fcta{text-align:center}
+/* MODELES */
+#mod{background:var(--redd);padding:80px 0;position:relative;overflow:hidden}
+#mod::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 30% 50%,rgba(193,18,31,.3) 0%,transparent 70%)}
+.modi{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.modc h2{color:var(--pearl)}
+.modc p{color:rgba(255,248,240,.75);font-size:.93rem;line-height:1.8;margin-top:20px;margin-bottom:32px}
+.perks{display:flex;flex-direction:column;gap:12px;margin-bottom:32px}
+.perk{display:flex;align-items:center;gap:12px;font-size:.85rem;color:rgba(255,248,240,.85)}
+.pico{width:32px;height:32px;flex-shrink:0;background:rgba(255,248,240,.1);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:1rem}
+.modv{background:rgba(14,11,26,.3);border:1px solid rgba(255,248,240,.1);padding:36px;text-align:center}
+.bign{font-family:var(--ft);font-size:5rem;font-weight:900;color:var(--pearl);line-height:1;margin-bottom:8px}
+.modv p{color:rgba(255,248,240,.6);font-size:.85rem}
+.hl{font-size:1.5rem;font-weight:700;color:var(--amb);margin-top:16px;display:block}
+/* PARCOURS */
+#parcours{background:var(--ink2);padding:100px 0}
+.tl{position:relative;margin-top:56px;padding-left:32px;max-width:620px;margin-left:auto;margin-right:auto}
+.tl::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,var(--red),rgba(193,18,31,0))}
+.tli{position:relative;margin-bottom:44px;padding-left:32px}
+.tli::before{content:'';position:absolute;left:-7px;top:6px;width:15px;height:15px;border-radius:50%;border:2px solid var(--red);background:var(--ink2);transition:background var(--t)}
+.tli.act::before{background:var(--red);box-shadow:0 0 0 4px rgba(193,18,31,.2)}
+.tdate{font-size:.63rem;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+.ttit{font-family:var(--ft);font-size:1.3rem;font-weight:700;color:var(--pearl);margin-bottom:8px}
+.tdesc{font-size:.88rem;color:var(--pearld);line-height:1.75}
+.tcur{display:inline-flex;align-items:center;gap:6px;background:rgba(193,18,31,.12);border:1px solid rgba(193,18,31,.3);color:var(--red);font-size:.6rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;padding:3px 10px;margin-bottom:8px}
+.tcur::before{content:'';width:6px;height:6px;background:var(--red);border-radius:50%;animation:blink 1.2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+/* GALERIE */
+#gallery{background:var(--ink);padding:100px 0}
+.gg{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-top:56px}
+.gi{position:relative;overflow:hidden;aspect-ratio:3/4;background:var(--ink3);cursor:pointer}
+.gi:nth-child(1){grid-row:span 2;aspect-ratio:auto}
+.gi:nth-child(5){grid-column:span 2;aspect-ratio:16/9}
+.ga{width:100%;height:100%}
+.ga svg{transition:transform .7s var(--eo)}
+.gi:hover .ga svg{transform:scale(1.05)}
+.ghov{position:absolute;inset:0;background:linear-gradient(to top,rgba(14,11,26,.9) 0%,rgba(14,11,26,0) 55%);display:flex;flex-direction:column;justify-content:flex-end;padding:20px;opacity:0;transition:opacity .4s}
+.gi:hover .ghov{opacity:1}
+.gs{font-size:.56rem;letter-spacing:.3em;text-transform:uppercase;color:var(--red);margin-bottom:4px}
+.gn{font-family:var(--ft);font-size:1.1rem;font-weight:700;color:var(--pearl)}
+/* ABOUT */
+#about{background:var(--ink2);padding:100px 0}
+.abg{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.apf{position:relative;aspect-ratio:3/4;background:var(--ink3);overflow:hidden}
+.apf::after{content:'';position:absolute;bottom:-16px;right:-16px;width:80px;height:80px;border:1px solid var(--red);opacity:.3}
+.atag{position:absolute;top:20px;left:20px;z-index:2;background:var(--red);color:var(--pearl);font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:5px 12px}
+.atxt{font-size:.93rem;color:var(--pearld);line-height:1.85;margin-bottom:20px;font-weight:300}
+.atxt strong{color:var(--pearl);font-weight:500}
+.asig{font-family:var(--ft);font-size:2.2rem;font-style:italic;color:var(--red);margin:28px 0 24px}
+.chips{display:flex;gap:10px;flex-wrap:wrap}
+.chip{background:rgba(193,18,31,.1);border:1px solid rgba(193,18,31,.25);color:var(--red);font-size:.63rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:6px 14px}
+/* SERVICES */
+#services{background:var(--ink);padding:100px 0}
+.svcs{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:56px}
+.svc{background:var(--ink3);padding:44px 32px;position:relative;overflow:hidden;transition:background var(--t)}
+.svc::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--eo)}
+.svc:hover::after{transform:scaleX(1)}.svc:hover{background:#1E1A2A}
+.snum{position:absolute;top:20px;right:20px;font-family:var(--ft);font-size:3.5rem;font-weight:900;color:rgba(193,18,31,.06);line-height:1;user-select:none}
+.sico{font-size:1.8rem;margin-bottom:20px;display:block}
+.stit{font-family:var(--ft);font-size:1.3rem;font-weight:700;color:var(--pearl);margin-bottom:10px;line-height:1.2}
+.sdesc{font-size:.87rem;color:var(--pearld);line-height:1.75;margin-bottom:20px;font-weight:300}
+.sprice{font-family:var(--ft);font-size:1.5rem;font-weight:700;color:var(--red)}
+.sprice small{font-size:.73rem;font-family:var(--fb);color:var(--pearld);font-weight:300}
+.snew{display:inline-flex;background:var(--amb);color:var(--ink);font-size:.56rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;margin-bottom:14px}
+/* TEMOIGNAGES */
+#temo{background:var(--ink2);padding:100px 0;overflow:hidden}
+.ttrack{display:flex;gap:24px;margin-top:56px;animation:scroll 28s linear infinite;width:max-content}
+.ttrack:hover{animation-play-state:paused}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.tcard{width:320px;flex-shrink:0;background:var(--ink3);padding:28px;border:1px solid rgba(193,18,31,.1)}
+.tstars{color:var(--amb);font-size:.7rem;letter-spacing:2px;margin-bottom:12px}
+.tq{font-family:var(--ft);font-size:2.5rem;color:var(--red);line-height:1;margin-bottom:10px;opacity:.4}
+.ttxt{font-size:.87rem;color:var(--pearld);font-style:italic;line-height:1.75;margin-bottom:20px}
+.tauth{font-size:.63rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--red)}
+/* BOOKING */
+#booking{background:var(--ink);padding:100px 0}
+.bwrap{max-width:660px;margin:0 auto}
+.bnote{background:rgba(193,18,31,.08);border:1px solid rgba(193,18,31,.2);padding:14px 20px;margin-bottom:36px;font-size:.82rem;color:var(--pearld);line-height:1.6}
+.bnote strong{color:var(--red)}
+.bform{display:flex;flex-direction:column;gap:18px}
+.brow{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.fg{display:flex;flex-direction:column;gap:6px}
+.fl{font-size:.63rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--red)}
+.fi,.fsel,.fta{background:var(--ink3);border:1px solid rgba(255,248,240,.1);color:var(--pearl);padding:13px 15px;font-family:var(--fb);font-size:.92rem;font-weight:300;outline:none;transition:border-color var(--t);width:100%;appearance:none;-webkit-appearance:none}
+.fi::placeholder{color:var(--pearld);opacity:.5}
+.fi:focus,.fsel:focus,.fta:focus{border-color:var(--red)}
+.fsel{background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23C1121F' stroke-width='1.2' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:38px;cursor:pointer}
+.fsel option{background:var(--ink3)}
+.fta{resize:vertical;min-height:120px}
+.fsub{font-size:.73rem;color:var(--pearld);text-align:center;margin-top:4px;font-style:italic}
+.bok{display:none;background:rgba(193,18,31,.08);border:1px solid var(--red);padding:28px;text-align:center}
+.bok h3{font-family:var(--ft);font-size:1.4rem;color:var(--red);margin-bottom:8px}
+.bok p{font-size:.9rem;color:var(--pearld)}
+/* CONTACT */
+#contact{background:var(--ink2);padding:80px 0;border-top:1px solid rgba(193,18,31,.12)}
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.cinfo h3{font-family:var(--ft);font-size:1.6rem;font-style:italic;color:var(--pearl);margin-bottom:28px}
+.crow{display:flex;gap:14px;margin-bottom:20px;align-items:flex-start}
+.cico{width:38px;height:38px;flex-shrink:0;border:1px solid rgba(193,18,31,.25);background:rgba(193,18,31,.06);display:flex;align-items:center;justify-content:center;color:var(--red)}
+.ctxt strong{display:block;font-size:.6rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--red);margin-bottom:3px}
+.ctxt p{font-size:.85rem;color:var(--pearld);line-height:1.6}
+.socs{display:flex;gap:10px;margin-top:28px}
+.soc{width:42px;height:42px;border:1px solid rgba(255,248,240,.1);display:flex;align-items:center;justify-content:center;color:var(--pearld);transition:border-color var(--t),color var(--t),background var(--t)}
+.soc:hover{border-color:var(--red);color:var(--red);background:rgba(193,18,31,.06)}
+.cbox{background:var(--ink3);padding:36px;border:1px solid rgba(255,248,240,.06)}
+.cbox h4{font-family:var(--ft);font-size:1.4rem;color:var(--pearl);margin-bottom:16px}
+.cbox p{font-size:.88rem;color:var(--pearld);line-height:1.75;margin-bottom:20px}
+.ch{display:flex;flex-direction:column;gap:8px;margin-bottom:24px}
+.chr{display:flex;justify-content:space-between;align-items:center;font-size:.82rem;padding-bottom:8px;border-bottom:1px solid rgba(255,248,240,.05)}
+.chr span:first-child{color:var(--pearld);font-weight:300}.chr span:last-child{color:var(--pearl);font-weight:500}
+.open{color:var(--amb)!important}
+/* FOOTER */
+footer{background:var(--ink);padding:24px 48px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,248,240,.04)}
+.flogo{font-family:var(--ft);font-size:1rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--pearl)}
+.flogo span{color:var(--red)}
+footer p{font-size:.72rem;color:var(--pearld)}
+footer a{color:var(--red)}
+/* INSTALL */
+#ib{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--ink2);border:1px solid var(--red);padding:14px 20px;display:none;align-items:center;gap:14px;z-index:400;box-shadow:0 16px 48px var(--shadow);max-width:90vw;width:max-content;animation:slu .4s var(--eo)}
+@keyframes slu{from{transform:translateX(-50%) translateY(16px);opacity:0}to{transform:translateX(-50%) translateY(0);opacity:1}}
+#ib p{font-size:.82rem;color:var(--pearld)}#ib strong{color:var(--red)}
+#ibtn{background:var(--red);color:var(--pearl);border:none;padding:9px 18px;font-family:var(--fb);font-size:.7rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;flex-shrink:0}
+#idis{background:none;border:none;color:var(--pearld);font-size:1.1rem;cursor:pointer;padding:4px;flex-shrink:0}
+#ios{position:fixed;bottom:0;left:0;right:0;background:var(--ink2);border-top:2px solid var(--red);padding:20px 24px 32px;display:none;flex-direction:column;align-items:center;text-align:center;z-index:400;box-shadow:0 -8px 40px var(--shadow);animation:sluf .4s var(--eo)}
+@keyframes sluf{from{transform:translateY(100%)}to{transform:translateY(0)}}
+#ios.vis{display:flex}
+#iosc p{font-size:.82rem;color:var(--pearld);line-height:1.7}
+#iosar{color:var(--red);font-size:1.1rem;margin-top:12px;animation:bo .5s ease-in-out infinite alternate}
+@keyframes bo{from{transform:translateY(0)}to{transform:translateY(6px)}}
+#iosd{position:absolute;top:12px;right:16px;background:none;border:none;color:var(--pearld);font-size:1.1rem;cursor:pointer;padding:4px}
+/* RESPONSIVE */
+@media(max-width:900px){
+  .cont{padding:0 20px}
+  nav{padding:14px 20px}nav.sc{padding:10px 20px}
+  .nl{display:none!important}
+  body{padding-bottom:var(--tbh)}
+  #tb{display:flex}
+  #hero{padding:90px 20px 60px}.hline{left:20px}.hghost{display:none}.scue{display:none}
+  .sgrid{grid-template-columns:repeat(2,1fr);padding:32px 20px}
+  .stat:nth-child(2){border-right:none}
+  .stat{border-bottom:1px solid rgba(255,248,240,.06);padding:12px 0}
+  .stat:nth-child(3),.stat:nth-child(4){border-bottom:none}
+  .fgrid{grid-template-columns:1fr 1fr}
+  .fc:nth-child(2){grid-row:auto;aspect-ratio:3/4}
+  .modi{grid-template-columns:1fr;gap:32px}.modv{display:none}
+  .gg{grid-template-columns:1fr 1fr}
+  .gi:nth-child(1){grid-row:auto;aspect-ratio:3/4}
+  .gi:nth-child(5){grid-column:auto;aspect-ratio:3/4}
+  .abg{grid-template-columns:1fr;gap:40px}
+  .apor{max-width:300px;margin:0 auto}
+  .svcs{grid-template-columns:1fr}
+  .brow{grid-template-columns:1fr}
+  .cgrid{grid-template-columns:1fr;gap:40px}
+  footer{flex-direction:column;gap:10px;text-align:center;padding:20px}
+  #cur,#ring{display:none}body{cursor:auto}
+  .gg{padding:0 20px}
+}
+@media(max-width:480px){
+  .fgrid{grid-template-columns:1fr}
+  .sp{padding:72px 0}
+}
+</style>
 </head>
 <body>
+<div id="cur"></div><div id="ring"></div>
 
-  <!-- Custom Cursor -->
-  <div id="cursor"></div>
-  <div id="cursor-ring"></div>
+<!-- NAV desktop -->
+<nav id="nav">
+  <a href="#" class="logo">Nicolas <span>Tatoo</span></a>
+  <ul class="nl">
+    <li><a href="#flash">Flash</a></li>
+    <li><a href="#gallery">Galerie</a></li>
+    <li><a href="#about">À propos</a></li>
+    <li><a href="#services">Tarifs</a></li>
+    <li><a href="#booking" class="cta">Réserver</a></li>
+  </ul>
+</nav>
 
-  <!-- Navigation -->
-  <nav id="navbar">
-    <a href="#" class="nav-logo">INK <span>NOIR</span></a>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#gallery">Galerie</a></li>
-      <li><a href="#about">Artiste</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#testimonials">Avis</a></li>
-      <li><a href="#booking" class="nav-cta">Réserver</a></li>
-    </ul>
-    <button class="nav-hamburger" id="hamburger" aria-label="Menu">
-      <span></span><span></span><span></span>
+<!-- TOOLBAR mobile -->
+<nav id="tb" aria-label="Navigation principale">
+  <div class="tbi">
+    <button class="tb on" onclick="scrollTo(0,0)" aria-label="Accueil">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>Accueil</span>
     </button>
-  </nav>
-
-  <!-- Mobile Menu Overlay (hors <nav> pour éviter le bug backdrop-filter/stacking context) -->
-  <div id="mobile-menu" role="dialog" aria-modal="true" aria-label="Menu navigation">
-    <a href="#gallery" class="mobile-nav-link">Galerie</a>
-    <a href="#about" class="mobile-nav-link">Artiste</a>
-    <a href="#services" class="mobile-nav-link">Services</a>
-    <a href="#testimonials" class="mobile-nav-link">Avis</a>
-    <a href="#booking" class="mobile-nav-link mobile-cta">Réserver</a>
+    <button class="tb" onclick="goto('flash')" aria-label="Flash">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      <span>Flash</span>
+    </button>
+    <button class="tb main" onclick="goto('booking')" aria-label="Réserver">
+      <div class="dot">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="22" height="22"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      </div>
+      <span>Réserver</span>
+    </button>
+    <button class="tb" onclick="goto('gallery')" aria-label="Galerie">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      <span>Galerie</span>
+    </button>
+    <button class="tb" onclick="goto('contact')" aria-label="Contact">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+      <span>Contact</span>
+    </button>
   </div>
+</nav>
 
-  <!-- Hero -->
-  <section id="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-line"></div>
-    <div class="hero-content">
-      <p class="hero-eyebrow">Studio Parisien depuis 2015</p>
-      <h1 class="hero-title">
-        L'art<br>
-        du <em>corps</em>
-      </h1>
-      <p class="hero-subtitle">gravé dans l'éternité</p>
-      <p class="hero-desc">
-        Chaque tatouage est une œuvre unique, conçue avec vous.
-        Du minimalisme raffiné au réalisme saisissant — votre peau, notre toile.
-      </p>
-      <div class="hero-actions">
-        <a href="#gallery" class="btn-primary">Voir la Galerie</a>
-        <a href="#booking" class="btn-outline">Prendre RDV</a>
-      </div>
+<!-- HERO -->
+<section id="hero">
+  <div class="hbg"></div>
+  <div class="hline"></div>
+  <div class="hghost">ENCRE</div>
+  <div class="hc">
+    <p class="htag">Tatoueur Parisien</p>
+    <h1>L'art<br>naît <em>ici</em></h1>
+    <p class="hsub">sur votre peau, pour toujours</p>
+    <p class="hdesc">Je m'appelle <strong>Nicolas</strong>. Tatoueur en formation, passionné depuis toujours. Je mets mon <strong>énergie et ma créativité</strong> dans chaque trait, avec des tarifs accessibles pour construire notre aventure ensemble.</p>
+    <div class="hact">
+      <a href="#flash" class="btn br">Voir les Flash</a>
+      <a href="#mod" class="btn bg">Devenir Modèle</a>
     </div>
-    <div class="hero-number">INK</div>
-    <div class="scroll-indicator">
-      <span>Découvrir</span>
-      <div class="scroll-line"></div>
+    <div class="hbadges">
+      <span class="hbadge">Flash disponibles</span>
+      <span class="hbadge">Custom sur demande</span>
+      <span class="hbadge">Tarifs débutant</span>
+      <span class="hbadge">Paris &amp; alentours</span>
     </div>
-  </section>
-
-  <!-- Stats -->
-  <section id="stats">
-    <div class="stats-grid">
-      <div class="stat-item reveal">
-        <span class="stat-number" data-target="850">0</span>
-        <span class="stat-label">Clients satisfaits</span>
-      </div>
-      <div class="stat-item reveal reveal-delay-1">
-        <span class="stat-number" data-target="10">0</span>
-        <span class="stat-label">Années d'expérience</span>
-      </div>
-      <div class="stat-item reveal reveal-delay-2">
-        <span class="stat-number" data-target="6">0</span>
-        <span class="stat-label">Styles maîtrisés</span>
-      </div>
-      <div class="stat-item reveal reveal-delay-3">
-        <span class="stat-number" data-target="12">0</span>
-        <span class="stat-label">Concours remportés</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- Gallery -->
-  <section id="gallery">
-    <div class="section-header reveal">
-      <span class="section-tag">Portfolio</span>
-      <h2 class="section-title">Nos <em>Réalisations</em></h2>
-      <div class="section-divider">
-        <span></span>
-        <i>✦</i>
-        <span></span>
-      </div>
-    </div>
-    <div class="gallery-grid">
-      <!-- Gallery items with SVG placeholders styled as tattoo art -->
-      <div class="gallery-item">
-        <div class="gallery-placeholder">
-          <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;opacity:0.25">
-            <defs>
-              <radialGradient id="g1" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="#C9A84C" stop-opacity="0.4"/>
-                <stop offset="100%" stop-color="#C9A84C" stop-opacity="0"/>
-              </radialGradient>
-            </defs>
-            <rect width="300" height="400" fill="#111"/>
-            <ellipse cx="150" cy="200" rx="80" ry="120" fill="none" stroke="#C9A84C" stroke-width="0.5" opacity="0.5"/>
-            <ellipse cx="150" cy="200" rx="50" ry="80" fill="none" stroke="#C9A84C" stroke-width="0.5" opacity="0.4"/>
-            <line x1="150" y1="80" x2="150" y2="320" stroke="#C9A84C" stroke-width="0.5" opacity="0.3"/>
-            <circle cx="150" cy="200" r="8" fill="none" stroke="#C9A84C" stroke-width="0.8" opacity="0.7"/>
-            <text x="150" y="360" text-anchor="middle" fill="#C9A84C" font-size="9" opacity="0.4" font-family="serif" letter-spacing="4">BLACKWORK</text>
-          </svg>
-        </div>
-        <div class="gallery-overlay">
-          <span class="gallery-style">Blackwork</span>
-          <span class="gallery-name">Geometrica</span>
-        </div>
-      </div>
-      <div class="gallery-item">
-        <div class="gallery-placeholder">
-          <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
-            <rect width="300" height="400" fill="#0f0f0f"/>
-            <!-- Rose outline -->
-            <g opacity="0.3" transform="translate(150,200)">
-              <ellipse cx="0" cy="-20" rx="60" ry="80" fill="none" stroke="#C9A84C" stroke-width="0.8"/>
-              <ellipse cx="20" cy="-10" rx="45" ry="65" fill="none" stroke="#C9A84C" stroke-width="0.6"/>
-              <ellipse cx="-20" cy="-10" rx="45" ry="65" fill="none" stroke="#C9A84C" stroke-width="0.6"/>
-              <line x1="0" y1="60" x2="0" y2="130" stroke="#8B6B30" stroke-width="1.5"/>
-            </g>
-            <text x="150" y="360" text-anchor="middle" fill="#C9A84C" font-size="9" opacity="0.4" font-family="serif" letter-spacing="4">FINELINE</text>
-          </svg>
-        </div>
-        <div class="gallery-overlay">
-          <span class="gallery-style">Fine Line</span>
-          <span class="gallery-name">Botanical Rose</span>
-        </div>
-      </div>
-      <div class="gallery-item">
-        <div class="gallery-placeholder">
-          <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
-            <rect width="300" height="400" fill="#0A0A0A"/>
-            <!-- Lion geometric -->
-            <polygon points="150,80 200,130 230,190 210,260 150,290 90,260 70,190 100,130" fill="none" stroke="#C9A84C" stroke-width="0.6" opacity="0.3"/>
-            <polygon points="150,110 185,145 205,195 190,245 150,265 110,245 95,195 115,145" fill="none" stroke="#C9A84C" stroke-width="0.4" opacity="0.25"/>
-            <circle cx="150" cy="190" r="45" fill="none" stroke="#C9A84C" stroke-width="0.8" opacity="0.3"/>
-            <text x="150" y="360" text-anchor="middle" fill="#C9A84C" font-size="9" opacity="0.4" font-family="serif" letter-spacing="4">GÉOMÉTRIQUE</text>
-          </svg>
-        </div>
-        <div class="gallery-overlay">
-          <span class="gallery-style">Géométrique</span>
-          <span class="gallery-name">Lion Totem</span>
-        </div>
-      </div>
-      <div class="gallery-item">
-        <div class="gallery-placeholder">
-          <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
-            <rect width="300" height="400" fill="#111"/>
-            <!-- Mandala-ish circles -->
-            <g transform="translate(150,200)" opacity="0.3">
-              <circle cx="0" cy="0" r="90" fill="none" stroke="#C9A84C" stroke-width="0.5"/>
-              <circle cx="0" cy="0" r="70" fill="none" stroke="#C9A84C" stroke-width="0.4"/>
-              <circle cx="0" cy="0" r="50" fill="none" stroke="#C9A84C" stroke-width="0.6"/>
-              <circle cx="0" cy="0" r="25" fill="none" stroke="#C9A84C" stroke-width="0.8"/>
-              <circle cx="0" cy="0" r="6" fill="#C9A84C" opacity="0.5"/>
-              <line x1="-90" y1="0" x2="90" y2="0" stroke="#C9A84C" stroke-width="0.3"/>
-              <line x1="0" y1="-90" x2="0" y2="90" stroke="#C9A84C" stroke-width="0.3"/>
-              <line x1="-64" y1="-64" x2="64" y2="64" stroke="#C9A84C" stroke-width="0.2"/>
-              <line x1="64" y1="-64" x2="-64" y2="64" stroke="#C9A84C" stroke-width="0.2"/>
-            </g>
-            <text x="150" y="360" text-anchor="middle" fill="#C9A84C" font-size="9" opacity="0.4" font-family="serif" letter-spacing="4">MANDALA</text>
-          </svg>
-        </div>
-        <div class="gallery-overlay">
-          <span class="gallery-style">Ornamental</span>
-          <span class="gallery-name">Sacred Mandala</span>
-        </div>
-      </div>
-      <div class="gallery-item">
-        <div class="gallery-placeholder">
-          <svg viewBox="0 0 560 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
-            <rect width="560" height="300" fill="#0D0D0D"/>
-            <!-- Japanese wave motif -->
-            <g opacity="0.25" stroke="#C9A84C" fill="none">
-              <path d="M0,150 Q70,80 140,150 Q210,220 280,150 Q350,80 420,150 Q490,220 560,150" stroke-width="1.5"/>
-              <path d="M0,170 Q70,100 140,170 Q210,240 280,170 Q350,100 420,170 Q490,240 560,170" stroke-width="1"/>
-              <path d="M0,130 Q70,60 140,130 Q210,200 280,130 Q350,60 420,130 Q490,200 560,130" stroke-width="1"/>
-              <path d="M0,190 Q70,120 140,190 Q210,260 280,190 Q350,120 420,190 Q490,260 560,190" stroke-width="0.6"/>
-            </g>
-            <text x="280" y="270" text-anchor="middle" fill="#C9A84C" font-size="9" opacity="0.4" font-family="serif" letter-spacing="4">JAPONAIS · IREZUMI</text>
-          </svg>
-        </div>
-        <div class="gallery-overlay">
-          <span class="gallery-style">Japonais</span>
-          <span class="gallery-name">The Great Wave</span>
-        </div>
-      </div>
-      <div class="gallery-item">
-        <div class="gallery-placeholder">
-          <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
-            <rect width="300" height="400" fill="#0A0A0A"/>
-            <!-- Skull ornate -->
-            <g transform="translate(150,190)" opacity="0.28" stroke="#C9A84C" fill="none">
-              <ellipse cx="0" cy="-30" rx="65" ry="75" stroke-width="1"/>
-              <circle cx="-22" cy="-25" r="18" stroke-width="0.8"/>
-              <circle cx="22" cy="-25" r="18" stroke-width="0.8"/>
-              <path d="M-30,25 L-30,50 Q0,60 30,50 L30,25 M-15,25 L-15,50 M15,25 L15,50 M0,25 L0,50" stroke-width="0.8"/>
-              <path d="M-40,10 Q-60,0 -55,-15 Q-50,-30 -35,-20" stroke-width="0.6"/>
-              <path d="M40,10 Q60,0 55,-15 Q50,-30 35,-20" stroke-width="0.6"/>
-            </g>
-            <text x="150" y="360" text-anchor="middle" fill="#C9A84C" font-size="9" opacity="0.4" font-family="serif" letter-spacing="4">OLD SCHOOL</text>
-          </svg>
-        </div>
-        <div class="gallery-overlay">
-          <span class="gallery-style">Old School</span>
-          <span class="gallery-name">Memento Mori</span>
-        </div>
-      </div>
-      <div class="gallery-item">
-        <div class="gallery-placeholder">
-          <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
-            <rect width="300" height="400" fill="#111"/>
-            <!-- Watercolor-ish abstract -->
-            <g opacity="0.25">
-              <ellipse cx="130" cy="180" rx="90" ry="110" fill="#C9A84C" opacity="0.12"/>
-              <ellipse cx="170" cy="220" rx="80" ry="100" fill="#8B1A1A" opacity="0.1"/>
-              <ellipse cx="150" cy="200" rx="60" ry="80" fill="#C9A84C" opacity="0.1"/>
-              <circle cx="150" cy="200" r="25" fill="none" stroke="#C9A84C" stroke-width="1" opacity="0.5"/>
-            </g>
-            <text x="150" y="360" text-anchor="middle" fill="#C9A84C" font-size="9" opacity="0.4" font-family="serif" letter-spacing="4">AQUARELLE</text>
-          </svg>
-        </div>
-        <div class="gallery-overlay">
-          <span class="gallery-style">Aquarelle</span>
-          <span class="gallery-name">Abstract Soul</span>
-        </div>
-      </div>
-      <div class="gallery-item">
-        <div class="gallery-placeholder">
-          <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
-            <rect width="300" height="400" fill="#0f0f0f"/>
-            <!-- Minimalist mountain -->
-            <g opacity="0.3" stroke="#C9A84C" fill="none">
-              <polyline points="60,300 150,100 240,300" stroke-width="1.5"/>
-              <polyline points="80,300 150,130 220,300" stroke-width="0.6"/>
-              <line x1="50" y1="300" x2="250" y2="300" stroke-width="1"/>
-              <line x1="100" y1="300" x2="100" y2="270" stroke-width="0.5"/>
-              <line x1="200" y1="300" x2="200" y2="270" stroke-width="0.5"/>
-              <!-- Sun/Moon above -->
-              <circle cx="150" cy="70" r="20" stroke-width="0.8" opacity="0.6"/>
-            </g>
-            <text x="150" y="360" text-anchor="middle" fill="#C9A84C" font-size="9" opacity="0.4" font-family="serif" letter-spacing="4">MINIMALISTE</text>
-          </svg>
-        </div>
-        <div class="gallery-overlay">
-          <span class="gallery-style">Minimaliste</span>
-          <span class="gallery-name">Peaks & Moon</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- About -->
-  <section id="about">
-    <div class="about-grid">
-      <div class="about-portrait reveal">
-        <div class="about-portrait-frame">
-          <div class="about-portrait-inner">
-            <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" class="portrait-svg">
-              <defs>
-                <radialGradient id="portraitGrad" cx="50%" cy="40%" r="50%">
-                  <stop offset="0%" stop-color="#2A2A2A"/>
-                  <stop offset="100%" stop-color="#0A0A0A"/>
-                </radialGradient>
-              </defs>
-              <rect width="300" height="400" fill="url(#portraitGrad)"/>
-              <!-- Silhouette stylisée d'un tatoueur -->
-              <!-- Buste -->
-              <ellipse cx="150" cy="320" rx="90" ry="50" fill="#1A1A1A" opacity="0.8"/>
-              <!-- Corps -->
-              <rect x="110" y="240" width="80" height="100" rx="4" fill="#141414"/>
-              <!-- Cou -->
-              <rect x="133" y="195" width="34" height="50" fill="#1E1E1E"/>
-              <!-- Tête -->
-              <ellipse cx="150" cy="175" rx="50" ry="58" fill="#1E1E1E"/>
-              <!-- Cheveux -->
-              <ellipse cx="150" cy="125" rx="50" ry="22" fill="#0A0A0A"/>
-              <!-- Détails visage - yeux -->
-              <ellipse cx="132" cy="168" rx="8" ry="6" fill="#0A0A0A"/>
-              <ellipse cx="168" cy="168" rx="8" ry="6" fill="#0A0A0A"/>
-              <circle cx="134" cy="167" r="3" fill="#C9A84C" opacity="0.6"/>
-              <circle cx="170" cy="167" r="3" fill="#C9A84C" opacity="0.6"/>
-              <!-- Tatouage sur le bras -->
-              <g opacity="0.5" stroke="#C9A84C" fill="none" stroke-width="0.8">
-                <path d="M110,270 Q95,280 90,295 Q88,310 100,315" />
-                <circle cx="95" cy="285" r="6"/>
-                <line x1="89" y1="279" x2="102" y2="292"/>
-              </g>
-              <!-- Machine à tatouer dans la main -->
-              <rect x="175" y="260" width="45" height="20" rx="3" fill="#222" stroke="#C9A84C" stroke-width="0.5" opacity="0.6"/>
-              <line x1="220" y1="270" x2="235" y2="285" stroke="#C9A84C" stroke-width="1.5" opacity="0.5"/>
-              <!-- Tablier -->
-              <rect x="112" y="242" width="76" height="95" rx="2" fill="none" stroke="#C9A84C" stroke-width="0.4" opacity="0.3"/>
-              <!-- Golden overlay light -->
-              <radialGradient id="light" cx="50%" cy="30%" r="40%">
-                <stop offset="0%" stop-color="#C9A84C" stop-opacity="0.05"/>
-                <stop offset="100%" stop-color="#C9A84C" stop-opacity="0"/>
-              </radialGradient>
-              <rect width="300" height="400" fill="url(#light)"/>
-              <!-- Watermark -->
-              <text x="150" y="390" text-anchor="middle" fill="#C9A84C" font-size="8" opacity="0.25" font-family="serif" letter-spacing="3">INK NOIR STUDIO</text>
-            </svg>
-          </div>
-        </div>
-        <div class="about-portrait-corner"></div>
-      </div>
-      <div class="about-content">
-        <div class="section-header">
-          <span class="section-tag">L'Artiste</span>
-          <h2 class="section-title">Alexandre <em>Morel</em></h2>
-          <div class="section-divider">
-            <span></span>
-            <i>✦</i>
-            <span></span>
-          </div>
-        </div>
-        <p class="about-text reveal reveal-delay-1">
-          Tatoueur depuis <strong>plus de 10 ans</strong>, Alexandre a forgé son style 
-          entre Paris et Tokyo — une fusion entre la précision du trait occidental 
-          et la profondeur spirituelle de l'esthétique japonaise.
-        </p>
-        <p class="about-text reveal reveal-delay-2">
-          Chaque création naît d'une <strong>écoute profonde</strong> et d'un dialogue 
-          sincère. Votre histoire, vos symboles, vos émotions — transformés en 
-          une œuvre permanente qui vous ressemble.
-        </p>
-        <p class="about-text reveal reveal-delay-3">
-          Spécialiste du <strong>fine line</strong>, du <strong>blackwork géométrique</strong> 
-          et du <strong>réalisme noir & gris</strong>, il maîtrise également l'irezumi 
-          traditionnel japonais et les compositions ornementales.
-        </p>
-        <div class="about-signature reveal">Alexandre M.</div>
-        <div class="about-awards reveal">
-          <span class="award-badge">Paris Tattoo Convention 2023</span>
-          <span class="award-badge">Ink Awards 2022</span>
-          <span class="award-badge">Best Blackwork EU 2021</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Services -->
-  <section id="services">
-    <div class="section-header reveal">
-      <span class="section-tag">Tarifs & Styles</span>
-      <h2 class="section-title">Nos <em>Prestations</em></h2>
-      <div class="section-divider">
-        <span></span><i>✦</i><span></span>
-      </div>
-    </div>
-    <div class="services-grid">
-      <div class="service-card reveal">
-        <span class="service-number">01</span>
-        <span class="service-icon">🖊️</span>
-        <h3 class="service-title">Fine Line & Minimaliste</h3>
-        <p class="service-desc">Traits fins comme du fil, compositions épurées. L'élégance dans la discrétion — des créations qui traversent le temps sans jamais vieillir.</p>
-        <div class="service-price">à partir de 150€ <small>/ heure</small></div>
-      </div>
-      <div class="service-card reveal reveal-delay-1">
-        <span class="service-number">02</span>
-        <span class="service-icon">⬛</span>
-        <h3 class="service-title">Blackwork & Géométrie</h3>
-        <p class="service-desc">Encre noire totale, motifs sacrés et formes architecturales. Un style affirmé pour les esprits qui n'ont pas peur du noir absolu.</p>
-        <div class="service-price">à partir de 180€ <small>/ heure</small></div>
-      </div>
-      <div class="service-card reveal reveal-delay-2">
-        <span class="service-number">03</span>
-        <span class="service-icon">🌸</span>
-        <h3 class="service-title">Japonais · Irezumi</h3>
-        <p class="service-desc">Koi, dragons, cerisiers et divinités — l'art millénaire du tatouage japonais, exécuté avec respect de la tradition et modernité du trait.</p>
-        <div class="service-price">à partir de 200€ <small>/ heure</small></div>
-      </div>
-      <div class="service-card reveal">
-        <span class="service-number">04</span>
-        <span class="service-icon">🎭</span>
-        <h3 class="service-title">Réalisme Noir & Gris</h3>
-        <p class="service-desc">Portraits, animaux, paysages — rendus photographiques sur peau. Une technique exigeante qui demande patience et maîtrise absolue du dégradé.</p>
-        <div class="service-price">à partir de 220€ <small>/ heure</small></div>
-      </div>
-      <div class="service-card reveal reveal-delay-1">
-        <span class="service-number">05</span>
-        <span class="service-icon">💧</span>
-        <h3 class="service-title">Aquarelle & Couleur</h3>
-        <p class="service-desc">Éclaboussures de pigments, fondu de teintes vibrantes. Une technique qui imite le pinceau du peintre directement sur votre épiderme.</p>
-        <div class="service-price">à partir de 190€ <small>/ heure</small></div>
-      </div>
-      <div class="service-card reveal reveal-delay-2">
-        <span class="service-number">06</span>
-        <span class="service-icon">✏️</span>
-        <h3 class="service-title">Consultation & Design</h3>
-        <p class="service-desc">Rencontre dédiée à votre projet — écoute, esquisses, conseils de placement et devis personnalisé. Un moment essentiel avant toute création.</p>
-        <div class="service-price">Offert <small>sur RDV</small></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Testimonials -->
-  <section id="testimonials">
-    <div class="section-header reveal" style="padding: 0 48px;">
-      <span class="section-tag">Témoignages</span>
-      <h2 class="section-title">Ce qu'ils <em>disent</em></h2>
-      <div class="section-divider"><span></span><i>✦</i><span></span></div>
-    </div>
-    <div style="overflow: hidden; margin-top: 56px;">
-      <div class="testimonials-track" id="testimonialTrack">
-        <!-- Cards duplicated for infinite loop -->
-        <div class="testimonial-card">
-          <div class="testimonial-stars">★★★★★</div>
-          <div class="testimonial-quote">"</div>
-          <p class="testimonial-text">Alexandre a transformé une idée floue en chef-d'œuvre. Il a su capter l'essence de ce que je voulais sans que j'arrive à l'exprimer avec des mots.</p>
-          <span class="testimonial-author">— Camille R., Paris</span>
-        </div>
-        <div class="testimonial-card">
-          <div class="testimonial-stars">★★★★★</div>
-          <div class="testimonial-quote">"</div>
-          <p class="testimonial-text">Mon sleeve japonais est une vraie œuvre d'art. Chaque détail est parfait. Alexandre prend le temps de tout expliquer et met vraiment à l'aise.</p>
-          <span class="testimonial-author">— Thomas M., Lyon</span>
-        </div>
-        <div class="testimonial-card">
-          <div class="testimonial-stars">★★★★★</div>
-          <div class="testimonial-quote">"</div>
-          <p class="testimonial-text">Le fine line de mon avant-bras est d'une finesse incroyable. Trois ans plus tard, il est toujours aussi net. La qualité du trait est exceptionnelle.</p>
-          <span class="testimonial-author">— Sophie L., Bordeaux</span>
-        </div>
-        <div class="testimonial-card">
-          <div class="testimonial-stars">★★★★★</div>
-          <div class="testimonial-quote">"</div>
-          <p class="testimonial-text">Studio propre, ambiance zen, artiste passionné. Mon portrait en réalisme est bluffant — tout le monde me demande si c'est une photo.</p>
-          <span class="testimonial-author">— Marc D., Marseille</span>
-        </div>
-        <div class="testimonial-card">
-          <div class="testimonial-stars">★★★★★</div>
-          <div class="testimonial-quote">"</div>
-          <p class="testimonial-text">La consultation est hyper rassurante. Alexandre est patient, à l'écoute, et propose des idées auxquelles on n'avait pas pensé. Résultat magnifique.</p>
-          <span class="testimonial-author">— Laura P., Nantes</span>
-        </div>
-        <!-- Duplicate for seamless loop -->
-        <div class="testimonial-card">
-          <div class="testimonial-stars">★★★★★</div>
-          <div class="testimonial-quote">"</div>
-          <p class="testimonial-text">Alexandre a transformé une idée floue en chef-d'œuvre. Il a su capter l'essence de ce que je voulais sans que j'arrive à l'exprimer avec des mots.</p>
-          <span class="testimonial-author">— Camille R., Paris</span>
-        </div>
-        <div class="testimonial-card">
-          <div class="testimonial-stars">★★★★★</div>
-          <div class="testimonial-quote">"</div>
-          <p class="testimonial-text">Mon sleeve japonais est une vraie œuvre d'art. Chaque détail est parfait. Alexandre prend le temps de tout expliquer et met vraiment à l'aise.</p>
-          <span class="testimonial-author">— Thomas M., Lyon</span>
-        </div>
-        <div class="testimonial-card">
-          <div class="testimonial-stars">★★★★★</div>
-          <div class="testimonial-quote">"</div>
-          <p class="testimonial-text">Le fine line de mon avant-bras est d'une finesse incroyable. Trois ans plus tard, il est toujours aussi net. La qualité du trait est exceptionnelle.</p>
-          <span class="testimonial-author">— Sophie L., Bordeaux</span>
-        </div>
-        <div class="testimonial-card">
-          <div class="testimonial-stars">★★★★★</div>
-          <div class="testimonial-quote">"</div>
-          <p class="testimonial-text">Studio propre, ambiance zen, artiste passionné. Mon portrait en réalisme est bluffant — tout le monde me demande si c'est une photo.</p>
-          <span class="testimonial-author">— Marc D., Marseille</span>
-        </div>
-        <div class="testimonial-card">
-          <div class="testimonial-stars">★★★★★</div>
-          <div class="testimonial-quote">"</div>
-          <p class="testimonial-text">La consultation est hyper rassurante. Alexandre est patient, à l'écoute, et propose des idées auxquelles on n'avait pas pensé. Résultat magnifique.</p>
-          <span class="testimonial-author">— Laura P., Nantes</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Booking -->
-  <section id="booking">
-    <div class="booking-container">
-      <div class="section-header reveal">
-        <span class="section-tag">Prise de Rendez-Vous</span>
-        <h2 class="section-title">Réserver <em>votre séance</em></h2>
-        <div class="section-divider"><span></span><i>✦</i><span></span></div>
-      </div>
-
-      <div id="bookingConfirm" class="booking-confirm">
-        <h3>✦ Demande reçue</h3>
-        <p>Merci pour votre message. Alexandre vous contactera sous 48h pour confirmer votre rendez-vous.</p>
-      </div>
-
-      <div class="booking-form reveal reveal-delay-1" id="bookingForm">
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label" for="fname">Prénom</label>
-            <input class="form-input" type="text" id="fname" placeholder="Votre prénom" autocomplete="given-name">
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="lname">Nom</label>
-            <input class="form-input" type="text" id="lname" placeholder="Votre nom" autocomplete="family-name">
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label" for="email">Email</label>
-            <input class="form-input" type="email" id="email" placeholder="votre@email.fr" autocomplete="email">
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="phone">Téléphone</label>
-            <input class="form-input" type="tel" id="phone" placeholder="+33 6 xx xx xx xx" autocomplete="tel">
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label" for="style">Style souhaité</label>
-            <select class="form-select" id="style">
-              <option value="">— Choisir un style —</option>
-              <option>Fine Line & Minimaliste</option>
-              <option>Blackwork & Géométrie</option>
-              <option>Japonais · Irezumi</option>
-              <option>Réalisme Noir & Gris</option>
-              <option>Aquarelle & Couleur</option>
-              <option>Consultation uniquement</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="size">Taille estimée</label>
-            <select class="form-select" id="size">
-              <option value="">— Taille —</option>
-              <option>Petit (&lt; 5cm)</option>
-              <option>Moyen (5–15cm)</option>
-              <option>Grand (15–30cm)</option>
-              <option>Très grand (sleeve / dos)</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="placement">Zone du corps</label>
-          <input class="form-input" type="text" id="placement" placeholder="Ex : avant-bras gauche, cheville, omoplate...">
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="project">Décrivez votre projet</label>
-          <textarea class="form-textarea" id="project" placeholder="Parlez-moi de votre idée, de ce qu'il représente pour vous, de vos inspirations..."></textarea>
-        </div>
-        <button class="btn-primary" type="button" onclick="submitBooking()" style="align-self: center; margin-top: 8px;">
-          Envoyer ma Demande
-        </button>
-        <p class="booking-note">Consultation gratuite incluse · Réponse sous 48h · Devis sans engagement</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact">
-    <div class="contact-grid">
-      <div class="contact-info reveal">
-        <h3>Nous trouver</h3>
-        <div class="contact-detail">
-          <div class="contact-detail-icon">📍</div>
-          <div class="contact-detail-text">
-            <strong>Adresse</strong>
-            <p>42 Rue de la Roquette<br>75011 Paris, France<br><em style="color: var(--gold-dim); font-size: 0.8rem;">Métro : Bastille (L1, L5, L8)</em></p>
-          </div>
-        </div>
-        <div class="contact-detail">
-          <div class="contact-detail-icon">🕐</div>
-          <div class="contact-detail-text">
-            <strong>Horaires</strong>
-            <p>Mardi — Samedi : 11h → 20h<br>Sur rendez-vous uniquement</p>
-          </div>
-        </div>
-        <div class="contact-detail">
-          <div class="contact-detail-icon">✉️</div>
-          <div class="contact-detail-text">
-            <strong>Contact</strong>
-            <p>studio@ink-noir.fr<br>+33 1 42 XX XX XX</p>
-          </div>
-        </div>
-        <div class="contact-social">
-          <a href="#" class="social-btn" aria-label="Instagram">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-          </a>
-          <a href="#" class="social-btn" aria-label="TikTok">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 3c-.6 3-2.5 5-5 6V9c2.5-.5 4-2.5 4-6h-4v12a3 3 0 11-3-3V9a7 7 0 107 7V3z"/></svg>
-          </a>
-          <a href="#" class="social-btn" aria-label="Facebook">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
-          </a>
-          <a href="#" class="social-btn" aria-label="Pinterest">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 12c0-2.2 1.8-4 4-4 2.2 0 4 1.8 4 4 0 2.2-1.8 4-4 4-.7 0-1.4-.2-2-.5l-1 3.5"/><path d="M12 16v4"/></svg>
-          </a>
-        </div>
-      </div>
-      <div class="reveal reveal-delay-1">
-        <div class="map-placeholder">
-          <span>Carte · 42 Rue de la Roquette, Paris 11e</span>
-        </div>
-        <div style="margin-top: 24px; padding: 20px; border: 1px solid rgba(176,120,40,0.15); background: rgba(176,120,40,0.04);">
-          <p style="font-size: 0.8rem; color: var(--text-dim); line-height: 1.8;">
-            <strong style="color: var(--gold); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; display: block; margin-bottom: 8px;">À savoir avant de venir</strong>
-            Le studio est entièrement désinfecté avant chaque séance. 
-            Merci d'arriver reposé, hydraté et d'avoir mangé. 
-            Un accompagnant est le bienvenu. 
-            Acompte de 30% demandé à la réservation.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <div class="footer-logo">INK NOIR</div>
-    <p class="footer-copy">© 2025 INK NOIR Studio · <a href="#">Mentions légales</a> · <a href="#">RGPD</a></p>
-  </footer>
-
-  <!-- Install Banner Android -->
-  <div id="install-banner">
-    <div style="display:flex; flex-direction:column; gap:4px;">
-      <p><strong>INK NOIR</strong> — Installer l'app</p>
-      <p id="install-sub" style="font-size:0.75rem; opacity:0.7;">Accès rapide depuis votre écran d'accueil</p>
-    </div>
-    <button id="install-btn" onclick="installPWA()">Installer</button>
-    <button id="install-dismiss" onclick="dismissInstall()" aria-label="Fermer">✕</button>
   </div>
+  <div class="scue"><span>Scroll</span><div class="scuel"></div></div>
+</section>
 
-  <!-- Install Banner iOS -->
-  <div id="ios-banner">
-    <button id="ios-dismiss" onclick="dismissIos()" aria-label="Fermer">✕</button>
-    <div id="ios-content">
-      <div style="font-size:1.5rem; margin-bottom:8px;">📲</div>
-      <p style="font-weight:600; color:var(--gold); margin-bottom:6px; font-size:0.9rem;">Installer INK NOIR</p>
-      <p style="font-size:0.8rem; color:var(--text-mid); line-height:1.6;">
-        Appuyez sur <strong style="color:var(--cream);">Partager</strong> 
-        <svg style="display:inline;vertical-align:middle" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8M16 6l-4-4-4 4M12 2v13"/></svg>
-        puis <strong style="color:var(--cream);">« Sur l'écran d'accueil »</strong>
-        <svg style="display:inline;vertical-align:middle" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-      </p>
-    </div>
-    <div id="ios-arrow">▼</div>
+<!-- STATS -->
+<section id="stats">
+  <div class="sgrid">
+    <div class="stat rev"><span class="sn" data-t="47">0</span><span class="sl2">Tatouages réalisés</span></div>
+    <div class="stat rev d1"><span class="sn" data-t="2">0</span><span class="sl2">Ans de formation</span></div>
+    <div class="stat rev d2"><span class="sn" data-t="100">0</span><span class="sl2">% clients satisfaits</span></div>
+    <div class="stat rev d3"><span class="sn" data-t="12">0</span><span class="sl2">Modèles recherchés</span></div>
   </div>
+</section>
 
-  <script>
-    // ── CURSOR ──────────────────────────────────────────────
-    const cursor = document.getElementById('cursor');
-    const ring   = document.getElementById('cursor-ring');
-    if (cursor && ring) {
-      let mx = -100, my = -100, rx = -100, ry = -100;
-      document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-      const animateCursor = () => {
-        rx += (mx - rx) * 0.15;
-        ry += (my - ry) * 0.15;
-        cursor.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
-        ring.style.transform   = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
-        requestAnimationFrame(animateCursor);
-      };
-      animateCursor();
-      document.querySelectorAll('a, button, .gallery-item, .service-card').forEach(el => {
-        el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
-        el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
-      });
-    }
+<!-- FLASH -->
+<section id="flash">
+  <div class="cont sp">
+    <div class="fi2 rev center">
+      <span class="sl">Flash disponibles</span>
+      <h2>Designs <em>prêts à tatouer</em></h2>
+      <div class="rule" style="justify-content:center"><span></span><i>✦</i><span></span></div>
+      <p>Des compositions originales déjà prêtes. Prix réduits pour les premiers clients — l'occasion parfaite de vous lancer avec un design unique.</p>
+    </div>
+    <div class="fgrid">
+      <div class="fc rev">
+        <div class="fbadge">Dispo</div>
+        <div class="fart">
+          <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+            <rect width="300" height="400" fill="#14111A"/>
+            <g opacity=".5" stroke="#FFF8F0" fill="none" stroke-width=".9">
+              <path d="M150,80 L200,150 L180,160 L220,240 L150,200 L80,240 L120,160 L100,150 Z"/>
+              <path d="M150,100 L192,160 L175,168 L207,232 L150,196 L93,232 L125,168 L108,160 Z" stroke-width=".4" opacity=".4"/>
+              <circle cx="150" cy="150" r="30" opacity=".3"/>
+              <line x1="150" y1="80" x2="150" y2="320" opacity=".2"/>
+            </g>
+            <circle cx="150" cy="280" r="18" fill="#C1121F" opacity=".9"/>
+            <circle cx="150" cy="280" r="10" fill="#14111A" opacity=".8"/>
+            <circle cx="150" cy="280" r="4" fill="#C1121F"/>
+            <text x="150" y="360" text-anchor="middle" fill="#FFF8F0" font-size="8" opacity=".25" font-family="serif" letter-spacing="4">GÉOMÉTRIE</text>
+          </svg>
+        </div>
+        <div class="fov"><span class="fstyle">Géométrique</span><span class="fname">Eclipse</span><div class="fprice"><s>80€</s> 50€</div></div>
+      </div>
+      <div class="fc rev d1">
+        <div class="fbadge">Dispo</div>
+        <div class="fart">
+          <svg viewBox="0 0 300 600" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+            <rect width="300" height="600" fill="#1C1828"/>
+            <g opacity=".45" stroke="#FFF8F0" fill="none" stroke-width="1.2">
+              <path d="M150,80 Q220,120 200,180 Q180,240 230,280 Q280,320 240,380 Q200,440 150,420 Q100,400 110,340 Q120,280 80,240 Q40,200 80,140 Q110,90 150,80Z"/>
+              <path d="M150,80 L162,68 M150,80 L148,66" stroke="#C1121F" stroke-width=".9"/>
+              <ellipse cx="168" cy="105" rx="6" ry="4" stroke="#C1121F" stroke-width=".9"/>
+              <circle cx="168" cy="105" r="2" fill="#C1121F"/>
+            </g>
+            <text x="150" y="570" text-anchor="middle" fill="#FFF8F0" font-size="8" opacity=".2" font-family="serif" letter-spacing="4">SERPENT</text>
+          </svg>
+        </div>
+        <div class="fov"><span class="fstyle">Fine Line</span><span class="fname">Ouroboros</span><div class="fprice"><s>120€</s> 75€</div></div>
+      </div>
+      <div class="fc rev d2">
+        <div class="fart">
+          <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+            <rect width="300" height="400" fill="#14111A"/>
+            <g opacity=".45" stroke="#FFF8F0" fill="none" stroke-width=".9">
+              <ellipse cx="150" cy="160" rx="55" ry="70"/>
+              <ellipse cx="168" cy="150" rx="42" ry="58"/>
+              <ellipse cx="134" cy="150" rx="42" ry="58"/>
+              <ellipse cx="150" cy="140" rx="28" ry="44"/>
+              <line x1="150" y1="228" x2="150" y2="320" stroke-width="1.2"/>
+              <path d="M150,270 Q125,262 118,268" stroke-width=".7"/>
+              <path d="M150,290 Q170,282 178,290" stroke-width=".7"/>
+            </g>
+            <text x="150" y="360" text-anchor="middle" fill="#FFF8F0" font-size="8" opacity=".25" font-family="serif" letter-spacing="4">ROSE</text>
+          </svg>
+        </div>
+        <div class="fov"><span class="fstyle">Fine Line</span><span class="fname">Rose Éternelle</span><div class="fprice"><s>90€</s> 60€</div></div>
+      </div>
+      <div class="fc rev d1">
+        <div class="fart">
+          <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+            <rect width="300" height="400" fill="#1C1828"/>
+            <g opacity=".45" stroke="#F4A261" fill="none" stroke-width=".9">
+              <path d="M130,120 Q90,155 110,200 Q130,245 175,240 Q140,230 130,200 Q115,165 140,130 Q135,122 130,120Z" fill="rgba(244,162,97,.1)"/>
+              <circle cx="175" cy="180" r="35"/>
+              <line x1="175" y1="130" x2="175" y2="115"/><line x1="175" y1="230" x2="175" y2="245"/>
+              <line x1="125" y1="180" x2="110" y2="180"/><line x1="225" y1="180" x2="240" y2="180"/>
+              <line x1="140" y1="145" x2="130" y2="135"/><line x1="210" y1="215" x2="220" y2="225"/>
+              <line x1="210" y1="145" x2="220" y2="135"/><line x1="140" y1="215" x2="130" y2="225"/>
+            </g>
+            <text x="150" y="360" text-anchor="middle" fill="#FFF8F0" font-size="8" opacity=".2" font-family="serif" letter-spacing="4">SOL·LUNE</text>
+          </svg>
+        </div>
+        <div class="fov"><span class="fstyle">Illustratif</span><span class="fname">Dualité</span><div class="fprice"><s>100€</s> 65€</div></div>
+      </div>
+      <div class="fc rev d2">
+        <div class="fart">
+          <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+            <rect width="300" height="400" fill="#14111A"/>
+            <g opacity=".45" stroke="#FFF8F0" fill="none" stroke-width="1">
+              <polyline points="60,300 150,100 240,300"/>
+              <polyline points="85,300 150,130 215,300" stroke-width=".5" opacity=".4"/>
+              <line x1="40" y1="300" x2="260" y2="300"/>
+              <path d="M155,65 Q175,70 172,88 Q166,80 155,65Z" fill="rgba(255,248,240,.3)" stroke-width=".6"/>
+              <circle cx="148" cy="74" r="16" stroke-width=".8"/>
+              <circle cx="90" cy="130" r="1.5" fill="#FFF8F0"/><circle cx="210" cy="150" r="1" fill="#FFF8F0"/><circle cx="195" cy="115" r="1.5" fill="#FFF8F0"/>
+            </g>
+            <text x="150" y="360" text-anchor="middle" fill="#FFF8F0" font-size="8" opacity=".25" font-family="serif" letter-spacing="4">MINIMALISTE</text>
+          </svg>
+        </div>
+        <div class="fov"><span class="fstyle">Minimaliste</span><span class="fname">Peaks by Night</span><div class="fprice"><s>70€</s> 45€</div></div>
+      </div>
+    </div>
+    <div class="fcta rev"><a href="#booking" class="btn br">Réserver un Flash</a></div>
+  </div>
+</section>
 
-    // ── NAV SCROLL ─────────────────────────────────────────
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 60);
-    }, { passive: true });
+<!-- MODELES -->
+<section id="mod">
+  <div class="cont">
+    <div class="modi">
+      <div class="modc rev">
+        <span class="sl" style="color:var(--amb)">Appel à volontaires</span>
+        <h2>Je cherche des <em style="color:var(--amb)">modèles</em></h2>
+        <p>Vous avez envie d'un tatouage mais le budget est serré ? En tant que tatoueur en développement, je propose des séances à <strong style="color:var(--amb)">tarif réduit</strong> en échange de votre confiance et de l'autorisation de partager le résultat sur mes réseaux.</p>
+        <div class="perks">
+          <div class="perk"><div class="pico">💸</div>Tarifs 30 à 50% en dessous du marché</div>
+          <div class="perk"><div class="pico">🎨</div>Flash ou custom au choix</div>
+          <div class="perk"><div class="pico">📸</div>Photos du résultat offertes</div>
+          <div class="perk"><div class="pico">🔒</div>Matériel stérile certifié, protocoles stricts</div>
+          <div class="perk"><div class="pico">💬</div>Consultation gratuite avant toute séance</div>
+        </div>
+        <a href="#booking" class="btn" style="background:var(--amb);color:var(--ink);font-size:.72rem;padding:14px 28px;display:inline-flex">Je veux être modèle ↗</a>
+      </div>
+      <div class="modv rev d2">
+        <div class="bign">12</div>
+        <p>places de modèle<br>disponibles ce mois-ci</p>
+        <span class="hl">Places limitées 🔥</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-    // ── MOBILE MENU ────────────────────────────────────────
-    // Le menu est dans #mobile-menu (hors <nav>) pour éviter le bug
-    // position:fixed cassé par backdrop-filter sur le parent <nav>
-    const hamburger   = document.getElementById('hamburger');
-    const mobileMenu  = document.getElementById('mobile-menu');
+<!-- PARCOURS -->
+<section id="parcours">
+  <div class="cont sp">
+    <div class="center rev">
+      <span class="sl">Ma progression</span>
+      <h2>Mon <em>Parcours</em></h2>
+      <div class="rule" style="justify-content:center"><span></span><i>✦</i><span></span></div>
+    </div>
+    <div class="tl">
+      <div class="tli rev">
+        <div class="tdate">2022 — Le déclic</div>
+        <h3 class="ttit">La passion devient projet</h3>
+        <p class="tdesc">Après des années à dessiner et à m'intéresser au tatouage comme art, je décide de franchir le pas. Premiers achats de matériel, premières pratiques sur peau synthétique.</p>
+      </div>
+      <div class="tli rev d1">
+        <div class="tdate">2023 — Formation</div>
+        <h3 class="ttit">Apprentissage intensif</h3>
+        <p class="tdesc">Suivi d'une formation professionnelle : hygiène, stérilisation, techniques de trait, ombrage, placement anatomique. Premiers tatouages sur proches volontaires.</p>
+      </div>
+      <div class="tli act rev d2">
+        <div class="tcur">● En cours</div>
+        <div class="tdate">2024–2025 — Aujourd'hui</div>
+        <h3 class="ttit">Construction du portfolio</h3>
+        <p class="tdesc">J'affine mon style, je travaille mes designs flash, et je cherche des modèles pour développer ma galerie. Chaque séance est une opportunité d'apprendre et de progresser.</p>
+      </div>
+      <div class="tli rev d3">
+        <div class="tdate">2026 — Objectif</div>
+        <h3 class="ttit">Studio professionnel</h3>
+        <p class="tdesc">L'objectif : ouvrir mon propre espace de travail à Paris. En attendant, je reçois sur rendez-vous dans un cadre adapté, propre et professionnel.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-    function openMenu() {
-      hamburger.classList.add('open');
-      mobileMenu.classList.add('open');
-      // Délai pour permettre display:flex avant l'animation opacity
-      requestAnimationFrame(() => mobileMenu.classList.add('visible'));
-      document.body.style.overflow = 'hidden';
-    }
-    function closeMenu() {
-      hamburger.classList.remove('open');
-      mobileMenu.classList.remove('visible');
-      document.body.style.overflow = '';
-      // Attendre la fin de la transition opacity avant de masquer
-      mobileMenu.addEventListener('transitionend', () => {
-        if (!hamburger.classList.contains('open')) {
-          mobileMenu.classList.remove('open');
-        }
-      }, { once: true });
-    }
+<!-- GALERIE -->
+<section id="gallery">
+  <div class="cont sp">
+    <div class="center rev">
+      <span class="sl">Portfolio</span>
+      <h2>Mes <em>Réalisations</em></h2>
+      <div class="rule" style="justify-content:center"><span></span><i>✦</i><span></span></div>
+    </div>
+  </div>
+  <div style="padding:0 48px">
+    <div class="gg">
+      <div class="gi"><div class="ga"><svg viewBox="0 0 300 600" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%"><rect width="300" height="600" fill="#1C1828"/><g opacity=".4" stroke="#FFF8F0" fill="none" stroke-width=".8"><circle cx="150" cy="300" r="120"/><circle cx="150" cy="300" r="90"/><circle cx="150" cy="300" r="60"/><circle cx="150" cy="300" r="30"/><circle cx="150" cy="300" r="8" fill="#C1121F" stroke="none" opacity=".9"/><line x1="150" y1="180" x2="150" y2="420" stroke-width=".4"/><line x1="30" y1="300" x2="270" y2="300" stroke-width=".4"/><line x1="65" y1="215" x2="235" y2="385" stroke-width=".3"/><line x1="235" y1="215" x2="65" y2="385" stroke-width=".3"/></g></svg></div><div class="ghov"><span class="gs">Géométrique</span><span class="gn">Mandala Sacré</span></div></div>
+      <div class="gi"><div class="ga"><svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%"><rect width="300" height="400" fill="#14111A"/><g opacity=".4" stroke="#FFF8F0" fill="none" stroke-width="1"><path d="M150,80 Q200,100 210,160 Q220,220 180,260 Q140,300 120,350"/><path d="M150,80 Q100,100 90,160 Q80,220 120,260 Q160,300 180,350"/><ellipse cx="150" cy="80" rx="20" ry="25"/></g></svg></div><div class="ghov"><span class="gs">Fine Line</span><span class="gn">Branches</span></div></div>
+      <div class="gi"><div class="ga"><svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%"><rect width="300" height="400" fill="#1C1828"/><g opacity=".45" stroke="#C1121F" fill="none" stroke-width="1.2"><polygon points="150,80 230,200 190,320 110,320 70,200"/><polygon points="150,100 215,205 180,305 120,305 85,205" stroke-width=".6" opacity=".5"/><circle cx="150" cy="200" r="35"/><circle cx="150" cy="200" r="12" fill="#C1121F" opacity=".5" stroke="none"/></g></svg></div><div class="ghov"><span class="gs">Blackwork</span><span class="gn">Pentagone</span></div></div>
+      <div class="gi"><div class="ga"><svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%"><rect width="300" height="400" fill="#14111A"/><g opacity=".4" stroke="#F4A261" fill="none" stroke-width=".9"><circle cx="150" cy="190" r="70"/><circle cx="150" cy="190" r="50" stroke-width=".5"/><line x1="150" y1="100" x2="150" y2="75"/><line x1="150" y1="280" x2="150" y2="305"/><line x1="60" y1="190" x2="35" y2="190"/><line x1="240" y1="190" x2="265" y2="190"/><line x1="100" y1="140" x2="82" y2="122"/><line x1="200" y1="240" x2="218" y2="258"/><line x1="200" y1="140" x2="218" y2="122"/><line x1="100" y1="240" x2="82" y2="258"/><circle cx="150" cy="190" r="20" fill="rgba(244,162,97,.1)"/></g></svg></div><div class="ghov"><span class="gs">Illustratif</span><span class="gn">Soleil Levant</span></div></div>
+      <div class="gi"><div class="ga"><svg viewBox="0 0 560 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%"><rect width="560" height="300" fill="#1C1828"/><g opacity=".35" stroke="#FFF8F0" fill="none" stroke-width="1.2"><path d="M0,180 Q70,100 140,180 Q210,260 280,180 Q350,100 420,180 Q490,260 560,180"/><path d="M0,160 Q70,80 140,160 Q210,240 280,160 Q350,80 420,160 Q490,240 560,160" stroke-width=".7"/><path d="M0,200 Q70,120 140,200 Q210,280 280,200 Q350,120 420,200 Q490,280 560,200" stroke-width=".5"/></g><text x="280" y="278" text-anchor="middle" fill="#C1121F" font-size="8" opacity=".35" font-family="serif" letter-spacing="5">JAPONAIS · VAGUE</text></svg></div><div class="ghov"><span class="gs">Japonais</span><span class="gn">La Grande Vague</span></div></div>
+      <div class="gi"><div class="ga"><svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%"><rect width="300" height="400" fill="#14111A"/><g opacity=".4" stroke="#FFF8F0" fill="none" stroke-width=".8"><path d="M150,100 Q190,130 185,170 Q180,210 150,220 Q120,210 115,170 Q110,130 150,100Z"/><line x1="150" y1="220" x2="150" y2="310"/><path d="M150,255 L125,240 M150,275 L170,260" stroke-width=".6"/><ellipse cx="150" cy="90" rx="18" ry="22"/></g></svg></div><div class="ghov"><span class="gs">Minimaliste</span><span class="gn">Silhouette</span></div></div>
+      <div class="gi"><div class="ga"><svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%"><rect width="300" height="400" fill="#1C1828"/><g opacity=".4" stroke="#C1121F" fill="none" stroke-width=".9"><path d="M150,280 Q80,240 85,170 Q90,100 150,90 Q210,100 215,170 Q220,240 150,280Z"/><ellipse cx="150" cy="175" rx="40" ry="55" stroke-width=".5"/><circle cx="134" cy="165" r="10"/><circle cx="166" cy="165" r="10"/><path d="M130,200 Q150,215 170,200" stroke-width=".8"/></g></svg></div><div class="ghov"><span class="gs">Old School</span><span class="gn">Crâne Classique</span></div></div>
+      <div class="gi"><div class="ga"><svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%"><rect width="300" height="400" fill="#14111A"/><g opacity=".4" stroke="#FFF8F0" fill="none" stroke-width="1"><path d="M100,300 Q110,240 150,200 Q190,160 200,100"/><path d="M120,310 Q125,260 155,225 Q185,190 185,140" stroke-width=".5"/><ellipse cx="200" cy="95" rx="28" ry="22"/><path d="M172,75 Q165,50 180,42 Q195,35 200,55"/><path d="M228,75 Q235,50 220,42 Q205,35 200,55"/></g></svg></div><div class="ghov"><span class="gs">Fine Line</span><span class="gn">Oiseau du Paradis</span></div></div>
+    </div>
+  </div>
+</section>
 
-    hamburger.addEventListener('click', () => {
-      if (hamburger.classList.contains('open')) closeMenu();
-      else openMenu();
-    });
+<!-- ABOUT -->
+<section id="about">
+  <div class="cont sp">
+    <div class="abg">
+      <div class="apor rev">
+        <div class="apf">
+          <div class="atag">Nicolas Tatoo</div>
+          <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+            <defs><radialGradient id="pg" cx="50%" cy="35%" r="55%"><stop offset="0%" stop-color="#2A2440"/><stop offset="100%" stop-color="#14111A"/></radialGradient></defs>
+            <rect width="300" height="400" fill="url(#pg)"/>
+            <ellipse cx="150" cy="330" rx="95" ry="45" fill="#1C1828" opacity=".9"/>
+            <rect x="108" y="240" width="84" height="105" rx="3" fill="#1A162A"/>
+            <rect x="130" y="190" width="40" height="55" fill="#1E1A2E"/>
+            <ellipse cx="150" cy="170" rx="52" ry="60" fill="#1E1A2E"/>
+            <ellipse cx="150" cy="118" rx="52" ry="20" fill="#14111A"/>
+            <ellipse cx="133" cy="162" rx="7" ry="5.5" fill="#14111A"/>
+            <ellipse cx="167" cy="162" rx="7" ry="5.5" fill="#14111A"/>
+            <circle cx="135" cy="161" r="2.5" fill="#C1121F" opacity=".7"/>
+            <circle cx="169" cy="161" r="2.5" fill="#C1121F" opacity=".7"/>
+            <rect x="178" y="258" width="48" height="18" rx="4" fill="#241F32" stroke="#C1121F" stroke-width=".6" opacity=".7"/>
+            <line x1="226" y1="267" x2="242" y2="282" stroke="#C1121F" stroke-width="1.5" opacity=".6"/>
+            <g opacity=".4" stroke="#C1121F" fill="none" stroke-width=".7"><circle cx="97" cy="280" r="8"/><line x1="89" y1="272" x2="105" y2="288"/></g>
+            <rect x="110" y="243" width="80" height="100" rx="2" fill="none" stroke="#C1121F" stroke-width=".4" opacity=".2"/>
+            <text x="150" y="392" text-anchor="middle" fill="#C1121F" font-size="7" opacity=".3" font-family="serif" letter-spacing="3">NICOLAS TATOO · PARIS</text>
+          </svg>
+        </div>
+      </div>
+      <div class="acont">
+        <span class="sl">Qui suis-je</span>
+        <h2>Nicolas <em>Tatoo</em></h2>
+        <div class="rule" style="margin-bottom:28px"><span></span><i>✦</i><span></span></div>
+        <p class="atxt rev d1">Bonjour ! Je m'appelle <strong>Nicolas</strong>, tatoueur en cours de lancement à Paris. Le tatouage, c'est pour moi bien plus qu'une technique — c'est une façon de transformer une idée, une émotion, un souvenir en quelque chose de <strong>permanent et personnel</strong>.</p>
+        <p class="atxt rev d2">Je débute officiellement, et j'en fais une force : chaque client reçoit une <strong>attention totale</strong>. Je privilégie le dialogue, la confiance et la transparence avant tout.</p>
+        <p class="atxt rev d3">Mes styles de prédilection : le <strong>fine line minimaliste</strong>, le <strong>blackwork géométrique</strong> et les <strong>flash originaux</strong>. Venez écrire ce chapitre avec moi.</p>
+        <div class="asig rev">Nicolas T.</div>
+        <div class="chips rev"><span class="chip">Fine Line</span><span class="chip">Blackwork</span><span class="chip">Flash Custom</span><span class="chip">Géométrique</span><span class="chip">Passionné ★</span></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    // Fermer le menu au clic sur un lien
-    mobileMenu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', closeMenu);
-    });
+<!-- SERVICES -->
+<section id="services">
+  <div class="cont sp">
+    <div class="center rev">
+      <span class="sl">Prestations</span>
+      <h2>Tarifs <em>transparents</em></h2>
+      <div class="rule" style="justify-content:center"><span></span><i>✦</i><span></span></div>
+    </div>
+    <div class="svcs">
+      <div class="svc rev"><span class="snum">01</span><span class="snew">🔥 Populaire</span><span class="sico">⚡</span><h3 class="stit">Flash Tatoo</h3><p class="sdesc">Des designs prêts à tatouer, originaux et déjà validés. La solution idéale pour un premier tatouage ou pour se décider sans stress. Tarif réduit pour modèles.</p><div class="sprice">40€–80€ <small>/ pièce</small></div></div>
+      <div class="svc rev d1"><span class="snum">02</span><span class="sico">✏️</span><h3 class="stit">Custom Fine Line</h3><p class="sdesc">Votre idée, mes traits. Lignes fines et précises pour des compositions épurées, botaniques ou géométriques. Un style qui traverse le temps.</p><div class="sprice">60€–120€ <small>/ heure</small></div></div>
+      <div class="svc rev d2"><span class="snum">03</span><span class="sico">⬛</span><h3 class="stit">Blackwork</h3><p class="sdesc">Encre noire totale, motifs forts et affirmés. Mandalas, géométrie, ornements. Un style qui marque les esprits et résiste au temps.</p><div class="sprice">70€–130€ <small>/ heure</small></div></div>
+      <div class="svc rev"><span class="snum">04</span><span class="sico">🗓️</span><h3 class="stit">Consultation</h3><p class="sdesc">On se rencontre, on parle de votre projet, je vous montre mes sketchs et on affine ensemble. Aucun engagement — c'est le premier pas serein.</p><div class="sprice">Gratuit <small>sur RDV</small></div></div>
+      <div class="svc rev d1"><span class="snum">05</span><span class="snew">✨ Nouveau</span><span class="sico">🎁</span><h3 class="stit">Pack Modèle</h3><p class="sdesc">Vous acceptez d'être photographié(e) et de partager le résultat sur mes réseaux ? Bénéficiez d'un tarif spécial modèle. Simple et transparent.</p><div class="sprice">−40% <small>vs tarif normal</small></div></div>
+      <div class="svc rev d2"><span class="snum">06</span><span class="sico">📦</span><h3 class="stit">Mini Tatoo</h3><p class="sdesc">Un motif minimaliste de moins de 3cm, discret et soigné. Idéal pour un premier tatouage sans se lancer dans quelque chose d'imposant.</p><div class="sprice">25€–50€ <small>/ pièce</small></div></div>
+    </div>
+    <p style="text-align:center;color:var(--pearld);font-size:.8rem;margin-top:28px;font-style:italic">💡 Tous les tarifs incluent consultation + dessin + tatouage. Acompte 20% à la réservation.</p>
+  </div>
+</section>
 
-    // Fermer avec la touche Escape
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape' && hamburger.classList.contains('open')) closeMenu();
-    });
+<!-- TEMOIGNAGES -->
+<section id="temo">
+  <div class="cont">
+    <div class="center rev">
+      <span class="sl">Ils témoignent</span>
+      <h2>Ce qu'ils <em>disent</em></h2>
+      <div class="rule" style="justify-content:center"><span></span><i>✦</i><span></span></div>
+    </div>
+  </div>
+  <div style="overflow:hidden;margin-top:56px">
+    <div class="ttrack">
+      <div class="tcard"><div class="tstars">★★★★★</div><div class="tq">"</div><p class="ttxt">Nicolas est à l'écoute et prend vraiment le temps de comprendre ce qu'on veut. Mon flash de rose est exactement ce que j'imaginais, net et propre.</p><span class="tauth">— Amandine K., Paris 11e</span></div>
+      <div class="tcard"><div class="tstars">★★★★★</div><div class="tq">"</div><p class="ttxt">J'ai hésité longtemps à cause du prix. Nicolas m'a proposé une séance modèle et le résultat est bluffant. Je recommande sans hésiter !</p><span class="tauth">— Jordan M., Montreuil</span></div>
+      <div class="tcard"><div class="tstars">★★★★★</div><div class="tq">"</div><p class="ttxt">Super ambiance, Nicolas est transparent sur son parcours et ça rassure vraiment. La consultation gratuite a été déterminante pour me lancer.</p><span class="tauth">— Céline R., Vincennes</span></div>
+      <div class="tcard"><div class="tstars">★★★★☆</div><div class="tq">"</div><p class="ttxt">Mon tatouage géométrique est vraiment beau. On voit qu'il maîtrise le trait et qu'il est passionné. Je reviendrai pour le prochain !</p><span class="tauth">— Théo B., Paris 20e</span></div>
+      <div class="tcard"><div class="tstars">★★★★★</div><div class="tq">"</div><p class="ttxt">J'ai adoré l'expérience modèle. Nicolas explique tout, il est patient. Le rendu est super pour un tatoueur qui débute — on voit le potentiel !</p><span class="tauth">— Lucie F., Saint-Denis</span></div>
+      <div class="tcard"><div class="tstars">★★★★★</div><div class="tq">"</div><p class="ttxt">Nicolas est à l'écoute et prend vraiment le temps de comprendre ce qu'on veut. Mon flash de rose est exactement ce que j'imaginais, net et propre.</p><span class="tauth">— Amandine K., Paris 11e</span></div>
+      <div class="tcard"><div class="tstars">★★★★★</div><div class="tq">"</div><p class="ttxt">J'ai hésité longtemps à cause du prix. Nicolas m'a proposé une séance modèle et le résultat est bluffant. Je recommande sans hésiter !</p><span class="tauth">— Jordan M., Montreuil</span></div>
+      <div class="tcard"><div class="tstars">★★★★★</div><div class="tq">"</div><p class="ttxt">Super ambiance, Nicolas est transparent sur son parcours et ça rassure vraiment. La consultation gratuite a été déterminante pour me lancer.</p><span class="tauth">— Céline R., Vincennes</span></div>
+      <div class="tcard"><div class="tstars">★★★★☆</div><div class="tq">"</div><p class="ttxt">Mon tatouage géométrique est vraiment beau. On voit qu'il maîtrise le trait et qu'il est passionné. Je reviendrai pour le prochain !</p><span class="tauth">— Théo B., Paris 20e</span></div>
+      <div class="tcard"><div class="tstars">★★★★★</div><div class="tq">"</div><p class="ttxt">J'ai adoré l'expérience modèle. Nicolas explique tout, il est patient. Le rendu est super pour un tatoueur qui débute — on voit le potentiel !</p><span class="tauth">— Lucie F., Saint-Denis</span></div>
+    </div>
+  </div>
+</section>
 
-    // ── REVEAL ON SCROLL ───────────────────────────────────
-    const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-    reveals.forEach(el => observer.observe(el));
+<!-- BOOKING -->
+<section id="booking">
+  <div class="cont sp">
+    <div class="bwrap">
+      <div class="center rev">
+        <span class="sl">Prise de contact</span>
+        <h2>Réserver <em>votre séance</em></h2>
+        <div class="rule" style="justify-content:center"><span></span><i>✦</i><span></span></div>
+      </div>
+      <div class="bnote rev" style="margin-top:32px"><strong>👋 Bonjour !</strong> Je réponds à tous les messages sous 24h. Pas d'inquiétude si c'est votre premier tatouage — on discutera de tout ensemble. La consultation est 100% gratuite et sans engagement.</div>
+      <div id="bok" class="bok"><h3>✦ Message reçu !</h3><p>Merci de me faire confiance. Je vous réponds dans les 24h pour confirmer et répondre à toutes vos questions.</p></div>
+      <div class="bform rev d1" id="bform">
+        <div class="brow">
+          <div class="fg"><label class="fl" for="fp">Prénom</label><input class="fi" type="text" id="fp" placeholder="Votre prénom" autocomplete="given-name"></div>
+          <div class="fg"><label class="fl" for="fn">Nom</label><input class="fi" type="text" id="fn" placeholder="Votre nom" autocomplete="family-name"></div>
+        </div>
+        <div class="brow">
+          <div class="fg"><label class="fl" for="fe">Email</label><input class="fi" type="email" id="fe" placeholder="votre@email.fr" autocomplete="email"></div>
+          <div class="fg"><label class="fl" for="ft">Téléphone</label><input class="fi" type="tel" id="ft" placeholder="+33 6 xx xx xx xx" autocomplete="tel"></div>
+        </div>
+        <div class="brow">
+          <div class="fg"><label class="fl" for="fty">Type de séance</label><select class="fsel" id="fty"><option value="">— Choisir —</option><option>Flash disponible</option><option>Custom Fine Line</option><option>Blackwork / Géométrique</option><option>Mini Tatoo (moins de 3cm)</option><option>Pack Modèle (tarif réduit)</option><option>Consultation uniquement</option></select></div>
+          <div class="fg"><label class="fl" for="fz">Zone du corps</label><input class="fi" type="text" id="fz" placeholder="Ex : poignet, cheville, dos..."></div>
+        </div>
+        <div class="fg"><label class="fl" for="fpr">Votre idée</label><textarea class="fta" id="fpr" placeholder="Parlez-moi de votre projet, de ce qu'il représente... Plus c'est précis, mieux c'est !"></textarea></div>
+        <button class="btn br" type="button" onclick="sendForm()" style="align-self:center;margin-top:8px">Envoyer ma demande →</button>
+        <p class="fsub">Consultation offerte · Réponse sous 24h · Aucun engagement</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-    // ── COUNTER ANIMATION ──────────────────────────────────
-    const counters = document.querySelectorAll('.stat-number[data-target]');
-    const counterObserver = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (!e.isIntersecting) return;
-        const el     = e.target;
-        const target = parseInt(el.dataset.target);
-        const suffix = target > 100 ? '+' : '';
-        let current  = 0;
-        const step   = Math.ceil(target / 60);
-        const timer  = setInterval(() => {
-          current = Math.min(current + step, target);
-          el.textContent = current + suffix;
-          if (current >= target) clearInterval(timer);
-        }, 30);
-        counterObserver.unobserve(el);
-      });
-    }, { threshold: 0.5 });
-    counters.forEach(el => counterObserver.observe(el));
+<!-- CONTACT -->
+<section id="contact">
+  <div class="cont" style="padding-top:80px;padding-bottom:80px">
+    <div class="cgrid">
+      <div class="cinfo rev">
+        <h3>Me retrouver</h3>
+        <div class="crow"><div class="cico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="ctxt"><strong>Localisation</strong><p>Paris &amp; Petite Couronne<br><em style="font-size:.77rem;color:var(--red)">Adresse communiquée sur RDV</em></p></div></div>
+        <div class="crow"><div class="cico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div class="ctxt"><strong>Disponibilités</strong><p>Mardi → Samedi<br>Sur rendez-vous uniquement</p></div></div>
+        <div class="crow"><div class="cico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div class="ctxt"><strong>Email</strong><p>contact@nicolastatoo.fr<br><em style="font-size:.77rem;color:var(--pearld)">Réponse garantie sous 24h</em></p></div></div>
+        <div class="socs">
+          <a href="#" class="soc" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+          <a href="#" class="soc" aria-label="TikTok"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12a4 4 0 104 4V4a5 5 0 005 5"/></svg></a>
+          <a href="#" class="soc" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+        </div>
+      </div>
+      <div class="cbox rev d1">
+        <h4>Infos pratiques</h4>
+        <div class="ch">
+          <div class="chr"><span>Mardi – Vendredi</span><span class="open">10h → 19h</span></div>
+          <div class="chr"><span>Samedi</span><span class="open">10h → 17h</span></div>
+          <div class="chr"><span>Dimanche – Lundi</span><span>Fermé</span></div>
+        </div>
+        <p>Chaque séance débute par un moment de discussion sur le projet. Le dessin final est validé ensemble avant de commencer. <strong style="color:var(--pearl)">Aucune surprise.</strong></p>
+        <a href="#booking" class="btn br" style="font-size:.72rem;padding:12px 24px">Prendre rendez-vous →</a>
+      </div>
+    </div>
+  </div>
+</section>
 
-    // ── BOOKING FORM ───────────────────────────────────────
-    function submitBooking() {
-      const fname = document.getElementById('fname').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const style = document.getElementById('style').value;
-      if (!fname || !email || !style) {
-        alert('Merci de renseigner au minimum votre prénom, email et style souhaité.');
-        return;
-      }
-      document.getElementById('bookingForm').style.display = 'none';
-      const confirm = document.getElementById('bookingConfirm');
-      confirm.style.display = 'block';
-      confirm.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
+<footer>
+  <div class="flogo">Nicolas <span>Tatoo</span></div>
+  <p>© 2025 Nicolas Tatoo · <a href="#">Mentions légales</a> · <a href="#">RGPD</a></p>
+</footer>
 
-    // ── PWA INSTALL ────────────────────────────────────────
-    const INSTALL_KEY = 'ink-noir-install-dismissed';
+<!-- INSTALL BANNERS -->
+<div id="ib"><div><p><strong>Nicolas Tatoo</strong></p><p>Installer l'application</p></div><button id="ibtn" onclick="install()">Installer</button><button id="idis" onclick="dismiss()" aria-label="Fermer">✕</button></div>
+<div id="ios"><button id="iosd" onclick="dismissIos()" aria-label="Fermer">✕</button><div id="iosc"><div style="font-size:1.6rem;margin-bottom:8px">📲</div><p style="font-weight:600;color:var(--red);margin-bottom:6px;font-size:.9rem">Installer Nicolas Tatoo</p><p>Appuyez sur <strong style="color:var(--pearl)">Partager</strong> puis <strong style="color:var(--pearl)">« Sur l'écran d'accueil »</strong></p></div><div id="iosar">▼</div></div>
 
-    // Détecter iOS Safari (ne supporte pas beforeinstallprompt)
-    const isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
-    const isInStandalone = window.matchMedia('(display-mode: standalone)').matches
-                        || navigator.standalone === true;
+<script>
+// Goto helper
+function goto(id){document.getElementById(id).scrollIntoView({behavior:'smooth'})}
 
-    if (isIos && !isInStandalone && !sessionStorage.getItem(INSTALL_KEY)) {
-      // Afficher le guide iOS après 3 secondes
-      setTimeout(() => {
-        document.getElementById('ios-banner').classList.add('visible');
-      }, 3000);
-    }
+// Cursor
+const C=document.getElementById('cur'),R=document.getElementById('ring');
+if(C&&R&&window.matchMedia('(pointer:fine)').matches){
+  let mx=-99,my=-99,rx=-99,ry=-99;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+  const tick=()=>{rx+=(mx-rx)*.14;ry+=(my-ry)*.14;C.style.transform=`translate(${mx}px,${my}px) translate(-50%,-50%)`;R.style.transform=`translate(${rx}px,${ry}px) translate(-50%,-50%)`;requestAnimationFrame(tick)};
+  tick();
+  document.querySelectorAll('a,button,.fc,.gi,.svc').forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('ch'));el.addEventListener('mouseleave',()=>document.body.classList.remove('ch'))});
+}
 
-    function dismissIos() {
-      sessionStorage.setItem(INSTALL_KEY, '1');
-      document.getElementById('ios-banner').classList.remove('visible');
-    }
+// Nav scroll
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('sc',scrollY>60),{passive:true});
 
-    // Android / Chrome — beforeinstallprompt
-    let deferredPrompt = null;
-    window.addEventListener('beforeinstallprompt', e => {
-      e.preventDefault();
-      deferredPrompt = e;
-      if (!sessionStorage.getItem(INSTALL_KEY) && !isInStandalone) {
-        setTimeout(() => {
-          document.getElementById('install-banner').style.display = 'flex';
-        }, 2500); // réduit de 5s à 2.5s
-      }
-    });
+// Toolbar active state
+const tbs=document.querySelectorAll('.tb');
+const secs=['hero','flash','booking','gallery','contact'].map(id=>document.getElementById(id));
+window.addEventListener('scroll',()=>{
+  const mid=scrollY+innerHeight*.4;let a=0;
+  secs.forEach((s,i)=>{if(s&&s.offsetTop<=mid)a=i});
+  tbs.forEach((b,i)=>b.classList.toggle('on',i===a));
+},{passive:true});
 
-    function installPWA() {
-      if (!deferredPrompt) return;
-      deferredPrompt.prompt();
-      deferredPrompt.userChoice.then(() => {
-        deferredPrompt = null;
-        document.getElementById('install-banner').style.display = 'none';
-      });
-    }
-    function dismissInstall() {
-      sessionStorage.setItem(INSTALL_KEY, '1');
-      document.getElementById('install-banner').style.display = 'none';
-    }
-    window.addEventListener('appinstalled', () => {
-      document.getElementById('install-banner').style.display = 'none';
-      document.getElementById('ios-banner').classList.remove('visible');
-    });
+// Reveal
+const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis')}),{threshold:.1,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.rev').forEach(el=>ro.observe(el));
 
-    // ── SERVICE WORKER ─────────────────────────────────────
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        // Chemin relatif pour compatibilité GitHub Pages sous-dossier
-        const swPath = './sw.js';
-        navigator.serviceWorker.register(swPath)
-          .then(reg => console.log('[PWA] SW enregistré :', reg.scope))
-          .catch(err => console.warn('[PWA] SW erreur :', err));
-      });
-    }
-  </script>
+// Counters
+const co=new IntersectionObserver(e=>e.forEach(x=>{
+  if(!x.isIntersecting)return;const el=x.target,t=parseInt(el.dataset.t);
+  const s=el.dataset.t==='100'?'%':'+';let c=0,step=Math.ceil(t/50);
+  const ti=setInterval(()=>{c=Math.min(c+step,t);el.textContent=c+(t>10?s:'');if(c>=t)clearInterval(ti)},28);
+  co.unobserve(el);
+}),{threshold:.5});
+document.querySelectorAll('.sn[data-t]').forEach(el=>co.observe(el));
+
+// Form
+function sendForm(){
+  const p=document.getElementById('fp').value.trim();
+  const e=document.getElementById('fe').value.trim();
+  const t=document.getElementById('fty').value;
+  if(!p||!e||!t){alert('Merci de renseigner prénom, email et type de séance.');return}
+  document.getElementById('bform').style.display='none';
+  const ok=document.getElementById('bok');ok.style.display='block';
+  ok.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+// Install
+const DK='nt-v3-dismissed';
+const isIos=/iphone|ipad|ipod/i.test(navigator.userAgent);
+const isSA=window.matchMedia('(display-mode:standalone)').matches||navigator.standalone===true;
+if(isIos&&!isSA&&!sessionStorage.getItem(DK)){setTimeout(()=>document.getElementById('ios').classList.add('vis'),3000)}
+function dismissIos(){sessionStorage.setItem(DK,'1');document.getElementById('ios').classList.remove('vis')}
+let dp=null;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e;if(!sessionStorage.getItem(DK)&&!isSA)setTimeout(()=>document.getElementById('ib').style.display='flex',2500)});
+function install(){if(!dp)return;dp.prompt();dp.userChoice.then(()=>{dp=null;dismiss()})}
+function dismiss(){sessionStorage.setItem(DK,'1');document.getElementById('ib').style.display='none'}
+window.addEventListener('appinstalled',dismiss);
+
+// SW
+if('serviceWorker'in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('./sw.js').then(r=>console.log('[SW]',r.scope)).catch(e=>console.warn('[SW]',e))})}
+</script>
 </body>
 </html>
