@@ -8,6 +8,21 @@ const STATIC_ASSETS = [
   './manifest.json',
   './assets/icons/icon-192.png',
   './assets/icons/icon-512.png',
+  './assets/images/hero-bg.jpg',
+  './assets/images/artist-portrait.jpg',
+  './assets/images/gallery-1-mandala.jpg',
+  './assets/images/gallery-2-botanical.jpg',
+  './assets/images/gallery-3-geometric.jpg',
+  './assets/images/gallery-4-skull.jpg',
+  './assets/images/gallery-5-wave.jpg',
+  './assets/images/gallery-6-mountain.jpg',
+  './assets/images/gallery-7-rose.jpg',
+  './assets/images/gallery-8-snake.jpg',
+  './assets/images/flash-1-eclipse.jpg',
+  './assets/images/flash-2-serpent.jpg',
+  './assets/images/flash-3-rose.jpg',
+  './assets/images/flash-4-dualite.jpg',
+  './assets/images/flash-5-peaks.jpg',
   'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap'
 ];
 

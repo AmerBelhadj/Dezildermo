@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
-<meta name="description" content="Nicolas Tatoo — Tatoueur en devenir Tarn. Flash, custom, blackwork. Réservez.">
+<meta name="description" content="Olivier Tatoo — Tatoueur en devenir Tarn. Flash, custom, blackwork. Réservez.">
 <meta name="theme-color" content="#C1121F">
 <link rel="manifest" href="manifest.json">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Nicolas Tatoo">
+<meta name="apple-mobile-web-app-title" content="Olivier Tatoo">
 <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self';style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;font-src 'self' https://fonts.gstatic.com;img-src 'self' data:;script-src 'self' 'unsafe-inline';connect-src 'self';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self';style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;font-src 'self' https://fonts.gstatic.com;img-src 'self' data: blob:;script-src 'self' 'unsafe-inline';connect-src 'self';">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<title>Nicolas Tatoo — Tatoueur Tarn</title>
+<title>Olivier Tatoo — Tatoueur Tarn</title>
 <style>
 :root{
   --ink:#14111A;--ink2:#1C1828;--ink3:#241F32;--ink4:#2E2840;
@@ -56,7 +56,7 @@ nav.sc{background:rgba(20,17,26,.95);backdrop-filter:blur(16px);-webkit-backdrop
 .tb.main svg{stroke:var(--pearl)}.tb.main span{color:var(--red);font-weight:600}
 /* HERO */
 #hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:120px 48px 80px;overflow:hidden}
-.hbg{position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 55% 70% at 75% 45%,rgba(193,18,31,.07) 0%,transparent 60%),radial-gradient(ellipse 40% 50% at 20% 75%,rgba(244,162,97,.04) 0%,transparent 55%),linear-gradient(150deg,#14111A 35%,#1C1828 100%)}
+.hbg{position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 55% 70% at 75% 45%,rgba(193,18,31,.12) 0%,transparent 60%),radial-gradient(ellipse 40% 50% at 20% 75%,rgba(244,162,97,.06) 0%,transparent 55%),url(assets/images/hero-bg.jpg) center/cover no-repeat;}
 .hline{position:absolute;left:48px;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,var(--redd) 25%,var(--red) 55%,transparent);opacity:.35;z-index:0}
 .hghost{position:absolute;right:-10px;bottom:30px;font-family:var(--ft);font-size:clamp(8rem,22vw,18rem);font-weight:900;color:rgba(193,18,31,.04);line-height:1;pointer-events:none;user-select:none;letter-spacing:-.02em;z-index:0}
 .hc{position:relative;z-index:2;max-width:680px}
@@ -123,7 +123,7 @@ h2 em{font-style:italic;color:var(--red)}
 .fbadge{position:absolute;top:12px;right:12px;background:var(--amb);color:var(--ink);font-size:.56rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px}
 .fcta{text-align:center}
 /* MODELES */
-#mod{background:var(--redd);padding:80px 0;position:relative;overflow:hidden}
+#mod{background:var(--redd);padding:80px 0;position:relative;overflow:hidden;background-image:url(assets/images/bg-modeles.jpg);background-size:cover;background-blend-mode:multiply;}
 #mod::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 30% 50%,rgba(193,18,31,.3) 0%,transparent 70%)}
 .modi{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
 .modc h2{color:var(--pearl)}
@@ -289,7 +289,7 @@ footer a{color:var(--red)}
 
 <!-- NAV desktop -->
 <nav id="nav">
-  <a href="#" class="logo">Nicolas <span>Tatoo</span></a>
+  <a href="#" class="logo">Olivier <span>Tatoo</span></a>
   <ul class="nl">
     <li><a href="#flash">Flash</a></li>
     <li><a href="#gallery">Galerie</a></li>
@@ -333,10 +333,10 @@ footer a{color:var(--red)}
   <div class="hline"></div>
   <div class="hghost">ENCRE</div>
   <div class="hc">
-    <p class="htag">Tatoueur Tarn</p>
+    <p class="htag">Tatoueur Tarnien</p>
     <h1>L'art<br>naît <em>ici</em></h1>
     <p class="hsub">sur votre peau, pour toujours</p>
-    <p class="hdesc">Je m'appelle <strong>Nicolas</strong>. Tatoueur en formation, passionné depuis toujours. Je mets mon <strong>énergie et ma créativité</strong> dans chaque trait, avec des tarifs accessibles pour construire notre aventure ensemble.</p>
+    <p class="hdesc">Je m'appelle <strong>Olivier</strong>. Tatoueur en formation, passionné depuis toujours. Je mets mon <strong>énergie et ma créativité</strong> dans chaque trait, avec des tarifs accessibles pour construire notre aventure ensemble.</p>
     <div class="hact">
       <a href="#flash" class="btn br">Voir les Flash</a>
       <a href="#mod" class="btn bg">Devenir Modèle</a>
@@ -373,89 +373,24 @@ footer a{color:var(--red)}
     <div class="fgrid">
       <div class="fc rev">
         <div class="fbadge">Dispo</div>
-        <div class="fart">
-          <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
-            <rect width="300" height="400" fill="#14111A"/>
-            <g opacity=".5" stroke="#FFF8F0" fill="none" stroke-width=".9">
-              <path d="M150,80 L200,150 L180,160 L220,240 L150,200 L80,240 L120,160 L100,150 Z"/>
-              <path d="M150,100 L192,160 L175,168 L207,232 L150,196 L93,232 L125,168 L108,160 Z" stroke-width=".4" opacity=".4"/>
-              <circle cx="150" cy="150" r="30" opacity=".3"/>
-              <line x1="150" y1="80" x2="150" y2="320" opacity=".2"/>
-            </g>
-            <circle cx="150" cy="280" r="18" fill="#C1121F" opacity=".9"/>
-            <circle cx="150" cy="280" r="10" fill="#14111A" opacity=".8"/>
-            <circle cx="150" cy="280" r="4" fill="#C1121F"/>
-            <text x="150" y="360" text-anchor="middle" fill="#FFF8F0" font-size="8" opacity=".25" font-family="serif" letter-spacing="4">GÉOMÉTRIE</text>
-          </svg>
-        </div>
+<div class="fart"><img src="assets/images/flash-1-eclipse.jpg" alt="Eclipse Flash" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
         <div class="fov"><span class="fstyle">Géométrique</span><span class="fname">Eclipse</span><div class="fprice"><s>80€</s> 50€</div></div>
       </div>
       <div class="fc rev d1">
         <div class="fbadge">Dispo</div>
-        <div class="fart">
-          <svg viewBox="0 0 300 600" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
-            <rect width="300" height="600" fill="#1C1828"/>
-            <g opacity=".45" stroke="#FFF8F0" fill="none" stroke-width="1.2">
-              <path d="M150,80 Q220,120 200,180 Q180,240 230,280 Q280,320 240,380 Q200,440 150,420 Q100,400 110,340 Q120,280 80,240 Q40,200 80,140 Q110,90 150,80Z"/>
-              <path d="M150,80 L162,68 M150,80 L148,66" stroke="#C1121F" stroke-width=".9"/>
-              <ellipse cx="168" cy="105" rx="6" ry="4" stroke="#C1121F" stroke-width=".9"/>
-              <circle cx="168" cy="105" r="2" fill="#C1121F"/>
-            </g>
-            <text x="150" y="570" text-anchor="middle" fill="#FFF8F0" font-size="8" opacity=".2" font-family="serif" letter-spacing="4">SERPENT</text>
-          </svg>
-        </div>
+<div class="fart"><img src="assets/images/flash-2-serpent.jpg" alt="Serpent Flash" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
         <div class="fov"><span class="fstyle">Fine Line</span><span class="fname">Ouroboros</span><div class="fprice"><s>120€</s> 75€</div></div>
       </div>
       <div class="fc rev d2">
-        <div class="fart">
-          <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
-            <rect width="300" height="400" fill="#14111A"/>
-            <g opacity=".45" stroke="#FFF8F0" fill="none" stroke-width=".9">
-              <ellipse cx="150" cy="160" rx="55" ry="70"/>
-              <ellipse cx="168" cy="150" rx="42" ry="58"/>
-              <ellipse cx="134" cy="150" rx="42" ry="58"/>
-              <ellipse cx="150" cy="140" rx="28" ry="44"/>
-              <line x1="150" y1="228" x2="150" y2="320" stroke-width="1.2"/>
-              <path d="M150,270 Q125,262 118,268" stroke-width=".7"/>
-              <path d="M150,290 Q170,282 178,290" stroke-width=".7"/>
-            </g>
-            <text x="150" y="360" text-anchor="middle" fill="#FFF8F0" font-size="8" opacity=".25" font-family="serif" letter-spacing="4">ROSE</text>
-          </svg>
-        </div>
+<div class="fart"><img src="assets/images/flash-3-rose.jpg" alt="Rose Flash" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
         <div class="fov"><span class="fstyle">Fine Line</span><span class="fname">Rose Éternelle</span><div class="fprice"><s>90€</s> 60€</div></div>
       </div>
       <div class="fc rev d1">
-        <div class="fart">
-          <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
-            <rect width="300" height="400" fill="#1C1828"/>
-            <g opacity=".45" stroke="#F4A261" fill="none" stroke-width=".9">
-              <path d="M130,120 Q90,155 110,200 Q130,245 175,240 Q140,230 130,200 Q115,165 140,130 Q135,122 130,120Z" fill="rgba(244,162,97,.1)"/>
-              <circle cx="175" cy="180" r="35"/>
-              <line x1="175" y1="130" x2="175" y2="115"/><line x1="175" y1="230" x2="175" y2="245"/>
-              <line x1="125" y1="180" x2="110" y2="180"/><line x1="225" y1="180" x2="240" y2="180"/>
-              <line x1="140" y1="145" x2="130" y2="135"/><line x1="210" y1="215" x2="220" y2="225"/>
-              <line x1="210" y1="145" x2="220" y2="135"/><line x1="140" y1="215" x2="130" y2="225"/>
-            </g>
-            <text x="150" y="360" text-anchor="middle" fill="#FFF8F0" font-size="8" opacity=".2" font-family="serif" letter-spacing="4">SOL·LUNE</text>
-          </svg>
-        </div>
+<div class="fart"><img src="assets/images/flash-4-dualite.jpg" alt="Dualité Flash" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
         <div class="fov"><span class="fstyle">Illustratif</span><span class="fname">Dualité</span><div class="fprice"><s>100€</s> 65€</div></div>
       </div>
       <div class="fc rev d2">
-        <div class="fart">
-          <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
-            <rect width="300" height="400" fill="#14111A"/>
-            <g opacity=".45" stroke="#FFF8F0" fill="none" stroke-width="1">
-              <polyline points="60,300 150,100 240,300"/>
-              <polyline points="85,300 150,130 215,300" stroke-width=".5" opacity=".4"/>
-              <line x1="40" y1="300" x2="260" y2="300"/>
-              <path d="M155,65 Q175,70 172,88 Q166,80 155,65Z" fill="rgba(255,248,240,.3)" stroke-width=".6"/>
-              <circle cx="148" cy="74" r="16" stroke-width=".8"/>
-              <circle cx="90" cy="130" r="1.5" fill="#FFF8F0"/><circle cx="210" cy="150" r="1" fill="#FFF8F0"/><circle cx="195" cy="115" r="1.5" fill="#FFF8F0"/>
-            </g>
-            <text x="150" y="360" text-anchor="middle" fill="#FFF8F0" font-size="8" opacity=".25" font-family="serif" letter-spacing="4">MINIMALISTE</text>
-          </svg>
-        </div>
+<div class="fart"><img src="assets/images/flash-5-peaks.jpg" alt="Peaks by Night Flash" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
         <div class="fov"><span class="fstyle">Minimaliste</span><span class="fname">Peaks by Night</span><div class="fprice"><s>70€</s> 45€</div></div>
       </div>
     </div>
@@ -534,14 +469,14 @@ footer a{color:var(--red)}
   </div>
   <div style="padding:0 48px">
     <div class="gg">
-      <div class="gi"><div class="ga"><svg viewBox="0 0 300 600" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%"><rect width="300" height="600" fill="#1C1828"/><g opacity=".4" stroke="#FFF8F0" fill="none" stroke-width=".8"><circle cx="150" cy="300" r="120"/><circle cx="150" cy="300" r="90"/><circle cx="150" cy="300" r="60"/><circle cx="150" cy="300" r="30"/><circle cx="150" cy="300" r="8" fill="#C1121F" stroke="none" opacity=".9"/><line x1="150" y1="180" x2="150" y2="420" stroke-width=".4"/><line x1="30" y1="300" x2="270" y2="300" stroke-width=".4"/><line x1="65" y1="215" x2="235" y2="385" stroke-width=".3"/><line x1="235" y1="215" x2="65" y2="385" stroke-width=".3"/></g></svg></div><div class="ghov"><span class="gs">Géométrique</span><span class="gn">Mandala Sacré</span></div></div>
-      <div class="gi"><div class="ga"><svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%"><rect width="300" height="400" fill="#14111A"/><g opacity=".4" stroke="#FFF8F0" fill="none" stroke-width="1"><path d="M150,80 Q200,100 210,160 Q220,220 180,260 Q140,300 120,350"/><path d="M150,80 Q100,100 90,160 Q80,220 120,260 Q160,300 180,350"/><ellipse cx="150" cy="80" rx="20" ry="25"/></g></svg></div><div class="ghov"><span class="gs">Fine Line</span><span class="gn">Branches</span></div></div>
-      <div class="gi"><div class="ga"><svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%"><rect width="300" height="400" fill="#1C1828"/><g opacity=".45" stroke="#C1121F" fill="none" stroke-width="1.2"><polygon points="150,80 230,200 190,320 110,320 70,200"/><polygon points="150,100 215,205 180,305 120,305 85,205" stroke-width=".6" opacity=".5"/><circle cx="150" cy="200" r="35"/><circle cx="150" cy="200" r="12" fill="#C1121F" opacity=".5" stroke="none"/></g></svg></div><div class="ghov"><span class="gs">Blackwork</span><span class="gn">Pentagone</span></div></div>
-      <div class="gi"><div class="ga"><svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%"><rect width="300" height="400" fill="#14111A"/><g opacity=".4" stroke="#F4A261" fill="none" stroke-width=".9"><circle cx="150" cy="190" r="70"/><circle cx="150" cy="190" r="50" stroke-width=".5"/><line x1="150" y1="100" x2="150" y2="75"/><line x1="150" y1="280" x2="150" y2="305"/><line x1="60" y1="190" x2="35" y2="190"/><line x1="240" y1="190" x2="265" y2="190"/><line x1="100" y1="140" x2="82" y2="122"/><line x1="200" y1="240" x2="218" y2="258"/><line x1="200" y1="140" x2="218" y2="122"/><line x1="100" y1="240" x2="82" y2="258"/><circle cx="150" cy="190" r="20" fill="rgba(244,162,97,.1)"/></g></svg></div><div class="ghov"><span class="gs">Illustratif</span><span class="gn">Soleil Levant</span></div></div>
-      <div class="gi"><div class="ga"><svg viewBox="0 0 560 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%"><rect width="560" height="300" fill="#1C1828"/><g opacity=".35" stroke="#FFF8F0" fill="none" stroke-width="1.2"><path d="M0,180 Q70,100 140,180 Q210,260 280,180 Q350,100 420,180 Q490,260 560,180"/><path d="M0,160 Q70,80 140,160 Q210,240 280,160 Q350,80 420,160 Q490,240 560,160" stroke-width=".7"/><path d="M0,200 Q70,120 140,200 Q210,280 280,200 Q350,120 420,200 Q490,280 560,200" stroke-width=".5"/></g><text x="280" y="278" text-anchor="middle" fill="#C1121F" font-size="8" opacity=".35" font-family="serif" letter-spacing="5">JAPONAIS · VAGUE</text></svg></div><div class="ghov"><span class="gs">Japonais</span><span class="gn">La Grande Vague</span></div></div>
-      <div class="gi"><div class="ga"><svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%"><rect width="300" height="400" fill="#14111A"/><g opacity=".4" stroke="#FFF8F0" fill="none" stroke-width=".8"><path d="M150,100 Q190,130 185,170 Q180,210 150,220 Q120,210 115,170 Q110,130 150,100Z"/><line x1="150" y1="220" x2="150" y2="310"/><path d="M150,255 L125,240 M150,275 L170,260" stroke-width=".6"/><ellipse cx="150" cy="90" rx="18" ry="22"/></g></svg></div><div class="ghov"><span class="gs">Minimaliste</span><span class="gn">Silhouette</span></div></div>
-      <div class="gi"><div class="ga"><svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%"><rect width="300" height="400" fill="#1C1828"/><g opacity=".4" stroke="#C1121F" fill="none" stroke-width=".9"><path d="M150,280 Q80,240 85,170 Q90,100 150,90 Q210,100 215,170 Q220,240 150,280Z"/><ellipse cx="150" cy="175" rx="40" ry="55" stroke-width=".5"/><circle cx="134" cy="165" r="10"/><circle cx="166" cy="165" r="10"/><path d="M130,200 Q150,215 170,200" stroke-width=".8"/></g></svg></div><div class="ghov"><span class="gs">Old School</span><span class="gn">Crâne Classique</span></div></div>
-      <div class="gi"><div class="ga"><svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%"><rect width="300" height="400" fill="#14111A"/><g opacity=".4" stroke="#FFF8F0" fill="none" stroke-width="1"><path d="M100,300 Q110,240 150,200 Q190,160 200,100"/><path d="M120,310 Q125,260 155,225 Q185,190 185,140" stroke-width=".5"/><ellipse cx="200" cy="95" rx="28" ry="22"/><path d="M172,75 Q165,50 180,42 Q195,35 200,55"/><path d="M228,75 Q235,50 220,42 Q205,35 200,55"/></g></svg></div><div class="ghov"><span class="gs">Fine Line</span><span class="gn">Oiseau du Paradis</span></div></div>
+      <div class="gi"><div class="ga"><img src="assets/images/gallery-1-mandala.jpg" alt="Mandala Sacré" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="ghov"><span class="gs">Géométrique</span><span class="gn">Mandala Sacré</span></div></div>
+      <div class="gi"><div class="ga"><img src="assets/images/gallery-2-botanical.jpg" alt="Branches Fine Line" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="ghov"><span class="gs">Fine Line</span><span class="gn">Botanical</span></div></div>
+      <div class="gi"><div class="ga"><img src="assets/images/gallery-3-geometric.jpg" alt="Géométrique Pentagone" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="ghov"><span class="gs">Blackwork</span><span class="gn">Géométrique</span></div></div>
+      <div class="gi"><div class="ga"><img src="assets/images/gallery-4-skull.jpg" alt="Crâne Old School" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="ghov"><span class="gs">Old School</span><span class="gn">Crâne Floral</span></div></div>
+      <div class="gi"><div class="ga"><img src="assets/images/gallery-5-wave.jpg" alt="Vague Japonaise" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="ghov"><span class="gs">Japonais</span><span class="gn">La Grande Vague</span></div></div>
+      <div class="gi"><div class="ga"><img src="assets/images/gallery-6-mountain.jpg" alt="Montagne Minimaliste" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="ghov"><span class="gs">Minimaliste</span><span class="gn">Peaks by Night</span></div></div>
+      <div class="gi"><div class="ga"><img src="assets/images/gallery-7-rose.jpg" alt="Rose Fine Line" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="ghov"><span class="gs">Fine Line</span><span class="gn">Rose Éternelle</span></div></div>
+      <div class="gi"><div class="ga"><img src="assets/images/gallery-8-snake.jpg" alt="Serpent Enroulé" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="ghov"><span class="gs">Fine Line</span><span class="gn">Serpent Sacré</span></div></div>
     </div>
   </div>
 </section>
@@ -552,35 +487,18 @@ footer a{color:var(--red)}
     <div class="abg">
       <div class="apor rev">
         <div class="apf">
-          <div class="atag">Nicolas Tatoo</div>
-          <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
-            <defs><radialGradient id="pg" cx="50%" cy="35%" r="55%"><stop offset="0%" stop-color="#2A2440"/><stop offset="100%" stop-color="#14111A"/></radialGradient></defs>
-            <rect width="300" height="400" fill="url(#pg)"/>
-            <ellipse cx="150" cy="330" rx="95" ry="45" fill="#1C1828" opacity=".9"/>
-            <rect x="108" y="240" width="84" height="105" rx="3" fill="#1A162A"/>
-            <rect x="130" y="190" width="40" height="55" fill="#1E1A2E"/>
-            <ellipse cx="150" cy="170" rx="52" ry="60" fill="#1E1A2E"/>
-            <ellipse cx="150" cy="118" rx="52" ry="20" fill="#14111A"/>
-            <ellipse cx="133" cy="162" rx="7" ry="5.5" fill="#14111A"/>
-            <ellipse cx="167" cy="162" rx="7" ry="5.5" fill="#14111A"/>
-            <circle cx="135" cy="161" r="2.5" fill="#C1121F" opacity=".7"/>
-            <circle cx="169" cy="161" r="2.5" fill="#C1121F" opacity=".7"/>
-            <rect x="178" y="258" width="48" height="18" rx="4" fill="#241F32" stroke="#C1121F" stroke-width=".6" opacity=".7"/>
-            <line x1="226" y1="267" x2="242" y2="282" stroke="#C1121F" stroke-width="1.5" opacity=".6"/>
-            <g opacity=".4" stroke="#C1121F" fill="none" stroke-width=".7"><circle cx="97" cy="280" r="8"/><line x1="89" y1="272" x2="105" y2="288"/></g>
-            <rect x="110" y="243" width="80" height="100" rx="2" fill="none" stroke="#C1121F" stroke-width=".4" opacity=".2"/>
-            <text x="150" y="392" text-anchor="middle" fill="#C1121F" font-size="7" opacity=".3" font-family="serif" letter-spacing="3">NICOLAS TATOO · Tarn</text>
-          </svg>
+          <div class="atag">Olivier Tatoo</div>
+<img src="assets/images/artist-portrait.jpg" alt="Olivier Tatoo — Tatoueur Tarn" style="width:100%;height:100%;object-fit:cover;display:block;">
         </div>
       </div>
       <div class="acont">
         <span class="sl">Qui suis-je</span>
-        <h2>Nicolas <em>Tatoo</em></h2>
+        <h2>Olivier <em>Tatoo</em></h2>
         <div class="rule" style="margin-bottom:28px"><span></span><i>✦</i><span></span></div>
-        <p class="atxt rev d1">Bonjour ! Je m'appelle <strong>Nicolas</strong>, tatoueur en cours de lancement au Tarn. Le tatouage, c'est pour moi bien plus qu'une technique — c'est une façon de transformer une idée, une émotion, un souvenir en quelque chose de <strong>permanent et personnel</strong>.</p>
+        <p class="atxt rev d1">Bonjour ! Je m'appelle <strong>Olivier</strong>, tatoueur en cours de lancement à Tarn. Le tatouage, c'est pour moi bien plus qu'une technique — c'est une façon de transformer une idée, une émotion, un souvenir en quelque chose de <strong>permanent et personnel</strong>.</p>
         <p class="atxt rev d2">Je débute officiellement, et j'en fais une force : chaque client reçoit une <strong>attention totale</strong>. Je privilégie le dialogue, la confiance et la transparence avant tout.</p>
         <p class="atxt rev d3">Mes styles de prédilection : le <strong>fine line minimaliste</strong>, le <strong>blackwork géométrique</strong> et les <strong>flash originaux</strong>. Venez écrire ce chapitre avec moi.</p>
-        <div class="asig rev">Nicolas</div>
+        <div class="asig rev">Olivier T.</div>
         <div class="chips rev"><span class="chip">Fine Line</span><span class="chip">Blackwork</span><span class="chip">Flash Custom</span><span class="chip">Géométrique</span><span class="chip">Passionné ★</span></div>
       </div>
     </div>
@@ -618,16 +536,16 @@ footer a{color:var(--red)}
   </div>
   <div style="overflow:hidden;margin-top:56px">
     <div class="ttrack">
-      <div class="tcard"><div class="tstars">★★★★★</div><div class="tq">"</div><p class="ttxt">Nicolas est à l'écoute et prend vraiment le temps de comprendre ce qu'on veut. Mon flash de rose est exactement ce que j'imaginais, net et propre.</p><span class="tauth">— Amandine K., Tarn</span></div>
-      <div class="tcard"><div class="tstars">★★★★★</div><div class="tq">"</div><p class="ttxt">J'ai hésité longtemps à cause du prix. Nicolas m'a proposé une séance modèle et le résultat est bluffant. Je recommande sans hésiter !</p><span class="tauth">— Jordan M., Tarn</span></div>
-      <div class="tcard"><div class="tstars">★★★★★</div><div class="tq">"</div><p class="ttxt">Super ambiance, Nicolas est transparent sur son parcours et ça rassure vraiment. La consultation gratuite a été déterminante pour me lancer.</p><span class="tauth">— Céline R., Tarn</span></div>
-      <div class="tcard"><div class="tstars">★★★★☆</div><div class="tq">"</div><p class="ttxt">Mon tatouage géométrique est vraiment beau. On voit qu'il maîtrise le trait et qu'il est passionné. Je reviendrai pour le prochain !</p><span class="tauth">— Théo B., Tarn</span></div>
-      <div class="tcard"><div class="tstars">★★★★★</div><div class="tq">"</div><p class="ttxt">J'ai adoré l'expérience modèle. Nicolas explique tout, il est patient. Le rendu est super pour un tatoueur qui débute — on voit le potentiel !</p><span class="tauth">— Lucie F., Tarn</span></div>
-      <div class="tcard"><div class="tstars">★★★★★</div><div class="tq">"</div><p class="ttxt">Nicolas est à l'écoute et prend vraiment le temps de comprendre ce qu'on veut. Mon flash de rose est exactement ce que j'imaginais, net et propre.</p><span class="tauth">— Amandine K., Tarn</span></div>
-      <div class="tcard"><div class="tstars">★★★★★</div><div class="tq">"</div><p class="ttxt">J'ai hésité longtemps à cause du prix. Nicolas m'a proposé une séance modèle et le résultat est bluffant. Je recommande sans hésiter !</p><span class="tauth">— Jordan M., Tarn</span></div>
-      <div class="tcard"><div class="tstars">★★★★★</div><div class="tq">"</div><p class="ttxt">Super ambiance, Nicolas est transparent sur son parcours et ça rassure vraiment. La consultation gratuite a été déterminante pour me lancer.</p><span class="tauth">— Céline R., Tarn</span></div>
-      <div class="tcard"><div class="tstars">★★★★☆</div><div class="tq">"</div><p class="ttxt">Mon tatouage géométrique est vraiment beau. On voit qu'il maîtrise le trait et qu'il est passionné. Je reviendrai pour le prochain !</p><span class="tauth">— Théo B., Tarn</span></div>
-      <div class="tcard"><div class="tstars">★★★★★</div><div class="tq">"</div><p class="ttxt">J'ai adoré l'expérience modèle. Nicolas explique tout, il est patient. Le rendu est super pour un tatoueur qui débute — on voit le potentiel !</p><span class="tauth">— Lucie F., Tarn</span></div>
+      <div class="tcard"><div class="tstars">★★★★★</div><div class="tq">"</div><p class="ttxt">Olivier est à l'écoute et prend vraiment le temps de comprendre ce qu'on veut. Mon flash de rose est exactement ce que j'imaginais, net et propre.</p><span class="tauth">— Amandine K., Tarn 11e</span></div>
+      <div class="tcard"><div class="tstars">★★★★★</div><div class="tq">"</div><p class="ttxt">J'ai hésité longtemps à cause du prix. Olivier m'a proposé une séance modèle et le résultat est bluffant. Je recommande sans hésiter !</p><span class="tauth">— Jordan M., Montreuil</span></div>
+      <div class="tcard"><div class="tstars">★★★★★</div><div class="tq">"</div><p class="ttxt">Super ambiance, Olivier est transparent sur son parcours et ça rassure vraiment. La consultation gratuite a été déterminante pour me lancer.</p><span class="tauth">— Céline R., Vincennes</span></div>
+      <div class="tcard"><div class="tstars">★★★★☆</div><div class="tq">"</div><p class="ttxt">Mon tatouage géométrique est vraiment beau. On voit qu'il maîtrise le trait et qu'il est passionné. Je reviendrai pour le prochain !</p><span class="tauth">— Théo B., Tarn 20e</span></div>
+      <div class="tcard"><div class="tstars">★★★★★</div><div class="tq">"</div><p class="ttxt">J'ai adoré l'expérience modèle. Olivier explique tout, il est patient. Le rendu est super pour un tatoueur qui débute — on voit le potentiel !</p><span class="tauth">— Lucie F., Saint-Denis</span></div>
+      <div class="tcard"><div class="tstars">★★★★★</div><div class="tq">"</div><p class="ttxt">Olivier est à l'écoute et prend vraiment le temps de comprendre ce qu'on veut. Mon flash de rose est exactement ce que j'imaginais, net et propre.</p><span class="tauth">— Amandine K., Tarn 11e</span></div>
+      <div class="tcard"><div class="tstars">★★★★★</div><div class="tq">"</div><p class="ttxt">J'ai hésité longtemps à cause du prix. Olivier m'a proposé une séance modèle et le résultat est bluffant. Je recommande sans hésiter !</p><span class="tauth">— Jordan M., Montreuil</span></div>
+      <div class="tcard"><div class="tstars">★★★★★</div><div class="tq">"</div><p class="ttxt">Super ambiance, Olivier est transparent sur son parcours et ça rassure vraiment. La consultation gratuite a été déterminante pour me lancer.</p><span class="tauth">— Céline R., Vincennes</span></div>
+      <div class="tcard"><div class="tstars">★★★★☆</div><div class="tq">"</div><p class="ttxt">Mon tatouage géométrique est vraiment beau. On voit qu'il maîtrise le trait et qu'il est passionné. Je reviendrai pour le prochain !</p><span class="tauth">— Théo B., Tarn 20e</span></div>
+      <div class="tcard"><div class="tstars">★★★★★</div><div class="tq">"</div><p class="ttxt">J'ai adoré l'expérience modèle. Olivier explique tout, il est patient. Le rendu est super pour un tatoueur qui débute — on voit le potentiel !</p><span class="tauth">— Lucie F., Saint-Denis</span></div>
     </div>
   </div>
 </section>
@@ -670,9 +588,9 @@ footer a{color:var(--red)}
     <div class="cgrid">
       <div class="cinfo rev">
         <h3>Me retrouver</h3>
-        <div class="crow"><div class="cico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="ctxt"><strong>Localisation</strong><p>Tarn &amp; Saint Supplice la pointe<br><em style="font-size:.77rem;color:var(--red)">Adresse communiquée sur RDV</em></p></div></div>
+        <div class="crow"><div class="cico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="ctxt"><strong>Localisation</strong><p>Tarn &amp; Petite Couronne<br><em style="font-size:.77rem;color:var(--red)">Adresse communiquée sur RDV</em></p></div></div>
         <div class="crow"><div class="cico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div class="ctxt"><strong>Disponibilités</strong><p>Mardi → Samedi<br>Sur rendez-vous uniquement</p></div></div>
-        <div class="crow"><div class="cico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div class="ctxt"><strong>Email</strong><p>contact@nicolastatoo.fr<br><em style="font-size:.77rem;color:var(--pearld)">Réponse garantie sous 24h</em></p></div></div>
+        <div class="crow"><div class="cico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div class="ctxt"><strong>Email</strong><p>contact@Oliviertatoo.fr<br><em style="font-size:.77rem;color:var(--pearld)">Réponse garantie sous 24h</em></p></div></div>
         <div class="socs">
           <a href="#" class="soc" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
           <a href="#" class="soc" aria-label="TikTok"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12a4 4 0 104 4V4a5 5 0 005 5"/></svg></a>
@@ -694,13 +612,13 @@ footer a{color:var(--red)}
 </section>
 
 <footer>
-  <div class="flogo">Nicolas <span>Tatoo</span></div>
-  <p>© 2025 Nicolas Tatoo · <a href="#">Mentions légales</a> · <a href="#">RGPD</a></p>
+  <div class="flogo">Olivier <span>Tatoo</span></div>
+  <p>© 2025 Olivier Tatoo · <a href="#">Mentions légales</a> · <a href="#">RGPD</a></p>
 </footer>
 
 <!-- INSTALL BANNERS -->
-<div id="ib"><div><p><strong>Nicolas Tatoo</strong></p><p>Installer l'application</p></div><button id="ibtn" onclick="install()">Installer</button><button id="idis" onclick="dismiss()" aria-label="Fermer">✕</button></div>
-<div id="ios"><button id="iosd" onclick="dismissIos()" aria-label="Fermer">✕</button><div id="iosc"><div style="font-size:1.6rem;margin-bottom:8px">📲</div><p style="font-weight:600;color:var(--red);margin-bottom:6px;font-size:.9rem">Installer Nicolas Tatoo</p><p>Appuyez sur <strong style="color:var(--pearl)">Partager</strong> puis <strong style="color:var(--pearl)">« Sur l'écran d'accueil »</strong></p></div><div id="iosar">▼</div></div>
+<div id="ib"><div><p><strong>Olivier Tatoo</strong></p><p>Installer l'application</p></div><button id="ibtn" onclick="install()">Installer</button><button id="idis" onclick="dismiss()" aria-label="Fermer">✕</button></div>
+<div id="ios"><button id="iosd" onclick="dismissIos()" aria-label="Fermer">✕</button><div id="iosc"><div style="font-size:1.6rem;margin-bottom:8px">📲</div><p style="font-weight:600;color:var(--red);margin-bottom:6px;font-size:.9rem">Installer Olivier Tatoo</p><p>Appuyez sur <strong style="color:var(--pearl)">Partager</strong> puis <strong style="color:var(--pearl)">« Sur l'écran d'accueil »</strong></p></div><div id="iosar">▼</div></div>
 
 <script>
 // Goto helper
