@@ -2,7 +2,7 @@
    DEZIL DERMO — main.js v1.4
    ============================================================ */
 
-const DEST_EMAIL = 'test@test.fr';
+const DEST_EMAIL = 'profiltest.1979@gmail.com';
 
 /* ── Slider avant/après ──────────────────────────────────── */
 function activateSliders() {
