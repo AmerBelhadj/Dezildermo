@@ -4,20 +4,12 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>Dezil Dermo — Tricopigmentation Capillaire | Saint-Sulpice-la-Pointe</title>
-  <meta name="description" content="Expert en tricopigmentation capillaire à Saint-Sulpice-la-Pointe. Technique brevetée de micropigmentation du cuir chevelu. Résultats naturels, solution non invasive."/>
-  <meta name="author" content="Olivier — Dezil Dermo"/>
-  <meta property="og:title" content="Dezil Dermo — Tricopigmentation Capillaire"/>
-  <meta property="og:type" content="website"/>
-  <meta property="og:image" content="assets/images/og-image.jpg"/>
-  <link rel="manifest" href="manifest.json"/>
-  <meta name="theme-color" content="#080808"/>
-  <meta name="apple-mobile-web-app-capable" content="yes"/>
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-  <link rel="apple-touch-icon" href="assets/icons/icon-192.png"/>
+  <meta name="description" content="Expert en tricopigmentation capillaire à Saint-Sulpice-la-Pointe. Technique brevetée de micropigmentation du cuir chevelu."/>
   <link rel="icon" href="assets/icons/favicon.ico"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link rel="stylesheet" href="assets/css/style.css"/>
+  <!-- PWA désactivée — manifest et SW non chargés -->
 </head>
 <body>
 
@@ -27,13 +19,6 @@
     <div class="loader-logo">Dezil <em style="font-style:italic;color:#c9a96e">Dermo</em></div>
     <div class="loader-line"></div>
   </div>
-</div>
-
-<!-- POPUP pathologies (singleton) -->
-<div class="pill-popup" id="pillPopup" role="tooltip" aria-live="polite">
-  <h4 id="popupTitle"></h4>
-  <p id="popupText"></p>
-  <div class="pp-arrow"></div>
 </div>
 
 <!-- NAV -->
@@ -72,11 +57,9 @@
 
 <main>
 
-<!-- HERO -->
+<!-- ═══ HERO ═══ -->
 <section id="hero">
-  <div class="hero-bg">
-    <img class="hero-bg-img" src="assets/images/hero-bg.jpg" alt="" aria-hidden="true"/>
-  </div>
+  <div class="hero-bg"></div>
   <div class="container">
     <div class="hero-content">
       <div class="hero-eyebrow"><span class="section-label">Tricopigmentation Capillaire</span></div>
@@ -102,16 +85,16 @@
   </div>
 </section>
 
-<!-- ABOUT / OLIVIER -->
+<!-- ═══ ABOUT ═══ -->
 <section id="about">
   <div class="container">
     <div class="about-grid">
       <div class="about-image-wrap fade-up">
-        <!-- FIX: affiche Olivier.jpg en priorité, sinon nicolas.jpg -->
-        <img class="about-img" src="assets/images/team/Olivier.jpg"
+        <img class="about-img" id="aboutImg"
+             src="assets/images/team/Olivier.jpg"
              onerror="this.src='assets/images/team/nicolas.jpg';this.onerror=function(){this.style.display='none';document.getElementById('aboutPlaceholder').style.display='flex'}"
-             alt="Olivier Turpin — Dezil Dermo"/>
-        <div class="about-img-placeholder" id="aboutPlaceholder" style="display:none;">
+             alt="Olivier — Dezil Dermo"/>
+        <div class="about-img-placeholder" id="aboutPlaceholder" style="display:none">
           <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
           <span style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase">Photo Olivier</span>
         </div>
@@ -122,9 +105,9 @@
       </div>
       <div class="fade-up" style="transition-delay:.15s">
         <div class="section-label">Votre praticien</div>
-        <h2 class="section-title">Olivier Turpin<br><em>Dezil Dermo</em></h2>
+        <h2 class="section-title">Olivier Turpine<br><em>Dezil Dermo</em></h2>
         <div class="divider"></div>
-        <p style="color:var(--silver);line-height:1.8;margin-bottom:20px">Praticien certifié en tricopigmentation capillaire, je me consacre depuis plusieurs années à aider hommes et femmes à retrouver confiance en eux face à la perte de cheveux.</p>
+        <p style="color:var(--silver);line-height:1.8;margin-bottom:20px">Praticien certifié en tricopigmentation capillaire, je me consacre à aider hommes et femmes à retrouver confiance en eux face à la perte de cheveux.</p>
         <p style="color:var(--silver);line-height:1.8;margin-bottom:32px">Basé à <strong style="color:var(--white)">Saint-Sulpice-la-Pointe (81370)</strong>, j'interviens sur tout le département du Tarn et les régions limitrophes. Ma formation auprès des fondateurs de la technique — <strong style="color:var(--white)">Ennio Orsini et Toni Belfato</strong> — me garantit une maîtrise complète de ce procédé breveté.</p>
         <div class="about-certif">
           <div class="about-certif-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg></div>
@@ -135,7 +118,7 @@
   </div>
 </section>
 
-<!-- TECHNIQUE -->
+<!-- ═══ TECHNIQUE ═══ -->
 <section id="technique">
   <div class="container">
     <div class="technique-intro fade-up">
@@ -144,62 +127,82 @@
       <div class="divider"></div>
       <p>La Tricopigmentation® est une technique brevetée mise au point par les spécialistes italiens <strong style="color:var(--white)">Ennio Orsini et Toni Belfato</strong>. Elle consiste à introduire des micro-pigments biorésorbables dans la couche superficielle du derme, créant une simulation parfaite du follicule pileux.</p>
     </div>
-
     <div class="technique-grid">
-      <div class="technique-card fade-up">
-        <div class="tc-icon">💧</div>
-        <h3 class="tc-title">Pigments biorésorbables</h3>
-        <p class="tc-text">Contrairement au tatouage permanent, les micro-pigments utilisés évoluent naturellement avec le temps, permettant des ajustements réguliers selon vos besoins.</p>
-      </div>
-      <div class="technique-card fade-up">
-        <div class="tc-icon">🎯</div>
-        <h3 class="tc-title">Résultats naturels</h3>
-        <p class="tc-text">Chaque micro-point reproduit fidèlement un follicule pileux. Le résultat est indiscernable d'une vraie repousse capillaire, qu'il s'agisse d'un effet rasé ou d'une densification.</p>
-      </div>
-      <div class="technique-card fade-up">
-        <div class="tc-icon">✅</div>
-        <h3 class="tc-title">Non invasif</h3>
-        <p class="tc-text">Aucune chirurgie, aucune douleur significative, aucun temps de récupération. Vous repartez avec un résultat immédiat dès la première séance.</p>
-      </div>
+      <div class="technique-card fade-up"><div class="tc-icon">💧</div><h3 class="tc-title">Pigments biorésorbables</h3><p class="tc-text">Contrairement au tatouage permanent, les micro-pigments évoluent naturellement avec le temps, permettant des ajustements réguliers.</p></div>
+      <div class="technique-card fade-up"><div class="tc-icon">🎯</div><h3 class="tc-title">Résultats naturels</h3><p class="tc-text">Chaque micro-point reproduit fidèlement un follicule pileux — indiscernable d'une vraie repousse capillaire.</p></div>
+      <div class="technique-card fade-up"><div class="tc-icon">✅</div><h3 class="tc-title">Non invasif</h3><p class="tc-text">Aucune chirurgie, aucune douleur significative, aucun temps de récupération. Résultat immédiat dès la première séance.</p></div>
     </div>
 
     <div class="divider" style="margin:48px auto;width:80px;background:var(--border)"></div>
     <h3 class="technique-types-title fade-up">Pathologies traitées</h3>
 
+    <!-- POPUPS CSS-FIRST : le tooltip est inline dans le HTML -->
     <div class="technique-types">
-      <!-- FIX: popups sur chaque pathologie -->
-      <div class="type-pill fade-up" data-popup="alopecie-andro">
-        <span class="dot"></span>Alopécie androgénique (calvitie)
-        <span class="pill-info-btn" aria-label="En savoir plus">i</span>
+
+      <div class="type-pill fade-up" data-popup="alopecie-andro" tabindex="0">
+        <span class="dot"></span>Alopécie androgénique (calvitie)<span class="pill-info-btn">i</span>
+        <div class="pill-tooltip">
+          <h4>Alopécie androgénique</h4>
+          <p>La calvitie liée aux hormones. La tricopigmentation crée une illusion de densité en reproduisant des micro-follicules sur les zones clairsemées — effet rasé ou densification naturelle selon votre souhait.</p>
+        </div>
       </div>
-      <div class="type-pill fade-up" data-popup="alopecie-areata">
-        <span class="dot"></span>Alopécie areata (pelade)
-        <span class="pill-info-btn" aria-label="En savoir plus">i</span>
+
+      <div class="type-pill fade-up" data-popup="alopecie-areata" tabindex="0">
+        <span class="dot"></span>Alopécie areata (pelade)<span class="pill-info-btn">i</span>
+        <div class="pill-tooltip">
+          <h4>Alopécie areata (pelade)</h4>
+          <p>Perte de cheveux par plaques due à une réaction auto-immune. La tricopigmentation camouffle les zones dégarnies en reproduisant la couleur et texture du cuir chevelu environnant.</p>
+        </div>
       </div>
-      <div class="type-pill fade-up" data-popup="alopecie-traction">
-        <span class="dot"></span>Alopécie de traction
-        <span class="pill-info-btn" aria-label="En savoir plus">i</span>
+
+      <div class="type-pill fade-up" data-popup="alopecie-traction" tabindex="0">
+        <span class="dot"></span>Alopécie de traction<span class="pill-info-btn">i</span>
+        <div class="pill-tooltip">
+          <h4>Alopécie de traction</h4>
+          <p>Perte causée par une tension répétée (coiffures serrées, extensions). La technique redessine les zones frontales et temporales fragilisées pour restaurer un aspect naturel.</p>
+        </div>
       </div>
-      <div class="type-pill fade-up" data-popup="trichotillomanie">
-        <span class="dot"></span>Trichotillomanie
-        <span class="pill-info-btn" aria-label="En savoir plus">i</span>
+
+      <div class="type-pill fade-up" data-popup="trichotillomanie" tabindex="0">
+        <span class="dot"></span>Trichotillomanie<span class="pill-info-btn">i</span>
+        <div class="pill-tooltip">
+          <h4>Trichotillomanie</h4>
+          <p>Trouble compulsif entraînant l'arrachage de cheveux. La tricopigmentation masque visuellement les zones dégarnies et aide à retrouver confiance en soi.</p>
+        </div>
       </div>
-      <div class="type-pill fade-up" data-popup="cicatrices-chir">
-        <span class="dot"></span>Cicatrices chirurgicales
-        <span class="pill-info-btn" aria-label="En savoir plus">i</span>
+
+      <div class="type-pill fade-up" data-popup="cicatrices-chir" tabindex="0">
+        <span class="dot"></span>Cicatrices chirurgicales<span class="pill-info-btn">i</span>
+        <div class="pill-tooltip">
+          <h4>Cicatrices chirurgicales</h4>
+          <p>Cicatrices post-opératoires sur le cuir chevelu. Des micro-pigments sont déposés avec précision pour reproduire l'apparence des follicules environnants.</p>
+        </div>
       </div>
-      <div class="type-pill fade-up" data-popup="cicatrices-greffe">
-        <span class="dot"></span>Cicatrices de greffe FUE / FUT
-        <span class="pill-info-btn" aria-label="En savoir plus">i</span>
+
+      <div class="type-pill fade-up" data-popup="cicatrices-greffe" tabindex="0">
+        <span class="dot"></span>Cicatrices de greffe FUE / FUT<span class="pill-info-btn">i</span>
+        <div class="pill-tooltip">
+          <h4>Cicatrices de greffe FUE / FUT</h4>
+          <p>Après une greffe capillaire, des cicatrices (linéaires FUT ou ponctuelles FUE) peuvent rester visibles. La tricopigmentation les camoufle pour un rendu parfaitement homogène.</p>
+        </div>
       </div>
-      <div class="type-pill fade-up" data-popup="cicatrices-accidents">
-        <span class="dot"></span>Cicatrices d'accidents et brûlures
-        <span class="pill-info-btn" aria-label="En savoir plus">i</span>
+
+      <div class="type-pill fade-up" data-popup="cicatrices-accidents" tabindex="0">
+        <span class="dot"></span>Cicatrices d'accidents et brûlures<span class="pill-info-btn">i</span>
+        <div class="pill-tooltip">
+          <h4>Cicatrices d'accidents et brûlures</h4>
+          <p>Sur les zones sans repousse suite à un traumatisme ou brûlure, la tricopigmentation redonne l'illusion d'un cuir chevelu naturel en reconstituant la densité folliculaire.</p>
+        </div>
       </div>
-      <div class="type-pill fade-up" data-popup="densification">
-        <span class="dot"></span>Densification capillaire
-        <span class="pill-info-btn" aria-label="En savoir plus">i</span>
+
+      <div class="type-pill fade-up" data-popup="densification" tabindex="0">
+        <span class="dot"></span>Densification capillaire<span class="pill-info-btn">i</span>
+        <div class="pill-tooltip">
+          <h4>Densification capillaire</h4>
+          <p>Pour les personnes ayant encore des cheveux mais une densité insuffisante. Des micro-points sont ajoutés entre les cheveux existants pour créer un effet de volume immédiatement visible.</p>
+        </div>
       </div>
+
     </div>
 
     <div class="technique-process" style="margin-top:72px">
@@ -211,7 +214,7 @@
   </div>
 </section>
 
-<!-- GALERIE -->
+<!-- ═══ GALERIE ═══ -->
 <section id="galerie">
   <div class="container">
     <div class="galerie-header fade-up">
@@ -220,51 +223,8 @@
       <div class="divider"></div>
       <p>Glissez sur chaque photo pour découvrir la transformation</p>
     </div>
-    <div class="galerie-grid">
-
-      <!-- Card 1 — FIX: vraies images case1 -->
-      <article class="before-after-card fade-up" data-cat="calvitie">
-        <div class="ba-slider">
-          <div class="ba-before">
-            <img src="assets/images/gallery/case1-before.jpg" alt="Avant traitement alopécie" loading="lazy"
-                 onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\' style=\'background:#111;color:#555;width:100%;height:100%\'>AVANT</div>'"/>
-          </div>
-          <div class="ba-after">
-            <img src="assets/images/gallery/case1-after.jpg" alt="Après traitement alopécie" loading="lazy"
-                 onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\' style=\'background:#1a1a1a;color:#888;width:100%;height:100%\'>APRÈS</div>'"/>
-          </div>
-          <div class="ba-divider"></div>
-          <div class="ba-handle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/><polyline points="12 5 5 12 12 19"/></svg></div>
-          <div class="ba-labels"><span>Avant</span><span>Après</span></div>
-        </div>
-        <div class="ba-info"><h3>Alopécie androgénique</h3><p>Densification frontale — 2 séances</p></div>
-      </article>
-
-      <!-- Card 2 -->
-      <article class="before-after-card fade-up" data-cat="calvitie">
-        <div class="ba-slider">
-          <div class="ba-before"><div class="img-placeholder" style="background:#0f0f0f;color:#444;width:100%;height:100%">AVANT</div></div>
-          <div class="ba-after"><div class="img-placeholder" style="background:#1a1a1a;color:#888;width:100%;height:100%">APRÈS</div></div>
-          <div class="ba-divider"></div>
-          <div class="ba-handle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/><polyline points="12 5 5 12 12 19"/></svg></div>
-          <div class="ba-labels"><span>Avant</span><span>Après</span></div>
-        </div>
-        <div class="ba-info"><h3>Effet tête rasée</h3><p>Couverture complète — 3 séances</p></div>
-      </article>
-
-      <!-- Card 3 -->
-      <article class="before-after-card fade-up" data-cat="cicatrice">
-        <div class="ba-slider">
-          <div class="ba-before"><div class="img-placeholder" style="background:#101010;color:#444;width:100%;height:100%">AVANT</div></div>
-          <div class="ba-after"><div class="img-placeholder" style="background:#1c1c1c;color:#888;width:100%;height:100%">APRÈS</div></div>
-          <div class="ba-divider"></div>
-          <div class="ba-handle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/><polyline points="12 5 5 12 12 19"/></svg></div>
-          <div class="ba-labels"><span>Avant</span><span>Après</span></div>
-        </div>
-        <div class="ba-info"><h3>Camouflage cicatrice FUE</h3><p>Dissimulation de cicatrice — 2 séances</p></div>
-      </article>
-
-    </div>
+    <!-- Grille construite par JS via gallery-data.js -->
+    <div class="galerie-grid" id="galerieGrid"></div>
     <div style="text-align:center;margin-top:48px" class="fade-up">
       <a href="https://www.instagram.com/dezildermo" target="_blank" rel="noopener" class="btn btn-outline">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
@@ -274,7 +234,7 @@
   </div>
 </section>
 
-<!-- RÉSERVATION -->
+<!-- ═══ RÉSERVATION ═══ -->
 <section id="reservation">
   <div class="container">
     <div class="resa-content">
@@ -282,10 +242,10 @@
         <div class="section-label">Prenez rendez-vous</div>
         <h2 class="section-title">Réserver<br><em>une séance</em></h2>
         <div class="divider"></div>
-        <p>Remplissez le formulaire ci-contre pour soumettre votre demande de rendez-vous. Je vous contacte dans les 24h pour confirmer le créneau disponible.</p>
+        <p>Remplissez le formulaire ci-contre. Je vous contacte dans les 24h pour confirmer votre créneau.</p>
         <div class="resa-steps">
           <div class="resa-step"><div class="resa-step-num">1</div><div class="resa-step-text"><h4>Envoyez votre demande</h4><p>Remplissez le formulaire avec vos disponibilités</p></div></div>
-          <div class="resa-step"><div class="resa-step-num">2</div><div class="resa-step-text"><h4>Confirmation sous 24h</h4><p>Je vous envoie un email de confirmation avec votre créneau</p></div></div>
+          <div class="resa-step"><div class="resa-step-num">2</div><div class="resa-step-text"><h4>Confirmation sous 24h</h4><p>Email de confirmation avec votre créneau validé</p></div></div>
           <div class="resa-step"><div class="resa-step-num">3</div><div class="resa-step-text"><h4>Consultation initiale</h4><p>Nous définissons ensemble votre protocole personnalisé</p></div></div>
         </div>
       </div>
@@ -293,33 +253,36 @@
       <div class="fade-up" style="transition-delay:.15s">
         <div class="resa-form-wrap">
           <h3>Demande de rendez-vous</h3>
-          <div class="calendly-notice">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            <span>Vous recevrez un email de confirmation dès validation de votre demande.</span>
-          </div>
 
-          <!-- SUCCESS STATE -->
-          <div class="form-success" id="formSuccess">
-            <div class="fs-icon">✅</div>
-            <h4>Demande envoyée !</h4>
-            <p>Olivier vous contactera sous 24h pour confirmer votre créneau.</p>
-          </div>
+          <!--
+            ENVOI HTML POST NATIF via FormSubmit.co
+            ► Aucune boite mail ne s'ouvre, aucun JS requis pour l'envoi
+            ► 1ère soumission : FormSubmit envoie un mail d'activation à test@test.fr
+            ► Remplacez test@test.fr par votre email réel dans action="..."
+            ► _next : page de confirmation (optionnel)
+          -->
+          <form id="resaForm"
+                action="https://formsubmit.co/test@test.fr"
+                method="POST"
+                novalidate>
 
-          <form id="resaForm" novalidate>
+            <!-- Champs cachés FormSubmit -->
+            <input type="hidden" name="_subject"  value="🗓 Nouvelle demande RDV — Dezil Dermo"/>
+            <input type="hidden" name="_captcha"  value="false"/>
+            <input type="hidden" name="_template" value="table"/>
+            <!-- Décommentez _next pour rediriger après envoi :
+            <input type="hidden" name="_next" value="https://amerbelhadj.github.io/Dezildermo/#reservation"/> -->
+
+            <div class="calendly-notice">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <span>Confirmation par email sous 24h. Aucune boite mail à ouvrir.</span>
+            </div>
+
             <div class="form-row">
-              <div class="form-group">
-                <label for="nom">Nom complet *</label>
-                <input type="text" id="nom" name="nom" placeholder="Jean Dupont" required autocomplete="name"/>
-              </div>
-              <div class="form-group">
-                <label for="tel">Téléphone *</label>
-                <input type="tel" id="tel" name="tel" placeholder="06 00 00 00 00" required autocomplete="tel"/>
-              </div>
+              <div class="form-group"><label for="nom">Nom complet *</label><input type="text" id="nom" name="nom" placeholder="Jean Dupont" required autocomplete="name"/></div>
+              <div class="form-group"><label for="tel">Téléphone *</label><input type="tel" id="tel" name="telephone" placeholder="06 00 00 00 00" required autocomplete="tel"/></div>
             </div>
-            <div class="form-group">
-              <label for="email">Email *</label>
-              <input type="email" id="email" name="email" placeholder="votre@email.fr" required autocomplete="email"/>
-            </div>
+            <div class="form-group"><label for="email">Email *</label><input type="email" id="email" name="email" placeholder="votre@email.fr" required autocomplete="email"/></div>
             <div class="form-group">
               <label for="prestation">Prestation souhaitée *</label>
               <select id="prestation" name="prestation" required>
@@ -334,41 +297,30 @@
                 <option>Autre</option>
               </select>
             </div>
-            <!-- FIX: date + heure -->
             <div class="form-row">
-              <div class="form-group">
-                <label for="date">Date souhaitée *</label>
-                <input type="date" id="date" name="date" required/>
-              </div>
+              <div class="form-group"><label for="date">Date souhaitée *</label><input type="date" id="date" name="date" required/></div>
               <div class="form-group">
                 <label for="heure">Heure souhaitée *</label>
                 <select id="heure" name="heure" required>
                   <option value="">Choisir…</option>
-                  <option>08:00</option><option>08:30</option>
-                  <option>09:00</option><option>09:30</option>
-                  <option>10:00</option><option>10:30</option>
-                  <option>11:00</option><option>11:30</option>
-                  <option>12:00</option><option>12:30</option>
-                  <option>13:00</option><option>13:30</option>
-                  <option>14:00</option><option>14:30</option>
-                  <option>15:00</option><option>15:30</option>
-                  <option>16:00</option><option>16:30</option>
-                  <option>17:00</option><option>17:30</option>
+                  <option>08:00</option><option>08:30</option><option>09:00</option><option>09:30</option>
+                  <option>10:00</option><option>10:30</option><option>11:00</option><option>11:30</option>
+                  <option>12:00</option><option>12:30</option><option>13:00</option><option>13:30</option>
+                  <option>14:00</option><option>14:30</option><option>15:00</option><option>15:30</option>
+                  <option>16:00</option><option>16:30</option><option>17:00</option><option>17:30</option>
                   <option>18:00</option>
                 </select>
               </div>
             </div>
-            <div class="form-group">
-              <label for="message">Informations complémentaires</label>
-              <textarea id="message" name="message" placeholder="Décrivez brièvement votre situation…"></textarea>
-            </div>
+            <div class="form-group"><label for="message">Informations complémentaires</label><textarea id="message" name="message" placeholder="Décrivez brièvement votre situation…"></textarea></div>
 
-            <!-- FIX: Captcha custom -->
+            <!-- CAPTCHA NATIF — checkbox native positionnée sur la box visuelle -->
             <div class="captcha-wrap" id="captchaWrap">
-              <div class="captcha-box" id="captchaBox" role="checkbox" aria-checked="false" tabindex="0" aria-label="Je ne suis pas un robot">
-                <span class="check-mark">✓</span>
+              <div style="position:relative;width:22px;height:22px;flex-shrink:0">
+                <input type="checkbox" id="captchaNative" class="captcha-native" aria-label="Je ne suis pas un robot"/>
+                <div class="captcha-box-visual" id="captchaVisual"></div>
               </div>
-              <label class="captcha-label" for="captchaBox" onclick="toggleCaptcha()">Je ne suis pas un robot</label>
+              <label for="captchaNative" class="captcha-label">Je ne suis pas un robot</label>
               <div class="captcha-brand"><strong>reCAPTCHA</strong>Confidentialité<br>Conditions</div>
             </div>
 
@@ -383,10 +335,12 @@
   </div>
 </section>
 
-<!-- CONTACT -->
+<!-- ═══ CONTACT ═══ -->
 <section id="contact">
   <div class="container">
     <div class="contact-grid">
+
+      <!-- Colonne gauche -->
       <div class="fade-up">
         <div class="section-label">Nous trouver</div>
         <h2 class="section-title">Contact &amp;<br><em>Adresse</em></h2>
@@ -395,28 +349,17 @@
 
           <div class="contact-card">
             <div class="contact-card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-            <div class="contact-card-text">
-              <h4>Adresse</h4>
-              <p>Saint-Sulpice-la-Pointe<br/>81370 — Tarn (81)</p>
-            </div>
+            <div class="contact-card-text"><h4>Adresse</h4><p>Saint-Sulpice-la-Pointe<br/>81370 — Tarn (81)</p></div>
           </div>
 
-          <!-- FIX: téléphone affiché -->
           <a href="tel:+33601000000" class="contact-card">
             <div class="contact-card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.6 3.3 2 2 0 0 1 3.56 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.5a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
-            <div class="contact-card-text">
-              <h4>Téléphone</h4>
-              <p><a href="tel:+33601000000">+33 6 01 00 00 00</a></p>
-            </div>
+            <div class="contact-card-text"><h4>Téléphone</h4><p>+33 6 01 00 00 00</p></div>
           </a>
 
-          <!-- FIX: email affiché -->
           <a href="mailto:test@test.fr" class="contact-card">
             <div class="contact-card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
-            <div class="contact-card-text">
-              <h4>Email</h4>
-              <p><a href="mailto:test@test.fr">test@test.fr</a></p>
-            </div>
+            <div class="contact-card-text"><h4>Email</h4><p>test@test.fr</p></div>
           </a>
 
         </div>
@@ -432,16 +375,19 @@
         </div>
       </div>
 
-      <!-- FIX: carte satellite (maptype=satellite), pas de filtre CSS -->
-      <div class="map-wrap fade-up" style="transition-delay:.15s">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11597.2!2d1.6857!3d43.7733!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12aebb8c5fc9e5bd%3A0x40819a5fd97ab50!2sSaint-Sulpice-la-Pointe%2C%2081370!5e1!3m2!1sfr!2sfr!4v1700000000000!5m2!1sfr!2sfr"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          title="Carte satellite — Saint-Sulpice-la-Pointe 81370"
-          allowfullscreen>
-        </iframe>
+      <!-- Carte satellite — alignée sur le bas de la colonne gauche -->
+      <div class="contact-map-col fade-up" style="transition-delay:.15s">
+        <div class="map-wrap">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11597.2!2d1.6857!3d43.7733!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12aebb8c5fc9e5bd%3A0x40819a5fd97ab50!2sSaint-Sulpice-la-Pointe%2C%2081370!5e1!3m2!1sfr!2sfr!4v1700000000000!5m2!1sfr!2sfr"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Carte satellite — Saint-Sulpice-la-Pointe 81370"
+            allowfullscreen>
+          </iframe>
+        </div>
       </div>
+
     </div>
   </div>
 </section>
@@ -482,7 +428,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 Dezil Dermo — Olivier Turpin. Tous droits réservés.</span>
+      <span>© 2025 Dezil Dermo — Olivier. Tous droits réservés.</span>
       <span>Saint-Sulpice-la-Pointe, Tarn (81) — <a href="https://www.instagram.com/dezildermo" target="_blank" rel="noopener">Instagram</a></span>
     </div>
   </div>
@@ -496,14 +442,7 @@
   </a>
 </div>
 
-<script src="assets/js/main.js" defer></script>
-<script>
-if('serviceWorker' in navigator){
-  window.addEventListener('load',()=>{
-    navigator.serviceWorker.register('./sw.js',{scope:'./'})
-      .then(r=>console.log('SW:',r.scope)).catch(e=>console.log('SW err:',e));
-  });
-}
-</script>
+<script src="assets/js/gallery-data.js"></script>
+<script src="assets/js/main.js"></script>
 </body>
 </html>
