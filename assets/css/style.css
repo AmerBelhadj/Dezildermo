@@ -10,7 +10,7 @@
   --gradient-silver:linear-gradient(135deg,#aaa 0%,#e8e8e8 50%,#999 100%);
   --font-display:'Cormorant Garamond',Georgia,serif;
   --font-body:'Jost',sans-serif;
-  --nav-h:80px; --radius:4px;
+  --nav-h:88px; --radius:4px;
   --transition:0.35s cubic-bezier(0.25,0.46,0.45,0.94);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -42,7 +42,7 @@ ul{list-style:none}
 .nav-inner{height:100%;display:flex;align-items:center;justify-content:space-between}
 .nav-logo{display:flex;align-items:center;gap:14px}
 /* FIX logo agrandi */
-.nav-logo img{height:62px;width:62px;border-radius:50%;object-fit:cover;border:1.5px solid rgba(201,169,110,.4);box-shadow:0 0 0 3px rgba(201,169,110,.1),0 2px 12px rgba(0,0,0,.5)}
+.nav-logo img{height:72px;width:72px;border-radius:50%;object-fit:cover;border:2px solid rgba(201,169,110,.5);box-shadow:0 0 0 4px rgba(201,169,110,.12),0 0 0 8px rgba(201,169,110,.05),0 4px 16px rgba(0,0,0,.6)}
 .nav-logo-text{font-family:var(--font-display);font-size:1.5rem;font-weight:400;letter-spacing:0.05em}
 .nav-logo-text span{font-style:italic;color:var(--silver-light)}
 .nav-links{display:flex;align-items:center;gap:36px}
@@ -82,7 +82,7 @@ ul{list-style:none}
 #about{padding:120px 0;position:relative}
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
 .about-image-wrap{position:relative}
-.about-img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:var(--radius);filter:grayscale(15%)}
+.about-img{width:100%;aspect-ratio:3/4;object-fit:contain;object-position:top center;border-radius:var(--radius);background:var(--card)}
 .about-img-placeholder{width:100%;aspect-ratio:3/4;background:var(--card);border-radius:var(--radius);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--silver);border:1px dashed var(--border);gap:12px}
 .about-badge{position:absolute;bottom:-24px;right:-24px;background:var(--dark);border:1px solid var(--border);padding:20px 24px;border-radius:var(--radius);min-width:180px;box-shadow:0 16px 48px rgba(0,0,0,.5)}
 .about-badge-num{font-family:var(--font-display);font-size:2.4rem;font-weight:300;color:var(--accent);line-height:1}
@@ -194,7 +194,7 @@ ul{list-style:none}
 
 /* ── CONTACT ── */
 #contact{padding:120px 0}
-.contact-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:48px;align-items:start}
+.contact-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:48px;align-items:end}
 .contact-cards{display:flex;flex-direction:column;gap:14px;margin-top:36px}
 .contact-card{display:flex;gap:16px;padding:18px 20px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);transition:var(--transition);align-items:flex-start}
 .contact-card:hover{border-color:#444}
@@ -204,8 +204,8 @@ ul{list-style:none}
 .contact-card-text a{transition:color var(--transition)}
 .contact-card-text a:hover{color:var(--accent)}
 /* FIX carte satellite - pas de filtre */
-.map-wrap{border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);height:440px}
-.map-wrap iframe{width:100%;height:100%;border:none}
+.map-wrap{border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);height:100%;min-height:340px}
+.map-wrap iframe{width:100%;height:100%;min-height:340px;border:none}
 .social-row{display:flex;gap:12px;margin-top:24px}
 .social-btn{display:flex;align-items:center;gap:10px;padding:10px 20px;background:var(--card);border:1px solid var(--border);border-radius:100px;font-size:0.78rem;color:var(--silver);transition:var(--transition)}
 .social-btn:hover{border-color:var(--accent);color:var(--white)}
@@ -252,7 +252,7 @@ footer{border-top:1px solid var(--border);padding:48px 0 32px}
 }
 @media(max-width:768px){
   :root{--nav-h:68px}
-  .nav-logo img{height:50px;width:50px}
+  .nav-logo img{height:56px;width:56px}
   .nav-links{display:none}
   .nav-cta .btn{display:none}
   .hamburger{display:flex}
@@ -266,7 +266,7 @@ footer{border-top:1px solid var(--border);padding:48px 0 32px}
   .footer-grid{grid-template-columns:1fr;gap:32px}
   .footer-bottom{flex-direction:column;gap:8px;text-align:center}
   .about-badge{bottom:-16px;right:0}
-  .map-wrap{height:300px}
+  .map-wrap{height:300px;min-height:300px}
 }
 @media(max-width:480px){
   .hero-actions{flex-direction:column;width:100%}
