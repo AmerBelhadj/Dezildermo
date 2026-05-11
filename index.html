@@ -1,638 +1,509 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>Dezil Dermo — Tricopigmentation Capillaire | Saint-Sulpice-la-Pointe</title>
-  <meta name="description" content="Expert en tricopigmentation capillaire à Saint-Sulpice-la-Pointe. Technique brevetée de micropigmentation du cuir chevelu pour masquer la perte de cheveux. Résultats naturels, solution non invasive." />
-  <meta name="keywords" content="tricopigmentation, micropigmentation, perte cheveux, alopécie, Saint-Sulpice-la-Pointe, Tarn, calvitie, cuir chevelu" />
-  <meta name="author" content="Olivier — Dezil Dermo" />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="Dezil Dermo — Tricopigmentation Capillaire" />
-  <meta property="og:description" content="Technique brevetée de micropigmentation du cuir chevelu. Solution non invasive pour masquer la perte de cheveux." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://dezildermo.fr" />
-  <meta property="og:image" content="assets/images/og-image.jpg" />
-
-  <!-- PWA -->
-  <link rel="manifest" href="manifest.json" />
-  <meta name="theme-color" content="#080808" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Dezil Dermo" />
-  <link rel="apple-touch-icon" href="assets/icons/icon-192.png" />
-
-  <!-- Favicon -->
-  <link rel="icon" href="assets/icons/favicon.ico" />
-
-  <!-- Fonts & Styles -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="assets/css/style.css" />
+  <meta name="description" content="Expert en tricopigmentation capillaire à Saint-Sulpice-la-Pointe. Technique brevetée de micropigmentation du cuir chevelu. Résultats naturels, solution non invasive."/>
+  <meta name="author" content="Olivier — Dezil Dermo"/>
+  <meta property="og:title" content="Dezil Dermo — Tricopigmentation Capillaire"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:image" content="assets/images/og-image.jpg"/>
+  <link rel="manifest" href="manifest.json"/>
+  <meta name="theme-color" content="#080808"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <link rel="apple-touch-icon" href="assets/icons/icon-192.png"/>
+  <link rel="icon" href="assets/icons/favicon.ico"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="stylesheet" href="assets/css/style.css"/>
 </head>
 <body>
 
-  <!-- ═══════════════ LOADER ═══════════════ -->
-  <div id="loader" role="status" aria-label="Chargement…">
-    <div>
-      <div class="loader-logo">Dezil <em style="font-style:italic;color:#c9a96e">Dermo</em></div>
-      <div class="loader-line"></div>
-    </div>
+<!-- LOADER -->
+<div id="loader">
+  <div>
+    <div class="loader-logo">Dezil <em style="font-style:italic;color:#c9a96e">Dermo</em></div>
+    <div class="loader-line"></div>
   </div>
+</div>
 
-  <!-- ═══════════════ NAV ═══════════════ -->
-  <nav id="navbar" aria-label="Navigation principale">
-    <div class="container nav-inner">
-      <a href="#hero" class="nav-logo" aria-label="Dezil Dermo — Accueil">
-        <img src="assets/images/logo.png" alt="Logo Dezil Dermo" onerror="this.style.display='none'" />
-        <div class="nav-logo-text">Dezil <span>Dermo</span></div>
+<!-- POPUP pathologies (singleton) -->
+<div class="pill-popup" id="pillPopup" role="tooltip" aria-live="polite">
+  <h4 id="popupTitle"></h4>
+  <p id="popupText"></p>
+  <div class="pp-arrow"></div>
+</div>
+
+<!-- NAV -->
+<nav id="navbar" aria-label="Navigation principale">
+  <div class="container nav-inner">
+    <a href="#hero" class="nav-logo" aria-label="Dezil Dermo — Accueil">
+      <img src="assets/images/logo.png" alt="Logo Dezil Dermo" onerror="this.style.display='none'"/>
+      <div class="nav-logo-text">Dezil <span>Dermo</span></div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">À propos</a></li>
+      <li><a href="#technique">La technique</a></li>
+      <li><a href="#galerie">Galerie</a></li>
+      <li><a href="#reservation">Réservation</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="https://www.instagram.com/dezildermo" target="_blank" rel="noopener" class="nav-insta" aria-label="Instagram">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
       </a>
-
-      <ul class="nav-links" role="list">
-        <li><a href="#about">À propos</a></li>
-        <li><a href="#technique">La technique</a></li>
-        <li><a href="#galerie">Galerie</a></li>
-        <li><a href="#reservation">Réservation</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-
-      <div class="nav-cta">
-        <a href="https://www.instagram.com/dezildermo" target="_blank" rel="noopener" class="nav-insta" aria-label="Instagram Dezil Dermo">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-          </svg>
-        </a>
-        <a href="#reservation" class="btn btn-primary">Réserver</a>
-      </div>
-
-      <button class="hamburger" id="hamburger" aria-label="Ouvrir le menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
+      <a href="#reservation" class="btn btn-primary">Réserver</a>
     </div>
-  </nav>
-
-  <!-- Mobile menu -->
-  <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Menu mobile">
-    <button class="mobile-close" id="mobileClose" aria-label="Fermer le menu">✕</button>
-    <a href="#about">À propos</a>
-    <a href="#technique">La technique</a>
-    <a href="#galerie">Galerie</a>
-    <a href="#reservation">Réservation</a>
-    <a href="#contact">Contact</a>
-    <a href="https://www.instagram.com/dezildermo" target="_blank" rel="noopener">Instagram</a>
+    <button class="hamburger" id="hamburger" aria-label="Ouvrir le menu"><span></span><span></span><span></span></button>
   </div>
+</nav>
 
-  <main>
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" id="mobileClose">✕</button>
+  <a href="#about">À propos</a>
+  <a href="#technique">La technique</a>
+  <a href="#galerie">Galerie</a>
+  <a href="#reservation">Réservation</a>
+  <a href="#contact">Contact</a>
+  <a href="https://www.instagram.com/dezildermo" target="_blank" rel="noopener">Instagram</a>
+</div>
 
-    <!-- ═══════════════ HERO ═══════════════ -->
-    <section id="hero" aria-label="Accueil">
-      <div class="hero-bg">
-        <img class="hero-bg-img" src="assets/images/hero-bg.jpg" alt="" aria-hidden="true" />
+<main>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg">
+    <img class="hero-bg-img" src="assets/images/hero-bg.jpg" alt="" aria-hidden="true"/>
+  </div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-eyebrow"><span class="section-label">Tricopigmentation Capillaire</span></div>
+      <h1 class="hero-title">Retrouvez<em>votre densité</em>capillaire</h1>
+      <p class="hero-subtitle">Technique brevetée de micropigmentation du cuir chevelu — une solution esthétique non invasive pour masquer la perte de cheveux et retrouver confiance en soi.</p>
+      <div class="hero-actions">
+        <a href="#reservation" class="btn btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Prendre rendez-vous
+        </a>
+        <a href="#galerie" class="btn btn-outline">Voir la galerie</a>
       </div>
-      <div class="container">
-        <div class="hero-content">
-          <div class="hero-eyebrow">
-            <span class="section-label">Tricopigmentation Capillaire</span>
-          </div>
-          <h1 class="hero-title">
-            Retrouvez
-            <em>votre densité</em>
-            capillaire
-          </h1>
-          <p class="hero-subtitle">
-            Technique brevetée de micropigmentation du cuir chevelu — une solution esthétique non invasive pour masquer la perte de cheveux et retrouver confiance en soi.
-          </p>
-          <div class="hero-actions">
-            <a href="#reservation" class="btn btn-primary">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-              Prendre rendez-vous
-            </a>
-            <a href="#galerie" class="btn btn-outline">
-              Voir la galerie
-            </a>
-          </div>
-          <div class="hero-stats">
-            <div class="stat-item">
-              <div class="stat-number" data-count="20" data-suffix="+">0+</div>
-              <div class="stat-label">Clients satisfaits</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-number" data-count="1" data-suffix=" ans">0 ans</div>
-              <div class="stat-label">D'expérience</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-number" data-count="100" data-suffix="%">0%</div>
-              <div class="stat-label">Non invasif</div>
-            </div>
-          </div>
+      <div class="hero-stats">
+        <div class="stat-item"><div class="stat-number" data-count="20" data-suffix="+">0+</div><div class="stat-label">Clients satisfaits</div></div>
+        <div class="stat-item"><div class="stat-number" data-count="1" data-suffix=" an">0 an</div><div class="stat-label">D'expérience</div></div>
+        <div class="stat-item"><div class="stat-number" data-count="100" data-suffix="%">0%</div><div class="stat-label">Non invasif</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll" aria-hidden="true">
+    <span>Découvrir</span>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+  </div>
+</section>
+
+<!-- ABOUT / OLIVIER -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image-wrap fade-up">
+        <!-- FIX: affiche Olivier.jpg en priorité, sinon nicolas.jpg -->
+        <img class="about-img" src="assets/images/team/Olivier.jpg"
+             onerror="this.src='assets/images/team/nicolas.jpg';this.onerror=function(){this.style.display='none';document.getElementById('aboutPlaceholder').style.display='flex'}"
+             alt="Olivier Turpine — Dezil Dermo"/>
+        <div class="about-img-placeholder" id="aboutPlaceholder" style="display:none;">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase">Photo Olivier</span>
         </div>
-      </div>
-      <div class="hero-scroll" aria-hidden="true">
-        <span>Découvrir</span>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
-      </div>
-    </section>
-
-    <!-- ═══════════════ À PROPOS / Olivier ═══════════════ -->
-    <section id="about" aria-label="À propos">
-      <div class="container">
-        <div class="about-grid">
-          <div class="about-image-wrap fade-up">
-            <div class="about-img-placeholder" role="img" aria-label="Photo de Olivier">
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-              <span style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase">Photo Olivier</span>
-            </div>
-            <div class="about-badge">
-              <div class="about-badge-num">Certifié</div>
-              <div class="about-badge-txt">Tricopigmentation®<br>Ennio Orsini</div>
-            </div>
-          </div>
-
-          <div class="fade-up" style="transition-delay:0.15s">
-            <div class="section-label">Votre praticien</div>
-            <h2 class="section-title">Olivier Turpin<br><em>Dezil Dermo</em></h2>
-            <div class="divider"></div>
-            <p style="color:var(--silver);line-height:1.8;margin-bottom:20px">
-              Praticien certifié en tricopigmentation capillaire, je me consacre depuis plusieurs années à aider hommes et femmes à retrouver confiance en eux face à la perte de cheveux.
-            </p>
-            <p style="color:var(--silver);line-height:1.8;margin-bottom:32px">
-              Basé à <strong style="color:var(--white)">Saint-Sulpice-la-Pointe (81370)</strong>, j'interviens sur tout le département du Tarn et les régions limitrophes. Ma formation auprès des fondateurs de la technique — <strong style="color:var(--white)">Ennio Orsini et Toni Belfato</strong> — me garantit une maîtrise complète de ce procédé breveté.
-            </p>
-            <div class="about-certif">
-              <div class="about-certif-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
-              </div>
-              <p>
-                <strong>Technique Tricopigmentation® brevetée</strong>
-                Pigments biorésorbables — résultats naturels et évolutifs
-              </p>
-            </div>
-          </div>
+        <div class="about-badge">
+          <div class="about-badge-num">Certifié</div>
+          <div class="about-badge-txt">Tricopigmentation®<br>Ennio Orsini</div>
         </div>
       </div>
-    </section>
-
-    <!-- ═══════════════ TECHNIQUE ═══════════════ -->
-    <section id="technique" aria-label="La technique">
-      <div class="container">
-        <div class="technique-intro fade-up">
-          <div class="section-label">Notre expertise</div>
-          <h2 class="section-title">La <em>Tricopigmentation®</em></h2>
-          <div class="divider"></div>
-          <p>
-            La Tricopigmentation® est une technique brevetée mise au point par les spécialistes italiens <strong style="color:var(--white)">Ennio Orsini et Toni Belfato</strong>. Elle consiste à introduire des micro-pigments biorésorbables dans la couche superficielle du derme, créant une simulation parfaite du follicule pileux pour masquer tout type de perte de cheveux.
-          </p>
-        </div>
-
-        <div class="technique-grid">
-          <div class="technique-card fade-up">
-            <div class="tc-icon">💧</div>
-            <h3 class="tc-title">Pigments biorésorbables</h3>
-            <p class="tc-text">Contrairement au tatouage permanent, les micro-pigments utilisés sont biorésorbables et évoluent naturellement avec le temps, permettant des ajustements réguliers selon vos besoins.</p>
-          </div>
-          <div class="technique-card fade-up">
-            <div class="tc-icon">🎯</div>
-            <h3 class="tc-title">Résultats naturels</h3>
-            <p class="tc-text">Chaque micro-point reproduit fidèlement un follicule pileux. Le résultat est indiscernable d'une vraie repousse capillaire, qu'il s'agisse d'un effet rasé ou d'une densification.</p>
-          </div>
-          <div class="technique-card fade-up">
-            <div class="tc-icon">✅</div>
-            <h3 class="tc-title">Non invasif</h3>
-            <p class="tc-text">Aucune chirurgie, aucune douleur significative, aucun temps de récupération. La séance se déroule comme une application classique, et vous repartez avec un résultat immédiat.</p>
-          </div>
-        </div>
-
-        <div class="divider" style="margin:48px auto;width:80px;background:var(--border)"></div>
-
-        <h3 class="technique-types-title fade-up">Pathologies traitées</h3>
-        <div class="technique-types">
-          <div class="type-pill fade-up"><span></span>Alopécie androgénique (calvitie)</div>
-          <div class="type-pill fade-up"><span></span>Alopécie areata (pelade)</div>
-          <div class="type-pill fade-up"><span></span>Alopécie de traction</div>
-          <div class="type-pill fade-up"><span></span>Trichotillomanie</div>
-          <div class="type-pill fade-up"><span></span>Cicatrices chirurgicales</div>
-          <div class="type-pill fade-up"><span></span>Cicatrices de greffe FUE / FUT</div>
-          <div class="type-pill fade-up"><span></span>Cicatrices d'accidents et brûlures</div>
-          <div class="type-pill fade-up"><span></span>Densification capillaire</div>
-        </div>
-
-        <div class="technique-process" style="margin-top:72px">
-          <div class="process-step fade-up">
-            <div class="process-num">1</div>
-            <div class="process-title">Consultation</div>
-            <p class="process-desc">Analyse de votre situation, définition des objectifs et du protocole personnalisé.</p>
-          </div>
-          <div class="process-step fade-up">
-            <div class="process-num">2</div>
-            <div class="process-title">1ère séance</div>
-            <p class="process-desc">Pose initiale des micro-pigments selon le protocole défini ensemble.</p>
-          </div>
-          <div class="process-step fade-up">
-            <div class="process-num">3</div>
-            <div class="process-title">2ème séance</div>
-            <p class="process-desc">Densification et affinement du résultat pour une couverture optimale.</p>
-          </div>
-          <div class="process-step fade-up">
-            <div class="process-num">4</div>
-            <div class="process-title">Retouches</div>
-            <p class="process-desc">Entretien périodique selon l'évolution naturelle des pigments.</p>
-          </div>
+      <div class="fade-up" style="transition-delay:.15s">
+        <div class="section-label">Votre praticien</div>
+        <h2 class="section-title">Olivier Turpine<br><em>Dezil Dermo</em></h2>
+        <div class="divider"></div>
+        <p style="color:var(--silver);line-height:1.8;margin-bottom:20px">Praticien certifié en tricopigmentation capillaire, je me consacre depuis plusieurs années à aider hommes et femmes à retrouver confiance en eux face à la perte de cheveux.</p>
+        <p style="color:var(--silver);line-height:1.8;margin-bottom:32px">Basé à <strong style="color:var(--white)">Saint-Sulpice-la-Pointe (81370)</strong>, j'interviens sur tout le département du Tarn et les régions limitrophes. Ma formation auprès des fondateurs de la technique — <strong style="color:var(--white)">Ennio Orsini et Toni Belfato</strong> — me garantit une maîtrise complète de ce procédé breveté.</p>
+        <div class="about-certif">
+          <div class="about-certif-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg></div>
+          <p><strong>Technique Tricopigmentation® brevetée</strong>Pigments biorésorbables — résultats naturels et évolutifs</p>
         </div>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
 
-    <!-- ═══════════════ GALERIE ═══════════════ -->
-    <section id="galerie" aria-label="Galerie avant / après">
-      <div class="container">
-        <div class="galerie-header fade-up">
-          <div class="section-label">Résultats</div>
-          <h2 class="section-title">Avant / <em>Après</em></h2>
-          <div class="divider"></div>
-          <p>Glissez sur chaque photo pour découvrir la transformation</p>
+<!-- TECHNIQUE -->
+<section id="technique">
+  <div class="container">
+    <div class="technique-intro fade-up">
+      <div class="section-label">Notre expertise</div>
+      <h2 class="section-title">La <em>Tricopigmentation®</em></h2>
+      <div class="divider"></div>
+      <p>La Tricopigmentation® est une technique brevetée mise au point par les spécialistes italiens <strong style="color:var(--white)">Ennio Orsini et Toni Belfato</strong>. Elle consiste à introduire des micro-pigments biorésorbables dans la couche superficielle du derme, créant une simulation parfaite du follicule pileux.</p>
+    </div>
+
+    <div class="technique-grid">
+      <div class="technique-card fade-up">
+        <div class="tc-icon">💧</div>
+        <h3 class="tc-title">Pigments biorésorbables</h3>
+        <p class="tc-text">Contrairement au tatouage permanent, les micro-pigments utilisés évoluent naturellement avec le temps, permettant des ajustements réguliers selon vos besoins.</p>
+      </div>
+      <div class="technique-card fade-up">
+        <div class="tc-icon">🎯</div>
+        <h3 class="tc-title">Résultats naturels</h3>
+        <p class="tc-text">Chaque micro-point reproduit fidèlement un follicule pileux. Le résultat est indiscernable d'une vraie repousse capillaire, qu'il s'agisse d'un effet rasé ou d'une densification.</p>
+      </div>
+      <div class="technique-card fade-up">
+        <div class="tc-icon">✅</div>
+        <h3 class="tc-title">Non invasif</h3>
+        <p class="tc-text">Aucune chirurgie, aucune douleur significative, aucun temps de récupération. Vous repartez avec un résultat immédiat dès la première séance.</p>
+      </div>
+    </div>
+
+    <div class="divider" style="margin:48px auto;width:80px;background:var(--border)"></div>
+    <h3 class="technique-types-title fade-up">Pathologies traitées</h3>
+
+    <div class="technique-types">
+      <!-- FIX: popups sur chaque pathologie -->
+      <div class="type-pill fade-up" data-popup="alopecie-andro">
+        <span class="dot"></span>Alopécie androgénique (calvitie)
+        <span class="pill-info-btn" aria-label="En savoir plus">i</span>
+      </div>
+      <div class="type-pill fade-up" data-popup="alopecie-areata">
+        <span class="dot"></span>Alopécie areata (pelade)
+        <span class="pill-info-btn" aria-label="En savoir plus">i</span>
+      </div>
+      <div class="type-pill fade-up" data-popup="alopecie-traction">
+        <span class="dot"></span>Alopécie de traction
+        <span class="pill-info-btn" aria-label="En savoir plus">i</span>
+      </div>
+      <div class="type-pill fade-up" data-popup="trichotillomanie">
+        <span class="dot"></span>Trichotillomanie
+        <span class="pill-info-btn" aria-label="En savoir plus">i</span>
+      </div>
+      <div class="type-pill fade-up" data-popup="cicatrices-chir">
+        <span class="dot"></span>Cicatrices chirurgicales
+        <span class="pill-info-btn" aria-label="En savoir plus">i</span>
+      </div>
+      <div class="type-pill fade-up" data-popup="cicatrices-greffe">
+        <span class="dot"></span>Cicatrices de greffe FUE / FUT
+        <span class="pill-info-btn" aria-label="En savoir plus">i</span>
+      </div>
+      <div class="type-pill fade-up" data-popup="cicatrices-accidents">
+        <span class="dot"></span>Cicatrices d'accidents et brûlures
+        <span class="pill-info-btn" aria-label="En savoir plus">i</span>
+      </div>
+      <div class="type-pill fade-up" data-popup="densification">
+        <span class="dot"></span>Densification capillaire
+        <span class="pill-info-btn" aria-label="En savoir plus">i</span>
+      </div>
+    </div>
+
+    <div class="technique-process" style="margin-top:72px">
+      <div class="process-step fade-up"><div class="process-num">1</div><div class="process-title">Consultation</div><p class="process-desc">Analyse de votre situation, définition des objectifs et du protocole personnalisé.</p></div>
+      <div class="process-step fade-up"><div class="process-num">2</div><div class="process-title">1ère séance</div><p class="process-desc">Pose initiale des micro-pigments selon le protocole défini ensemble.</p></div>
+      <div class="process-step fade-up"><div class="process-num">3</div><div class="process-title">2ème séance</div><p class="process-desc">Densification et affinement du résultat pour une couverture optimale.</p></div>
+      <div class="process-step fade-up"><div class="process-num">4</div><div class="process-title">Retouches</div><p class="process-desc">Entretien périodique selon l'évolution naturelle des pigments.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALERIE -->
+<section id="galerie">
+  <div class="container">
+    <div class="galerie-header fade-up">
+      <div class="section-label">Résultats</div>
+      <h2 class="section-title">Avant / <em>Après</em></h2>
+      <div class="divider"></div>
+      <p>Glissez sur chaque photo pour découvrir la transformation</p>
+    </div>
+    <div class="galerie-grid">
+
+      <!-- Card 1 — FIX: vraies images case1 -->
+      <article class="before-after-card fade-up" data-cat="calvitie">
+        <div class="ba-slider">
+          <div class="ba-before">
+            <img src="assets/images/gallery/case1-before.jpg" alt="Avant traitement alopécie" loading="lazy"
+                 onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\' style=\'background:#111;color:#555;width:100%;height:100%\'>AVANT</div>'"/>
+          </div>
+          <div class="ba-after">
+            <img src="assets/images/gallery/case1-after.jpg" alt="Après traitement alopécie" loading="lazy"
+                 onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\' style=\'background:#1a1a1a;color:#888;width:100%;height:100%\'>APRÈS</div>'"/>
+          </div>
+          <div class="ba-divider"></div>
+          <div class="ba-handle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/><polyline points="12 5 5 12 12 19"/></svg></div>
+          <div class="ba-labels"><span>Avant</span><span>Après</span></div>
         </div>
+        <div class="ba-info"><h3>Alopécie androgénique</h3><p>Densification frontale — 2 séances</p></div>
+      </article>
 
-        <div class="galerie-grid">
+      <!-- Card 2 -->
+      <article class="before-after-card fade-up" data-cat="calvitie">
+        <div class="ba-slider">
+          <div class="ba-before"><div class="img-placeholder" style="background:#0f0f0f;color:#444;width:100%;height:100%">AVANT</div></div>
+          <div class="ba-after"><div class="img-placeholder" style="background:#1a1a1a;color:#888;width:100%;height:100%">APRÈS</div></div>
+          <div class="ba-divider"></div>
+          <div class="ba-handle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/><polyline points="12 5 5 12 12 19"/></svg></div>
+          <div class="ba-labels"><span>Avant</span><span>Après</span></div>
+        </div>
+        <div class="ba-info"><h3>Effet tête rasée</h3><p>Couverture complète — 3 séances</p></div>
+      </article>
 
-          <!-- Card 1 -->
-          <article class="before-after-card fade-up" data-cat="calvitie">
-            <div class="ba-slider" aria-label="Comparaison avant après — Alopécie androgénique">
-              <div class="ba-before">
-                <div class="img-placeholder" style="background:#111;color:#555;display:flex;align-items:center;justify-content:center;width:100%;height:100%">AVANT</div>
-              </div>
-              <div class="ba-after">
-                <div class="img-placeholder" style="background:#1a1a1a;color:#888;display:flex;align-items:center;justify-content:center;width:100%;height:100%">APRÈS</div>
-              </div>
-              <div class="ba-divider" aria-hidden="true"></div>
-              <div class="ba-handle" aria-hidden="true">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/><polyline points="12 5 5 12 12 19"/></svg>
-              </div>
-              <div class="ba-labels" aria-hidden="true">
-                <span>Avant</span><span>Après</span>
-              </div>
-            </div>
-            <div class="ba-info">
-              <h3>Alopécie androgénique</h3>
-              <p>Densification frontale — 2 séances</p>
-            </div>
-          </article>
+      <!-- Card 3 -->
+      <article class="before-after-card fade-up" data-cat="cicatrice">
+        <div class="ba-slider">
+          <div class="ba-before"><div class="img-placeholder" style="background:#101010;color:#444;width:100%;height:100%">AVANT</div></div>
+          <div class="ba-after"><div class="img-placeholder" style="background:#1c1c1c;color:#888;width:100%;height:100%">APRÈS</div></div>
+          <div class="ba-divider"></div>
+          <div class="ba-handle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/><polyline points="12 5 5 12 12 19"/></svg></div>
+          <div class="ba-labels"><span>Avant</span><span>Après</span></div>
+        </div>
+        <div class="ba-info"><h3>Camouflage cicatrice FUE</h3><p>Dissimulation de cicatrice — 2 séances</p></div>
+      </article>
 
-          <!-- Card 2 -->
-          <article class="before-after-card fade-up" data-cat="calvitie">
-            <div class="ba-slider" aria-label="Comparaison avant après — Effet rasé">
-              <div class="ba-before">
-                <div class="img-placeholder" style="background:#0f0f0f;color:#444;display:flex;align-items:center;justify-content:center;width:100%;height:100%">AVANT</div>
-              </div>
-              <div class="ba-after">
-                <div class="img-placeholder" style="background:#181818;color:#777;display:flex;align-items:center;justify-content:center;width:100%;height:100%">APRÈS</div>
-              </div>
-              <div class="ba-divider" aria-hidden="true"></div>
-              <div class="ba-handle" aria-hidden="true">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/><polyline points="12 5 5 12 12 19"/></svg>
-              </div>
-              <div class="ba-labels" aria-hidden="true">
-                <span>Avant</span><span>Après</span>
-              </div>
-            </div>
-            <div class="ba-info">
-              <h3>Effet tête rasée</h3>
-              <p>Couverture complète — 3 séances</p>
-            </div>
-          </article>
+    </div>
+    <div style="text-align:center;margin-top:48px" class="fade-up">
+      <a href="https://www.instagram.com/dezildermo" target="_blank" rel="noopener" class="btn btn-outline">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        Voir plus sur Instagram
+      </a>
+    </div>
+  </div>
+</section>
 
-          <!-- Card 3 -->
-          <article class="before-after-card fade-up" data-cat="cicatrice">
-            <div class="ba-slider" aria-label="Comparaison avant après — Cicatrice FUE">
-              <div class="ba-before">
-                <div class="img-placeholder" style="background:#101010;color:#444;display:flex;align-items:center;justify-content:center;width:100%;height:100%">AVANT</div>
-              </div>
-              <div class="ba-after">
-                <div class="img-placeholder" style="background:#1c1c1c;color:#888;display:flex;align-items:center;justify-content:center;width:100%;height:100%">APRÈS</div>
-              </div>
-              <div class="ba-divider" aria-hidden="true"></div>
-              <div class="ba-handle" aria-hidden="true">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/><polyline points="12 5 5 12 12 19"/></svg>
-              </div>
-              <div class="ba-labels" aria-hidden="true">
-                <span>Avant</span><span>Après</span>
-              </div>
-            </div>
-            <div class="ba-info">
-              <h3>Camouflage cicatrice FUE</h3>
-              <p>Dissimulation de cicatrice — 2 séances</p>
-            </div>
-          </article>
+<!-- RÉSERVATION -->
+<section id="reservation">
+  <div class="container">
+    <div class="resa-content">
+      <div class="resa-info fade-up">
+        <div class="section-label">Prenez rendez-vous</div>
+        <h2 class="section-title">Réserver<br><em>une séance</em></h2>
+        <div class="divider"></div>
+        <p>Remplissez le formulaire ci-contre pour soumettre votre demande de rendez-vous. Je vous contacte dans les 24h pour confirmer le créneau disponible.</p>
+        <div class="resa-steps">
+          <div class="resa-step"><div class="resa-step-num">1</div><div class="resa-step-text"><h4>Envoyez votre demande</h4><p>Remplissez le formulaire avec vos disponibilités</p></div></div>
+          <div class="resa-step"><div class="resa-step-num">2</div><div class="resa-step-text"><h4>Confirmation sous 24h</h4><p>Je vous envoie un email de confirmation avec votre créneau</p></div></div>
+          <div class="resa-step"><div class="resa-step-num">3</div><div class="resa-step-text"><h4>Consultation initiale</h4><p>Nous définissons ensemble votre protocole personnalisé</p></div></div>
+        </div>
+      </div>
 
-          <!-- Card 4 -->
-          <article class="before-after-card fade-up" data-cat="femme">
-            <div class="ba-slider" aria-label="Comparaison avant après — Densification feminine">
-              <div class="ba-before">
-                <div class="img-placeholder" style="background:#0e0e0e;color:#444;display:flex;align-items:center;justify-content:center;width:100%;height:100%">AVANT</div>
-              </div>
-              <div class="ba-after">
-                <div class="img-placeholder" style="background:#1a1a1a;color:#777;display:flex;align-items:center;justify-content:center;width:100%;height:100%">APRÈS</div>
-              </div>
-              <div class="ba-divider" aria-hidden="true"></div>
-              <div class="ba-handle" aria-hidden="true">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/><polyline points="12 5 5 12 12 19"/></svg>
-              </div>
-              <div class="ba-labels" aria-hidden="true">
-                <span>Avant</span><span>Après</span>
-              </div>
-            </div>
-            <div class="ba-info">
-              <h3>Densification féminine</h3>
-              <p>Renforcement des zones clairsemées — 2 séances</p>
-            </div>
-          </article>
+      <div class="fade-up" style="transition-delay:.15s">
+        <div class="resa-form-wrap">
+          <h3>Demande de rendez-vous</h3>
+          <div class="calendly-notice">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span>Vous recevrez un email de confirmation dès validation de votre demande.</span>
+          </div>
 
-          <!-- Card 5 -->
-          <article class="before-after-card fade-up" data-cat="calvitie">
-            <div class="ba-slider" aria-label="Comparaison avant après — Tempes">
-              <div class="ba-before">
-                <div class="img-placeholder" style="background:#111;color:#444;display:flex;align-items:center;justify-content:center;width:100%;height:100%">AVANT</div>
-              </div>
-              <div class="ba-after">
-                <div class="img-placeholder" style="background:#1b1b1b;color:#888;display:flex;align-items:center;justify-content:center;width:100%;height:100%">APRÈS</div>
-              </div>
-              <div class="ba-divider" aria-hidden="true"></div>
-              <div class="ba-handle" aria-hidden="true">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/><polyline points="12 5 5 12 12 19"/></svg>
-              </div>
-              <div class="ba-labels" aria-hidden="true">
-                <span>Avant</span><span>Après</span>
-              </div>
-            </div>
-            <div class="ba-info">
-              <h3>Redessinage des tempes</h3>
-              <p>Recadrage de la ligne frontale — 1 séance</p>
-            </div>
-          </article>
+          <!-- SUCCESS STATE -->
+          <div class="form-success" id="formSuccess">
+            <div class="fs-icon">✅</div>
+            <h4>Demande envoyée !</h4>
+            <p>Olivier vous contactera sous 24h pour confirmer votre créneau.</p>
+          </div>
 
-          <!-- Card 6 -->
-          <article class="before-after-card fade-up" data-cat="cicatrice">
-            <div class="ba-slider" aria-label="Comparaison avant après — Pelade">
-              <div class="ba-before">
-                <div class="img-placeholder" style="background:#0d0d0d;color:#444;display:flex;align-items:center;justify-content:center;width:100%;height:100%">AVANT</div>
+          <form id="resaForm" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="nom">Nom complet *</label>
+                <input type="text" id="nom" name="nom" placeholder="Jean Dupont" required autocomplete="name"/>
               </div>
-              <div class="ba-after">
-                <div class="img-placeholder" style="background:#191919;color:#888;display:flex;align-items:center;justify-content:center;width:100%;height:100%">APRÈS</div>
-              </div>
-              <div class="ba-divider" aria-hidden="true"></div>
-              <div class="ba-handle" aria-hidden="true">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/><polyline points="12 5 5 12 12 19"/></svg>
-              </div>
-              <div class="ba-labels" aria-hidden="true">
-                <span>Avant</span><span>Après</span>
+              <div class="form-group">
+                <label for="tel">Téléphone *</label>
+                <input type="tel" id="tel" name="tel" placeholder="06 00 00 00 00" required autocomplete="tel"/>
               </div>
             </div>
-            <div class="ba-info">
-              <h3>Pelade — Alopécie areata</h3>
-              <p>Camouflage des zones dégarnies — 3 séances</p>
+            <div class="form-group">
+              <label for="email">Email *</label>
+              <input type="email" id="email" name="email" placeholder="votre@email.fr" required autocomplete="email"/>
             </div>
-          </article>
+            <div class="form-group">
+              <label for="prestation">Prestation souhaitée *</label>
+              <select id="prestation" name="prestation" required>
+                <option value="">Sélectionnez…</option>
+                <option>Consultation / Bilan gratuit</option>
+                <option>Alopécie androgénique — effet rasé</option>
+                <option>Alopécie androgénique — densification</option>
+                <option>Camouflage de cicatrice</option>
+                <option>Densification féminine</option>
+                <option>Pelade / Alopécie areata</option>
+                <option>Retouche</option>
+                <option>Autre</option>
+              </select>
+            </div>
+            <!-- FIX: date + heure -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="date">Date souhaitée *</label>
+                <input type="date" id="date" name="date" required/>
+              </div>
+              <div class="form-group">
+                <label for="heure">Heure souhaitée *</label>
+                <select id="heure" name="heure" required>
+                  <option value="">Choisir…</option>
+                  <option>08:00</option><option>08:30</option>
+                  <option>09:00</option><option>09:30</option>
+                  <option>10:00</option><option>10:30</option>
+                  <option>11:00</option><option>11:30</option>
+                  <option>12:00</option><option>12:30</option>
+                  <option>13:00</option><option>13:30</option>
+                  <option>14:00</option><option>14:30</option>
+                  <option>15:00</option><option>15:30</option>
+                  <option>16:00</option><option>16:30</option>
+                  <option>17:00</option><option>17:30</option>
+                  <option>18:00</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="message">Informations complémentaires</label>
+              <textarea id="message" name="message" placeholder="Décrivez brièvement votre situation…"></textarea>
+            </div>
+
+            <!-- FIX: Captcha custom -->
+            <div class="captcha-wrap" id="captchaWrap">
+              <div class="captcha-box" id="captchaBox" role="checkbox" aria-checked="false" tabindex="0" aria-label="Je ne suis pas un robot">
+                <span class="check-mark">✓</span>
+              </div>
+              <label class="captcha-label" for="captchaBox" onclick="toggleCaptcha()">Je ne suis pas un robot</label>
+              <div class="captcha-brand"><strong>reCAPTCHA</strong>Confidentialité<br>Conditions</div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" id="submitBtn" style="width:100%;justify-content:center" disabled>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              Envoyer ma demande
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="fade-up">
+        <div class="section-label">Nous trouver</div>
+        <h2 class="section-title">Contact &amp;<br><em>Adresse</em></h2>
+        <div class="divider"></div>
+        <div class="contact-cards">
+
+          <div class="contact-card">
+            <div class="contact-card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div class="contact-card-text">
+              <h4>Adresse</h4>
+              <p>Saint-Sulpice-la-Pointe<br/>81370 — Tarn (81)</p>
+            </div>
+          </div>
+
+          <!-- FIX: téléphone affiché -->
+          <a href="tel:+33601000000" class="contact-card">
+            <div class="contact-card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.6 3.3 2 2 0 0 1 3.56 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.5a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+            <div class="contact-card-text">
+              <h4>Téléphone</h4>
+              <p><a href="tel:+33601000000">+33 6 01 00 00 00</a></p>
+            </div>
+          </a>
+
+          <!-- FIX: email affiché -->
+          <a href="mailto:test@test.fr" class="contact-card">
+            <div class="contact-card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+            <div class="contact-card-text">
+              <h4>Email</h4>
+              <p><a href="mailto:test@test.fr">test@test.fr</a></p>
+            </div>
+          </a>
 
         </div>
-
-        <div style="text-align:center;margin-top:48px" class="fade-up">
-          <a href="https://www.instagram.com/dezildermo" target="_blank" rel="noopener" class="btn btn-outline">
+        <div class="social-row">
+          <a href="https://www.instagram.com/dezildermo" target="_blank" rel="noopener" class="social-btn">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-            Voir plus sur Instagram
+            @dezildermo
+          </a>
+          <a href="https://wa.me/33601000000" target="_blank" rel="noopener" class="social-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#25D366"><path d="M20.52 3.48A11.93 11.93 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.17 1.6 5.98L0 24l6.22-1.57A11.96 11.96 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.22-3.48-8.52zm-8.52 18.36a9.9 9.9 0 0 1-5.05-1.38l-.36-.22-3.7.93.99-3.6-.24-.37A9.87 9.87 0 0 1 2.1 12c0-5.46 4.44-9.9 9.9-9.9a9.86 9.86 0 0 1 7 2.9 9.86 9.86 0 0 1 2.9 7c0 5.46-4.44 9.9-9.9 9.9zm5.44-7.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.76.97-.93 1.17-.17.2-.34.22-.64.07-.3-.15-1.26-.46-2.4-1.47-.89-.79-1.49-1.76-1.66-2.06-.17-.3-.02-.46.13-.6.13-.13.3-.34.45-.51.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51-.17-.01-.37-.01-.57-.01-.2 0-.52.07-.79.37-.27.3-1.04 1.01-1.04 2.47 0 1.46 1.06 2.87 1.21 3.07.15.2 2.09 3.18 5.06 4.46.71.3 1.26.48 1.69.62.71.22 1.36.19 1.87.12.57-.08 1.76-.72 2.01-1.41.25-.69.25-1.28.17-1.41-.07-.13-.27-.2-.57-.35z"/></svg>
+            WhatsApp
           </a>
         </div>
       </div>
-    </section>
 
-    <!-- ═══════════════ RÉSERVATION ═══════════════ -->
-    <section id="reservation" aria-label="Réservation">
-      <div class="container">
-        <div class="resa-content">
-          <div class="resa-info fade-up">
-            <div class="section-label">Prenez rendez-vous</div>
-            <h2 class="section-title">Réserver<br><em>une séance</em></h2>
-            <div class="divider"></div>
-            <p>
-              Remplissez le formulaire ci-contre pour soumettre votre demande de rendez-vous. Je vous contacte dans les 24h pour confirmer le créneau disponible.
-            </p>
-            <div class="resa-steps">
-              <div class="resa-step">
-                <div class="resa-step-num">1</div>
-                <div class="resa-step-text">
-                  <h4>Envoyez votre demande</h4>
-                  <p>Remplissez le formulaire avec vos disponibilités</p>
-                </div>
-              </div>
-              <div class="resa-step">
-                <div class="resa-step-num">2</div>
-                <div class="resa-step-text">
-                  <h4>Confirmation sous 24h</h4>
-                  <p>Je vous envoie un email de confirmation avec votre créneau</p>
-                </div>
-              </div>
-              <div class="resa-step">
-                <div class="resa-step-num">3</div>
-                <div class="resa-step-text">
-                  <h4>Consultation initiale</h4>
-                  <p>Nous définissons ensemble votre protocole personnalisé</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="fade-up" style="transition-delay:0.15s">
-            <div class="resa-form-wrap">
-              <h3>Demande de rendez-vous</h3>
-
-              <div class="calendly-notice">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                <span>Vous recevrez un email de confirmation dès validation de votre demande.</span>
-              </div>
-
-              <form id="resaForm" novalidate>
-                <div class="form-row">
-                  <div class="form-group">
-                    <label for="nom">Nom complet *</label>
-                    <input type="text" id="nom" name="nom" placeholder="Jean Dupont" required autocomplete="name" />
-                  </div>
-                  <div class="form-group">
-                    <label for="tel">Téléphone *</label>
-                    <input type="tel" id="tel" name="tel" placeholder="06 00 00 00 00" required autocomplete="tel" />
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label for="email">Email *</label>
-                  <input type="email" id="email" name="email" placeholder="votre@email.fr" required autocomplete="email" />
-                </div>
-
-                <div class="form-group">
-                  <label for="prestation">Prestation souhaitée *</label>
-                  <select id="prestation" name="prestation" required>
-                    <option value="">Sélectionnez…</option>
-                    <option>Consultation / Bilan gratuit</option>
-                    <option>Alopécie androgénique — effet rasé</option>
-                    <option>Alopécie androgénique — densification</option>
-                    <option>Camouflage de cicatrice</option>
-                    <option>Densification féminine</option>
-                    <option>Pelade / Alopécie areata</option>
-                    <option>Retouche</option>
-                    <option>Autre</option>
-                  </select>
-                </div>
-
-                <div class="form-group">
-                  <label for="date">Date souhaitée *</label>
-                  <input type="date" id="date" name="date" required />
-                </div>
-
-                <div class="form-group">
-                  <label for="message">Informations complémentaires</label>
-                  <textarea id="message" name="message" placeholder="Décrivez brièvement votre situation…"></textarea>
-                </div>
-
-                <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-                  Envoyer ma demande
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════════════ CONTACT ═══════════════ -->
-    <section id="contact" aria-label="Contact">
-      <div class="container">
-        <div class="contact-grid">
-          <div class="fade-up">
-            <div class="section-label">Nous trouver</div>
-            <h2 class="section-title">Contact &<br><em>Adresse</em></h2>
-            <div class="divider"></div>
-
-            <div class="contact-cards">
-              <div class="contact-card">
-                <div class="contact-card-icon">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                </div>
-                <div class="contact-card-text">
-                  <h4>Adresse</h4>
-                  <p>Saint-Sulpice-la-Pointe<br />81370 — Tarn (81)</p>
-                </div>
-              </div>
-
-              <a href="tel:+33600000000" class="contact-card" style="cursor:pointer">
-                <div class="contact-card-icon">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.6 3.3 2 2 0 0 1 3.56 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.5a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                </div>
-              <!--   <div class="contact-card-text">
-                  <h4>Téléphone</h4>
-                  <p><a href="tel:+33600000000">+33 6 00 00 00 00</a> <em style="font-size:0.75rem;color:var(--silver)">[À compléter]</em></p>
-                </div>-->
-              </a>
-
-              <a href="mailto:contact@dezildermo.fr" class="contact-card" style="cursor:pointer">
-                <div class="contact-card-icon">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                </div>
-               <!--  <div class="contact-card-text">
-                  <h4>Email</h4>
-                  <p><a href="mailto:contact@dezildermo.fr">contact@dezildermo.fr</a></p>
-                </div>-->
-              </a>
-            </div>
-
-            <div class="social-row" style="margin-top:32px">
-              <a href="https://www.instagram.com/dezildermo" target="_blank" rel="noopener" class="social-btn">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-                @dezildermo
-              </a>
-              <a href="https://wa.me/+33600000000" target="_blank" rel="noopener" class="social-btn">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="#25D366" xmlns="http://www.w3.org/2000/svg"><path d="M20.52 3.48A11.93 11.93 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.17 1.6 5.98L0 24l6.22-1.57A11.96 11.96 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.22-3.48-8.52zm-8.52 18.36a9.9 9.9 0 0 1-5.05-1.38l-.36-.22-3.7.93.99-3.6-.24-.37A9.87 9.87 0 0 1 2.1 12c0-5.46 4.44-9.9 9.9-9.9a9.86 9.86 0 0 1 7 2.9 9.86 9.86 0 0 1 2.9 7c0 5.46-4.44 9.9-9.9 9.9zm5.44-7.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.76.97-.93 1.17-.17.2-.34.22-.64.07-.3-.15-1.26-.46-2.4-1.47-.89-.79-1.49-1.76-1.66-2.06-.17-.3-.02-.46.13-.6.13-.13.3-.34.45-.51.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51-.17-.01-.37-.01-.57-.01-.2 0-.52.07-.79.37-.27.3-1.04 1.01-1.04 2.47 0 1.46 1.06 2.87 1.21 3.07.15.2 2.09 3.18 5.06 4.46.71.3 1.26.48 1.69.62.71.22 1.36.19 1.87.12.57-.08 1.76-.72 2.01-1.41.25-.69.25-1.28.17-1.41-.07-.13-.27-.2-.57-.35z"/></svg>
-                WhatsApp
-              </a>
-            </div>
-          </div>
-
-          <div class="map-wrap fade-up" style="transition-delay:0.15s">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d23184.6!2d1.6857!3d43.7733!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12aebb8c5fc9e5bd%3A0x0!2sSaint-Sulpice-la-Pointe%2C%2081370!5e0!3m2!1sfr!2sfr!4v1600000000000!5m2!1sfr!2sfr"
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-              title="Carte — Saint-Sulpice-la-Pointe 81370"
-              aria-label="Carte Google Maps — Saint-Sulpice-la-Pointe">
-            </iframe>
-          </div>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- ═══════════════ FOOTER ═══════════════ -->
-  <footer>
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <div class="footer-logo-text">Dezil <em>Dermo</em></div>
-          <p class="footer-tagline">Expert en tricopigmentation capillaire<br />Saint-Sulpice-la-Pointe — Tarn (81)</p>
-          <div style="display:flex;gap:12px;margin-top:16px">
-            <a href="https://www.instagram.com/dezildermo" target="_blank" rel="noopener" aria-label="Instagram" style="color:var(--silver);transition:color 0.3s">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-            </a>
-          </div>
-        </div>
-
-        <div class="footer-col">
-          <h4>Navigation</h4>
-          <ul>
-            <li><a href="#about">À propos</a></li>
-            <li><a href="#technique">La technique</a></li>
-            <li><a href="#galerie">Galerie</a></li>
-            <li><a href="#reservation">Réservation</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h4>Informations</h4>
-          <ul>
-            <li><a href="#technique">Alopécie androgénique</a></li>
-            <li><a href="#technique">Densification capillaire</a></li>
-            <li><a href="#technique">Cicatrices</a></li>
-            <li><a href="#reservation">Tarifs & Devis</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <span>© 2026 Dezil Dermo — Olivier Turpin. Tous droits réservés.</span>
-        <span>Saint-Sulpice-la-Pointe, Tarn (81) — <a href="https://www.instagram.com/dezildermo" target="_blank" rel="noopener">Instagram</a></span>
+      <!-- FIX: carte satellite (maptype=satellite), pas de filtre CSS -->
+      <div class="map-wrap fade-up" style="transition-delay:.15s">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11597.2!2d1.6857!3d43.7733!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12aebb8c5fc9e5bd%3A0x40819a5fd97ab50!2sSaint-Sulpice-la-Pointe%2C%2081370!5e1!3m2!1sfr!2sfr!4v1700000000000!5m2!1sfr!2sfr"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Carte satellite — Saint-Sulpice-la-Pointe 81370"
+          allowfullscreen>
+        </iframe>
       </div>
     </div>
-  </footer>
-
-  <!-- ═══════════════ WHATSAPP FLOAT ═══════════════ -->
-  <div class="wa-float">
-    <div class="wa-tooltip">Discuter sur WhatsApp</div>
-    <a href="https://wa.me/+33600000000?text=Bonjour%20Olivier%2C%20je%20souhaite%20des%20informations%20sur%20la%20tricopigmentation." target="_blank" rel="noopener" class="wa-bubble" aria-label="Contacter par WhatsApp">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M20.52 3.48A11.93 11.93 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.17 1.6 5.98L0 24l6.22-1.57A11.96 11.96 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.22-3.48-8.52zm-8.52 18.36a9.9 9.9 0 0 1-5.05-1.38l-.36-.22-3.7.93.99-3.6-.24-.37A9.87 9.87 0 0 1 2.1 12c0-5.46 4.44-9.9 9.9-9.9a9.86 9.86 0 0 1 7 2.9 9.86 9.86 0 0 1 2.9 7c0 5.46-4.44 9.9-9.9 9.9zm5.44-7.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.76.97-.93 1.17-.17.2-.34.22-.64.07-.3-.15-1.26-.46-2.4-1.47-.89-.79-1.49-1.76-1.66-2.06-.17-.3-.02-.46.13-.6.13-.13.3-.34.45-.51.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51-.17-.01-.37-.01-.57-.01-.2 0-.52.07-.79.37-.27.3-1.04 1.01-1.04 2.47 0 1.46 1.06 2.87 1.21 3.07.15.2 2.09 3.18 5.06 4.46.71.3 1.26.48 1.69.62.71.22 1.36.19 1.87.12.57-.08 1.76-.72 2.01-1.41.25-.69.25-1.28.17-1.41-.07-.13-.27-.2-.57-.35z"/></svg>
-    </a>
   </div>
+</section>
 
-  <!-- Scripts -->
-  <script src="assets/js/main.js" defer></script>
+</main>
 
-  <!-- Service Worker registration -->
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js', { scope: './' })
-          .then(reg => console.log('SW enregistré:', reg.scope))
-          .catch(err => console.log('SW erreur:', err));
-      });
-    }
-  </script>
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo-text">Dezil <em>Dermo</em></div>
+        <p class="footer-tagline">Expert en tricopigmentation capillaire<br/>Saint-Sulpice-la-Pointe — Tarn (81)</p>
+        <div style="display:flex;gap:12px;margin-top:16px">
+          <a href="https://www.instagram.com/dezildermo" target="_blank" rel="noopener" aria-label="Instagram" style="color:var(--silver)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#about">À propos</a></li>
+          <li><a href="#technique">La technique</a></li>
+          <li><a href="#galerie">Galerie</a></li>
+          <li><a href="#reservation">Réservation</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Informations</h4>
+        <ul>
+          <li><a href="#technique">Alopécie androgénique</a></li>
+          <li><a href="#technique">Densification capillaire</a></li>
+          <li><a href="#technique">Cicatrices</a></li>
+          <li><a href="#reservation">Tarifs &amp; Devis</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Dezil Dermo — Olivier. Tous droits réservés.</span>
+      <span>Saint-Sulpice-la-Pointe, Tarn (81) — <a href="https://www.instagram.com/dezildermo" target="_blank" rel="noopener">Instagram</a></span>
+    </div>
+  </div>
+</footer>
 
+<!-- WHATSAPP -->
+<div class="wa-float">
+  <div class="wa-tooltip">Discuter sur WhatsApp</div>
+  <a href="https://wa.me/33601000000?text=Bonjour%20Olivier%2C%20je%20souhaite%20des%20informations%20sur%20la%20tricopigmentation." target="_blank" rel="noopener" class="wa-bubble" aria-label="Contacter par WhatsApp">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M20.52 3.48A11.93 11.93 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.17 1.6 5.98L0 24l6.22-1.57A11.96 11.96 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.22-3.48-8.52zm-8.52 18.36a9.9 9.9 0 0 1-5.05-1.38l-.36-.22-3.7.93.99-3.6-.24-.37A9.87 9.87 0 0 1 2.1 12c0-5.46 4.44-9.9 9.9-9.9a9.86 9.86 0 0 1 7 2.9 9.86 9.86 0 0 1 2.9 7c0 5.46-4.44 9.9-9.9 9.9zm5.44-7.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.76.97-.93 1.17-.17.2-.34.22-.64.07-.3-.15-1.26-.46-2.4-1.47-.89-.79-1.49-1.76-1.66-2.06-.17-.3-.02-.46.13-.6.13-.13.3-.34.45-.51.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51-.17-.01-.37-.01-.57-.01-.2 0-.52.07-.79.37-.27.3-1.04 1.01-1.04 2.47 0 1.46 1.06 2.87 1.21 3.07.15.2 2.09 3.18 5.06 4.46.71.3 1.26.48 1.69.62.71.22 1.36.19 1.87.12.57-.08 1.76-.72 2.01-1.41.25-.69.25-1.28.17-1.41-.07-.13-.27-.2-.57-.35z"/></svg>
+  </a>
+</div>
+
+<script src="assets/js/main.js" defer></script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>{
+    navigator.serviceWorker.register('./sw.js',{scope:'./'})
+      .then(r=>console.log('SW:',r.scope)).catch(e=>console.log('SW err:',e));
+  });
+}
+</script>
 </body>
 </html>
