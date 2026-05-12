@@ -2,8 +2,6 @@
    DEZIL DERMO — main.js v1.4
    ============================================================ */
 
-const DEST_EMAIL = 'profiltest.1979@gmail.com';
-
 /* ── Slider avant/après ──────────────────────────────────── */
 function activateSliders() {
   document.querySelectorAll('.ba-slider').forEach(slider => {
@@ -95,18 +93,69 @@ function initCaptcha() {
   });
 }
 
-/* ── Formulaire — HTML POST natif vers FormSubmit ────────── */
+/* ── Formulaire — fetch() vers php/send.php (backend PHP) ── */
 function initForm() {
-  /* Le formulaire utilise action="https://formsubmit.co/DEST_EMAIL" method="POST"
-     posé directement dans le HTML → zéro JS requis pour l'envoi.
-     Ce code gère juste la validation côté client. */
-  const form = document.getElementById('resaForm');
+  const form       = document.getElementById('resaForm');
+  const successMsg = document.getElementById('formSuccess');
+  const submitBtn  = document.getElementById('submitBtn');
   if (!form) return;
-  form.addEventListener('submit', e => {
-    const native = document.getElementById('captchaNative');
-    if (native && !native.checked) { e.preventDefault(); return; }
-    /* Laisser le POST natif se faire — pas de fetch, pas de mailto */
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+
+    /* Vérif captcha */
+    const captcha = document.getElementById('captchaNative');
+    if (!captcha || !captcha.checked) return;
+
+    /* Vérif champs requis */
+    const required = form.querySelectorAll('[required]');
+    let valid = true;
+    required.forEach(el => {
+      if (!el.value.trim()) { el.style.borderColor = '#e53e3e'; valid = false; }
+      else el.style.borderColor = '';
+    });
+    if (!valid) {
+      showFormError('Veuillez remplir tous les champs obligatoires.');
+      return;
+    }
+
+    /* Désactiver le bouton pendant l'envoi */
+    submitBtn.disabled  = true;
+    submitBtn.innerHTML = '<span style="opacity:.65">Envoi en cours…</span>';
+
+    try {
+      const formData = new FormData(form);
+      const res  = await fetch('php/send.php', { method: 'POST', body: formData });
+      const json = await res.json();
+
+      if (json.success) {
+        form.style.display = 'none';
+        successMsg.classList.add('visible');
+      } else {
+        showFormError(json.message || 'Une erreur est survenue. Veuillez réessayer.');
+        resetSubmit();
+      }
+    } catch (err) {
+      showFormError('Erreur réseau. Vérifiez votre connexion et réessayez.');
+      resetSubmit();
+    }
   });
+
+  function resetSubmit() {
+    submitBtn.disabled  = false;
+    submitBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Envoyer ma demande`;
+  }
+
+  function showFormError(msg) {
+    let errEl = document.getElementById('formError');
+    if (!errEl) {
+      errEl = document.createElement('p');
+      errEl.id = 'formError';
+      errEl.style.cssText = 'color:#e53e3e;font-size:.82rem;margin-bottom:12px;padding:10px 14px;background:rgba(229,62,62,.08);border:1px solid rgba(229,62,62,.3);border-radius:4px';
+      submitBtn.before(errEl);
+    }
+    errEl.textContent = msg;
+  }
 }
 
 /* ── Compteur animé ──────────────────────────────────────── */
@@ -193,8 +242,133 @@ function initNoDrag() {
   });
 }
 
+
+/* ── Upload photos ───────────────────────────────────────── */
+function initUpload() {
+  const zone      = document.getElementById('uploadZone');
+  const input     = document.getElementById('photoInput');
+  const previews  = document.getElementById('uploadPreviews');
+  const info      = document.getElementById('uploadInfo');
+  if (!zone || !input) return;
+
+  const MAX_FILES = 3;
+  const MAX_SIZE  = 5 * 1024 * 1024; // 5 Mo
+  const ACCEPTED  = ['image/jpeg', 'image/png', 'image/webp'];
+  let selectedFiles = [];   // DataTransfer pour gérer la liste
+
+  /* ── Affiche / met à jour les previews ── */
+  function renderPreviews() {
+    previews.innerHTML = '';
+    zone.classList.toggle('has-files', selectedFiles.length > 0);
+    info.textContent = '';
+    info.className = 'upload-info';
+
+    selectedFiles.forEach((file, idx) => {
+      const item = document.createElement('div');
+      item.className = 'preview-item';
+      const img = document.createElement('img');
+      img.src = URL.createObjectURL(file);
+      img.alt = file.name;
+      img.addEventListener('contextmenu', e => e.preventDefault());
+      img.addEventListener('dragstart',   e => e.preventDefault());
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'preview-remove';
+      btn.innerHTML = '✕';
+      btn.setAttribute('aria-label', 'Supprimer ' + file.name);
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        selectedFiles.splice(idx, 1);
+        syncInput();
+        renderPreviews();
+      });
+      item.appendChild(img);
+      item.appendChild(btn);
+      previews.appendChild(item);
+    });
+
+    /* Bouton "+" si moins de MAX_FILES */
+    if (selectedFiles.length < MAX_FILES) {
+      const addBtn = document.createElement('div');
+      addBtn.className = 'preview-add';
+      addBtn.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span>Ajouter</span>`;
+      addBtn.addEventListener('click', e => { e.stopPropagation(); input.click(); });
+      previews.appendChild(addBtn);
+    }
+
+    if (selectedFiles.length > 0) {
+      info.textContent = selectedFiles.length + ' photo' + (selectedFiles.length > 1 ? 's' : '') + ' sélectionnée' + (selectedFiles.length > 1 ? 's' : '');
+      info.className = 'upload-info ok';
+    }
+  }
+
+  /* ── Synchronise l'input file avec selectedFiles ── */
+  function syncInput() {
+    const dt = new DataTransfer();
+    selectedFiles.forEach(f => dt.items.add(f));
+    input.files = dt.files;
+  }
+
+  /* ── Valide et ajoute des fichiers ── */
+  function addFiles(files) {
+    let errors = [];
+    Array.from(files).forEach(file => {
+      if (!ACCEPTED.includes(file.type)) {
+        errors.push(file.name + ' : format non supporté');
+        return;
+      }
+      if (file.size > MAX_SIZE) {
+        errors.push(file.name + ' : dépasse 5 Mo');
+        return;
+      }
+      if (selectedFiles.length >= MAX_FILES) {
+        errors.push('Maximum ' + MAX_FILES + ' photos atteint');
+        return;
+      }
+      // Éviter les doublons par nom + taille
+      const exists = selectedFiles.some(f => f.name === file.name && f.size === file.size);
+      if (!exists) selectedFiles.push(file);
+    });
+
+    if (errors.length) {
+      info.textContent = errors[0];
+      info.className = 'upload-info error';
+    }
+    syncInput();
+    renderPreviews();
+  }
+
+  /* ── Événements ── */
+  input.addEventListener('change', () => {
+    if (input.files.length) addFiles(input.files);
+    // Reset input pour permettre re-sélection du même fichier
+    input.value = '';
+  });
+
+  /* Drag & Drop */
+  zone.addEventListener('dragover', e => {
+    e.preventDefault();
+    zone.classList.add('drag-over');
+  });
+  zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+  zone.addEventListener('drop', e => {
+    e.preventDefault();
+    zone.classList.remove('drag-over');
+    if (e.dataTransfer.files.length) addFiles(e.dataTransfer.files);
+  });
+}
+
 /* ═══════════════ BOOT ══════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
+  /* Récupérer le token anti-bot dès le chargement de la page */
+  fetch('php/token.php')
+    .then(r => r.json())
+    .then(data => {
+      const el = document.getElementById('formToken');
+      if (el) el.value = data.token || '';
+    })
+    .catch(() => {}); // silencieux si PHP non dispo (GitHub Pages)
+
   initLoader();
   initNavbar();
   initFadeUp();
@@ -204,4 +378,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initForm();
   buildGallery();
   initNoDrag();
+  initUpload();
 });
