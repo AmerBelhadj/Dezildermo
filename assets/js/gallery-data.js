@@ -23,6 +23,13 @@ window.GALLERY_DATA = [
     title:  'Effet tête rasée',
     desc:   'Couverture intégrale — 3 séances',
     cat:    'calvitie'
+  },
+    {
+    before: 'assets/images/gallery/case3-before.jpg',
+    after:  'assets/images/gallery/case3-after.jpg',
+    title:  'Formation tricopigmentation',
+    desc:   '',
+    cat:    'Formation'
   }
   /* ── Ajouter d'autres résultats ci-dessous ─────────────
   ,{
